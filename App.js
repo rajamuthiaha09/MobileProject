@@ -10,6 +10,7 @@ import Coursedetails from './src/Components/Coursedetails';
 import Coursename from './src/Components/Coursename';
 import profileEditPage from './src/Components/ProfileEditPage';
 import ProfileEditPage from './src/Components/ProfileEditPage';
+import PrivacyPolicy from './src/Components/PrivacyPolicy';
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ const App = () => {
           <Stack.Screen name={"Coursename"} component={Coursename} />
           <Stack.Screen name={"Coursedetails"} component={Coursedetails} />
           <Stack.Screen name={"ProfileEditPage"} component={ProfileEditPage} />
+          <Stack.Screen name={"PrivacyPolicy"} component={PrivacyPolicy} />
         </Stack.Navigator>
       </NavigationContainer>
     );
