@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, StyleSheet, Text, FlatList, View, }from 'react-native';
+import { Image, StyleSheet, Text, FlatList, View, TouchableOpacity, }from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const Coursename = () => {
@@ -16,11 +16,16 @@ const Coursename = () => {
   const firstHalf = DATA.slice(0, 3);
   const secondHalf = DATA.slice(3);
   
+  const handlePress = () => {
+    navigation.navigate('Coursedetails');
+  };
+
   const renderItem = ({ item }) => (
-    <Image source={item.src} style={styles[item.style]} />
+    <TouchableOpacity onPress={handlePress}>
+      <Image source={item.src} style={styles[item.style]} />
+    </TouchableOpacity>
   );
 
-  
   return (
     <View style={styles.container}>
       <View style={styles.textcontainer}>
@@ -42,44 +47,6 @@ const Coursename = () => {
       </View>
     </View>
   );
-
-
-  // const transformedData = [
-  //   { id: '1', images: DATA.slice(0, 3) },  // First column
-  //   { id: '2', images: DATA.slice(3) },     // Second column
-  // ];
-
-  // const renderItem = ({ item }) => {
-  //   return (
-  //     <View style={styles.imageContainer}>
-  //       <Image source={item.src} style={styles[item.style]} />
-  //     </View>
-  //   );
-  // };
-
-  // const renderColumn = ({ item }) => {
-  //   return (
-  //     <View style={styles.row}>
-  //       <FlatList
-  //         data={item.images}
-  //         renderItem={renderItem}
-  //         keyExtractor={image => image.id}
-  //         numColumns={1}
-  //         contentContainerStyle={{ flex: 1 }}
-  //       />
-  //     </View>
-  //   );
-  // };
-
-  // return (
-  //   <FlatList
-  //     data={transformedData}
-  //     renderItem={renderColumn}
-  //     keyExtractor={item => item.id}
-  //     horizontal
-  //     showsHorizontalScrollIndicator={false}
-  //   />
-  // );
 };
 
 export default Coursename;

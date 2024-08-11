@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, View, FlatList, StyleSheet} from 'react-native';
+import { COLORS, SIZES } from '../constants/themes';
 
 const PrivacyPolicy = () => {
     const DATA = [
@@ -26,8 +27,7 @@ const PrivacyPolicy = () => {
             <Text style={styles.contentText}>{item.content}</Text>
           </View>
         )}
-        showsHorizontalScrollIndicator={false}
-        //   keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
       />
     </View>
   );
@@ -38,22 +38,22 @@ export default PrivacyPolicy;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 20,
-    marginVertical: 10,
+    marginHorizontal: SIZES.margin_20,
+    marginVertical: SIZES.margin_10,
   },
   contentHeader: {
-    color: 'black',
-    fontSize: 20,
+    color: COLORS.$black,
+    fontSize: SIZES.sz_20_font,
     fontWeight: 'bold',
   },
   contentText: {
-    fontSize: 17,
-    color: 'black',
-    fontWeight: 'light',
+    fontSize: SIZES.sz_17_font,
+    color: COLORS.$black,
+    // fontWeight: 'light',
     textAlign: 'justify',
-    borderColor: 'gray',
+    borderColor: COLORS.$gray,
     borderWidth: 1,
-    padding: 20,
+    padding: SIZES.padding_20,
     marginVertical: 20,
   },
   textcontainer: {
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textHeader: {
-    fontSize: 25,
-    fontWeight: 'light',
-    color: 'gray',
+    fontSize: SIZES.sz_25_font,
+    // fontWeight: 'light',
+    color: COLORS.$grey_shade_1,
   },
 });

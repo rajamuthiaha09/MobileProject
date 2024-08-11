@@ -1,5 +1,12 @@
-import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View,} from 'react-native';
 import React from 'react';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 const Signupscreen = () => {
@@ -15,7 +22,9 @@ const Signupscreen = () => {
       </View>
       <View>
         <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subTitle}>Create an account so you can explore all the existing jobs</Text>
+        <Text style={styles.subTitle}>
+          Create an account so you can explore all the existing jobs
+        </Text>
       </View>
       {/* form  */}
       <View style={styles.formContainer}>
@@ -55,7 +64,7 @@ const Signupscreen = () => {
         </TouchableOpacity>
         <View style={styles.footerContainer}>
           <Text style={styles.accountText}>Already have an account!</Text>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Loginscreen')}>
             <Text style={styles.signupText}>Login</Text>
           </TouchableOpacity>
         </View>
