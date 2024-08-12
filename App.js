@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Homescreen from './src/Components/Homescreen';
@@ -13,6 +13,15 @@ import profileEditPage from './src/Components/ProfileEditPage';
 import ProfileEditPage from './src/Components/ProfileEditPage';
 import PrivacyPolicy from './src/Components/PrivacyPolicy';
 import {Image} from 'react-native';
+import StackNavigation from './src/navigations';
+
+const MyTheme = {
+  ...DefaultTheme,
+  color: {
+    ...DefaultTheme.color,
+    background: '#fff',
+  }
+}
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -20,6 +29,7 @@ const Tab = createBottomTabNavigator();
 const App = () => {
   return (
     <NavigationContainer>
+      <StackNavigation/>
       {/* <Stack.Navigator screenOptions={{headerShown: false,}}>
           <Stack.Screen name={"Homescreen"} component={Homescreen} />
           <Stack.Screen name={"Loginscreen"} component={Loginscreen} />
@@ -30,7 +40,7 @@ const App = () => {
           <Stack.Screen name={"PrivacyPolicy"} component={PrivacyPolicy} />
           <Stack.Screen name={"Home"} component={Tabnavigation} />
         </Stack.Navigator> */}
-      <Tab.Navigator
+      {/* <Tab.Navigator
         initialRouteName="Home"
         screenOptions={{
           tabBarStyle: { backgroundColor: 'white', height: 70, margin: 20, borderRadius:15},
@@ -64,7 +74,7 @@ const App = () => {
             />
           ),
         }}/>
-      </Tab.Navigator>
+      </Tab.Navigator> */}
     </NavigationContainer>
   );
 };
