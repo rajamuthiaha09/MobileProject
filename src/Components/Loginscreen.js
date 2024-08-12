@@ -1,9 +1,9 @@
 import React from 'react';
 import {Text, View, TouchableOpacity, StyleSheet, Image, TextInput} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Ionicons from "react-native-vector-icons/Ionicons";
-import Icon from 'react-native-vector-icons/FontAwesome';
-import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
+// import Ionicons from "react-native-vector-icons/Ionicons";
+// import Icon from 'react-native-vector-icons/FontAwesome';
+// import SimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
 
 const Loginscreen = () => {
     const navigation = useNavigation();
