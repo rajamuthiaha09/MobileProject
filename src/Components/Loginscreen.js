@@ -7,8 +7,26 @@ import {useNavigation} from '@react-navigation/native';
 
 const Loginscreen = () => {
   const navigation = useNavigation();
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
+
+  const validationForm = () => {
+    let errors = {};
+    if (!username) errors.username = "Username is required";
+    if (!password) errors.password = "password is required";
+    setErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+  const handleSubmit = () => {
+    if(validationForm()) {
+      console.log("submitted",username, password);
+      setUsername("");
+      setPassword("");
+      setErrors({});
+    }
+
+  };
   return (
     // <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}> This is uesed for adject the mobile screen whaen i type anything
       <View style={styles.container}>
@@ -26,12 +44,14 @@ const Loginscreen = () => {
             {/* <Ionicons name={'mail-outline'} size={30} color={'#AEB5BB'} /> */}
             <TextInput
               style={styles.textInput}
-              placeholder="Enter your email"
+              placeholder="Username"
               placeholderTextColor={'#AEB5BB'}
-              keyboardType="email-address"
+              // value='username'
+              // keyboardType="email-address"
               onChangeText={setUsername}
             />
           </View>
+          {errors.username ? <Text style={styles.errorText}>{errors.username}</Text> : null}
           <View style={styles.inputContainer}>
             {/* <SimpleLineIcons name={'lock'} size={30} color={'#AEB5BB'} /> */}
             <TextInput
@@ -39,13 +59,16 @@ const Loginscreen = () => {
               placeholder="Enter your password"
               placeholderTextColor={'#AEB5BB'}
               secureTextEntry
+              // value='password'
               onChangeText={setPassword}
             />
+
           </View>
+          {errors.password ? <Text style={styles.errorText}>{errors.password}</Text> : null}
           <TouchableOpacity>
             <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.loginButton}>
+          <TouchableOpacity style={styles.loginButton} onPress={handleSubmit}>
             <Text style={styles.loginText}>Login</Text>
           </TouchableOpacity>
           <View
@@ -195,4 +218,8 @@ const styles = StyleSheet.create({
     color: '#45484A',
     fontFamily: 'Poppins-Bold',
   },
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
+  }
 });
