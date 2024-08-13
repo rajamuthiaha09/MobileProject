@@ -13,9 +13,6 @@ const Signupscreen = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      {/* <TouchableOpacity
-        style={styles.backButton}
-        ></TouchableOpacity> */}
       <View style={styles.textContainer}>
         <Text style={styles.headingText}>Let's get</Text>
         <Text style={styles.headingText}>started</Text>
@@ -26,8 +23,8 @@ const Signupscreen = () => {
           Create an account so you can explore all the existing jobs
         </Text>
       </View>
-      {/* form  */}
-      <View style={styles.formContainer}>
+      {/* form  1*/}
+      {/* <View style={styles.formContainer}>
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
@@ -68,7 +65,88 @@ const Signupscreen = () => {
             <Text style={styles.signupText}>Login</Text>
           </TouchableOpacity>
         </View>
+      </View> */}
+
+      {/* form 2 */}
+      <View>
+        <View style={styles.formStyle}>
+          <View style={{flex: 1, marginEnd: 5}}>
+            <TextInput
+              style={styles.formInputContainer}
+              placeholder="First Name"
+              placeholderTextColor={'gray'}
+              cursorColor={'black'}
+              selectionColor={'orange'}
+            />
+          </View>
+          <View style={{flex: 1, marginStart: 5}}>
+            <TextInput
+              style={styles.formInputContainer}
+              placeholder="Last Name"
+              placeholderTextColor={'gray'}
+              cursorColor={'black'}
+              selectionColor={'orange'}
+            />
+          </View>
+        </View>
+        <View style={{marginTop: 20}}>
+          <TextInput
+            style={styles.formInputContainer}
+            placeholder="Email"
+            placeholderTextColor={'gray'}
+              cursorColor={'black'}
+            selectionColor={'orange'}
+            keyboardType="email-address"
+          />
+        </View>
+        <View style={{marginTop: 20}}>
+          <TextInput
+            style={styles.formInputContainer}
+            placeholder="Password"
+            placeholderTextColor={'gray'}
+              cursorColor={'black'}
+            selectionColor={'orange'}
+            secureTextEntry
+          />
+        </View>
+        <View style={{marginTop: 20}}>
+          <TextInput
+            style={styles.formInputContainer}
+            placeholder="Confirm Password"
+            placeholderTextColor={'gray'}
+              cursorColor={'black'}
+            selectionColor={'orange'}
+            secureTextEntry
+          />
+        </View>
+        <View style={{marginTop: 20}}>
+          <TextInput
+            style={styles.formInputContainer}
+            placeholder="Mobile"
+            placeholderTextColor={'gray'}
+              cursorColor={'black'}
+            selectionColor={'orange'}
+            keyboardType="phone-pad"
+          />
+        </View>
       </View>
+      <TouchableOpacity style={styles.loginButton}>
+          <Text style={styles.loginText}>Sign up</Text>
+        </TouchableOpacity>
+        <Text style={styles.continueText}>or continue with</Text>
+        <TouchableOpacity style={styles.googleButton}>
+          <Image
+            source={require('../assets/images/Vector.png')}
+            style={styles.googleImage}
+          />
+          <Text style={styles.googleText}>Google</Text>
+        </TouchableOpacity>
+        <View style={styles.footerContainer}>
+          <Text style={styles.accountText}>Already have an account!</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('Loginscreen')}>
+            <Text style={styles.signupText}>Login</Text>
+          </TouchableOpacity>
+        </View>
     </View>
   );
 };
@@ -146,7 +224,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     textAlign: 'center',
     color: '#1F41BB',
-    marginTop: 40,
+    // marginTop: 20,
   },
   subTitle: {
     fontSize: 18,
@@ -188,5 +266,19 @@ const styles = StyleSheet.create({
   signupText: {
     color: '#45484A',
     fontFamily: 'Poppins-Bold',
+  },
+
+  // form2 styles
+  formStyle:{flexDirection: 'row', marginTop: 50},
+  formInputContainer:{
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#45484A',
+    height: 50,
+    maxHeight: 50,
+    minHeight: 50,
+    fontSize: 16,
+    borderRadius: 10,
+    paddingHorizontal: 20,
   },
 });

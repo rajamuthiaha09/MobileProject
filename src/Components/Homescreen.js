@@ -5,42 +5,8 @@ import {useNavigation} from '@react-navigation/native';
 const Homescreen = () => {
   const navigation = useNavigation();
   return (
-    // <View>
-    // <Text>Homescreen</Text>
-    // <TouchableOpacity onPress={() => navigation.navigate("Loginscreen")}>
-    //     <Text>Button Navigartion</Text>
-    // </TouchableOpacity>
-    // </View>
-
     <View style={styles.container}>
-      <Image
-        source={require('../assets/images/Frame8.png')}
-        style={styles.logo}
-      />
-      <Image
-        source={require('../assets/images/Image.png')}
-        style={styles.bannerImage}
-      />
-      <Text style={styles.title}>Discover Your Dream Job here</Text>
-      <Text style={styles.subTitle}>
-      Explore all the existing job roles based on your interest and study major
-      </Text>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Loginscreen')}
-          style={[styles.loginButton, {backgroundColor: '#AEB5BB'}]}>
-          <Text style={styles.loginButtonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('Signupscreen')} style={[styles.loginButton]}>
-          <Text style={styles.signupButtonText}>Sign-up</Text>
-        </TouchableOpacity>
-      </View>
-      <TouchableOpacity onPress={() => navigation.navigate('Coursename')} style={[styles.loginButton,styles.buttonContainer]}>
-          <Text style={styles.signupButtonText}>Sign-up</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('ProfileEditPage')} style={[styles.loginButton,styles.buttonContainer]}>
-          <Text style={styles.signupButtonText}>Sign-up</Text>
-        </TouchableOpacity>
+      
     </View>
   );
 };

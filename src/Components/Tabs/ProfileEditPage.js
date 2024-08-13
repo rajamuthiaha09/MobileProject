@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet, TouchableOpacity,} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { COLORS, SIZES } from '../constants/themes';
+import { COLORS, SIZES } from '../../constants/themes';
 
 const ProfileEditPage = () => {
   const navigation = useNavigation();
