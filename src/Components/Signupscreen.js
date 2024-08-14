@@ -8,9 +8,39 @@ import {
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { COLORS } from '../constants/themes';
 
 const Signupscreen = () => {
   const navigation = useNavigation();
+  const SignupSchema = Yup.object().shape({
+    firstName: Yup.string().required('First Name is required'),
+    lastName: Yup.string().required('Last Name is required'),
+    password: Yup.string().required('Password is required').min(6, 'Password should be at least 6 characters'),
+    email: Yup.string().required('Email is required'),
+    phonenumber: Yup.string().required('phonenumber is required'),
+  });
+  const formik = useFormik({
+    initialValues: {
+      firstName: '',
+      lastName: '',
+      phonenumber: '',
+      password: '',
+      email: '',
+      // country: '',
+      // notificationsEnabled: false,
+    },
+    validationSchema: SignupSchema,
+    onSubmit: (values) => {
+      Alert.alert('Registered Successfully!!');
+    },
+  });
+ 
+  const getInputStyle = (field) => [
+    styles.formInputContainer,
+    formik.touched[field] && formik.errors[field] ? styles.inputError : null,
+  ];
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
@@ -72,21 +102,33 @@ const Signupscreen = () => {
         <View style={styles.formStyle}>
           <View style={{flex: 1, marginEnd: 5}}>
             <TextInput
-              style={styles.formInputContainer}
+              style={getInputStyle('firstName')}
               placeholder="First Name"
               placeholderTextColor={'gray'}
               cursorColor={'black'}
               selectionColor={'orange'}
+              onChangeText={formik.handleChange('firstName')}
+            onBlur={formik.handleBlur('firstName')}
+            value={formik.values.firstName}
             />
+            {formik.touched.firstName && formik.errors.firstName ? (
+            <Text style={styles.errorText}>{formik.errors.firstName}</Text>
+          ) : null}
           </View>
           <View style={{flex: 1, marginStart: 5}}>
             <TextInput
-              style={styles.formInputContainer}
+              style={getInputStyle('lastName')}
               placeholder="Last Name"
               placeholderTextColor={'gray'}
               cursorColor={'black'}
               selectionColor={'orange'}
+              onChangeText={formik.handleChange('lastName')}
+            onBlur={formik.handleBlur('lastName')}
+            value={formik.values.lastName}
             />
+            {formik.touched.lastName && formik.errors.lastName ? (
+            <Text style={styles.errorText}>{formik.errors.lastName}</Text>
+          ) : null}
           </View>
         </View>
         <View style={{marginTop: 20}}>
@@ -97,17 +139,29 @@ const Signupscreen = () => {
               cursorColor={'black'}
             selectionColor={'orange'}
             keyboardType="email-address"
+            onChangeText={formik.handleChange('email')}
+            onBlur={formik.handleBlur('email')}
+            value={formik.values.email}
           />
+          {formik.touched.email && formik.errors.email ? (
+            <Text style={styles.errorText}>{formik.errors.email}</Text>
+          ) : null}
         </View>
         <View style={{marginTop: 20}}>
           <TextInput
-            style={styles.formInputContainer}
+            style={getInputStyle('password')}
             placeholder="Password"
             placeholderTextColor={'gray'}
               cursorColor={'black'}
             selectionColor={'orange'}
             secureTextEntry
+            onChangeText={formik.handleChange('password')}
+            onBlur={formik.handleBlur('password')}
+            value={formik.values.password}
           />
+           {formik.touched.password && formik.errors.password ? (
+            <Text style={styles.errorText}>{formik.errors.password}</Text>
+          ) : null}
         </View>
         <View style={{marginTop: 20}}>
           <TextInput
@@ -127,10 +181,18 @@ const Signupscreen = () => {
               cursorColor={'black'}
             selectionColor={'orange'}
             keyboardType="phone-pad"
+            onChangeText={formik.handleChange('phonenumber')}
+            onBlur={formik.handleBlur('phonenumber')}
+            value={formik.values.phonenumber}
           />
+          {formik.touched.phonenumber && formik.errors.phonenumber ? (
+            <Text style={styles.errorText}>{formik.errors.phonenumber}</Text>
+          ) : null}
         </View>
       </View>
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity style={[styles.loginButton, formik.isValid ? styles.buttonEnabled : styles.buttonDisabled]}
+              onPress={formik.handleSubmit}
+              disabled={!formik.isValid}>
           <Text style={styles.loginText}>Sign up</Text>
         </TouchableOpacity>
         <Text style={styles.continueText}>or continue with</Text>
@@ -267,7 +329,20 @@ const styles = StyleSheet.create({
     color: '#45484A',
     fontFamily: 'Poppins-Bold',
   },
-
+  buttonEnabled: {
+    backgroundColor:'blue',
+  },
+  buttonDisabled: {
+    backgroundColor: COLORS.$gray,
+  },
+  inputError: {
+    borderColor: 'red',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 12,
+    marginBottom: 8,
+  },
   // form2 styles
   formStyle:{flexDirection: 'row', marginTop: 50},
   formInputContainer:{
