@@ -9,6 +9,7 @@ export const COLORS = {
   '$primary': '#45484A',
   '$secondary': '#AEB5BB',
   '$green':'#008000',
+  '$red':'#FF0000',
 
   //gray color
   '$gray': '#D9D9D9',
@@ -19,6 +20,7 @@ export const COLORS = {
 
   //blue color
   '$blue_shade_1': '#007bff',
+  '$blue_shade_2': '#1F41BB',
 
 };
 
@@ -28,19 +30,29 @@ export const SIZES = {
   margin_20: 20,
 
   // padding
+  padding_2: 2,
+  padding_3: 3,
+  padding_6: 6,
+  padding_10: 10,
   padding_20: 20,
-  // padding_24: 24,
-  // padding_30: 30,
+  padding_25: 25,
 
   // font
+  sz_12_font: 12,
+  sz_14_font: 14,
   sz_16_font: 16,
   sz_17_font: 17,
   sz_18_font: 18,
+  sz_19_font: 19,
   sz_20_font: 20,
+  sz_21_font: 21,
   sz_22_font: 22,
+  sz_24_font: 24,
   sz_25_font: 25,
   sz_28_font: 28,
   sz_30_font: 30,
+  sz_32_font: 32,
+  sz_40_font: 40,
 
   // font weight
   regular_font: '400',

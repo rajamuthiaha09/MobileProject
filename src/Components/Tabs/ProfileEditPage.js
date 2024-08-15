@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, ScrollView, StyleSheet, TouchableOpacity,} from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { COLORS, SIZES } from '../../constants/themes';
+import {useNavigation} from '@react-navigation/native';
+import {COLORS, SIZES} from '../../constants/themes';
 
 const ProfileEditPage = () => {
   const navigation = useNavigation();
@@ -17,9 +17,9 @@ const ProfileEditPage = () => {
   return (
     <View style={styles.container}>
       <View style={styles.profileHeaderView}>
-      <Text style={styles.profileHeader}>My Profile</Text>
-      <Text style={styles.profileUser}>Rajaha Muthiaha</Text>
-      <Text style={styles.profileUserEmail}>rajahamuthiaha@thoughtbees.com</Text>
+        <Text style={styles.profileHeader}>My Profile</Text>
+        <Text style={styles.profileUser}>Rajaha Muthiaha</Text>
+        <Text style={styles.profileUserEmail}>rajahamuthiaha@thoughtbees.com</Text>
       </View>
       <ScrollView contentContainerStyle={styles.menuList}>
         {DATA.map(item => (
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   profileHeaderView: {
     alignItems: 'center',
   },
-  profileHeader:{
+  profileHeader: {
     fontSize: SIZES.sz_22_font,
   },
   profileUser: {
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.sz_25_font,
   },
   item: {
-    padding: 20,
+    padding: SIZES.padding_20,
     marginVertical: 8,
     marginHorizontal: 16,
     backgroundColor: COLORS.$pink_shade_1,

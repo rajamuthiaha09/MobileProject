@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   },
   card: {
     marginBottom: 20,
-    paddingHorizontal: 20,
+    paddingHorizontal: SIZES.padding_20,
   },
   title: {
     fontSize: SIZES.sz_18_font,
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   },
   courseTime: {
     fontSize: SIZES.sz_20_font,
-    color: 'gray',
+    color: COLORS.$gray,
   },
   priceContainer: {
     flexDirection: 'row',
@@ -131,12 +131,12 @@ const styles = StyleSheet.create({
     fontSize: SIZES.sz_16_font,
     textDecorationLine: 'line-through',
     color: 'gray',
-    paddingTop: 6,
+    paddingTop: SIZES.padding_6,
   },
   button: {
     backgroundColor: COLORS.$blue_shade_1,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    paddingVertical: SIZES.padding_10,
+    paddingHorizontal: SIZES.padding_20,
     borderRadius: 5,
     alignItems: 'center',
   },

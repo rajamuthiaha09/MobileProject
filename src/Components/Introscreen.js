@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet,
-  Image,
-  TextInput,
-} from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Image, TextInput,} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import { COLORS, SIZES } from '../constants/themes';
 
 const IntroScreen = () => {
   const navigation = useNavigation();
@@ -22,10 +16,7 @@ const IntroScreen = () => {
           style={styles.bannerImage}
         />
         <Text style={styles.title}>Discover Your Dream Job here</Text>
-        <Text style={styles.subTitle}>
-          Explore all the existing job roles based on your interest and study
-          major
-        </Text>
+        <Text style={styles.subTitle}>Explore all the existing job roles based on your interest and study major</Text>
       <TouchableOpacity
         style={styles.loginButton}
         onPress={() => navigation.navigate('Homescreen')}>
@@ -40,8 +31,8 @@ export default IntroScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    padding: 20,
+    backgroundColor: COLORS.$White,
+    padding: SIZES.padding_20,
     alignItems: 'center',
   },
   logo: {
@@ -55,32 +46,30 @@ const styles = StyleSheet.create({
     width: 305,
   },
   title: {
-    fontSize: 40,
+    fontSize: SIZES.sz_40_font,
     fontFamily: 'Poppins-SemiBold',
-    paddingHorizontal: 20,
+    paddingHorizontal: SIZES.padding_20,
     textAlign: 'center',
-    color: '#1F41BB',
+    color: COLORS.$blue_shade_2,
     marginTop: 40,
   },
   subTitle: {
-    fontSize: 18,
-    paddingHorizontal: 20,
+    fontSize: SIZES.sz_18_font,
+    paddingHorizontal: SIZES.padding_20,
     textAlign: 'center',
-    color: '#000',
+    color: COLORS.$black,
     fontFamily: 'Poppins-Medium',
     marginVertical: 20,
   },
   loginButton: {
-    backgroundColor: '#1F41BB',
+    backgroundColor: COLORS.$blue_shade_2,
     borderRadius: 5,
     marginTop: 20,
-    // width: 20,
   },
   loginText: {
-    color: '#FFFFFF',
-    fontSize: 20,
+    color: COLORS.$White,
+    fontSize: SIZES.sz_20_font,
     fontFamily: 'Poppins-SemiBold',
-    // textAlign: 'center',
-    padding: 10,
+    padding: SIZES.padding_10,
   },
 });

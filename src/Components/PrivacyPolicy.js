@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
   contentText: {
     fontSize: SIZES.sz_17_font,
     color: COLORS.$black,
-    // fontWeight: 'light',
     textAlign: 'justify',
     borderColor: COLORS.$gray,
     borderWidth: 1,
@@ -62,7 +61,6 @@ const styles = StyleSheet.create({
   },
   textHeader: {
     fontSize: SIZES.sz_25_font,
-    // fontWeight: 'light',
     color: COLORS.$grey_shade_1,
   },
 });

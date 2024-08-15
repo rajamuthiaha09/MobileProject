@@ -8,7 +8,7 @@ import Coursedetails from '../Components/Coursedetails';
 import ProfileEditPage from '../Components/Tabs/ProfileEditPage';
 import PrivacyPolicy from '../Components/PrivacyPolicy';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-// import {View} from 'react-native';
+
 import {
   Text,
   View,
@@ -45,11 +45,8 @@ const TabNavigation = () => {
         tabBarStyle: {
           backgroundColor: 'white',
           height: 70,
-          // margin: 20,
-          // borderRadius: 15,
         },
         tabBarActiveTintColor: 'blue',
-        // tabBarInactiveTintColor: '#e6ddcc',
         headerShown: false,
         tabBarLabelStyle: {fontSize: 20, padding: 5},
       }}>

@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View,} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import { useFormik } from 'formik';
+import {useFormik} from 'formik';
 import * as Yup from 'yup';
-import { COLORS } from '../constants/themes';
+import {COLORS, SIZES} from '../constants/themes';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const Signupscreen = () => {
   const navigation = useNavigation();
@@ -28,16 +22,14 @@ const Signupscreen = () => {
       phonenumber: '',
       password: '',
       email: '',
-      // country: '',
-      // notificationsEnabled: false,
     },
     validationSchema: SignupSchema,
-    onSubmit: (values) => {
+    onSubmit: values => {
       Alert.alert('Registered Successfully!!');
     },
   });
- 
-  const getInputStyle = (field) => [
+
+  const getInputStyle = field => [
     styles.formInputContainer,
     formik.touched[field] && formik.errors[field] ? styles.inputError : null,
   ];
@@ -49,55 +41,10 @@ const Signupscreen = () => {
       </View>
       <View>
         <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subTitle}>
-          Create an account so you can explore all the existing jobs
-        </Text>
+        <Text style={styles.subTitle}>Create an account so you can explore all the existing jobs</Text>
       </View>
-      {/* form  1*/}
-      {/* <View style={styles.formContainer}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter your email"
-            placeholderTextColor={'#AEB5BB'}
-            keyboardType="email-address"
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter your password"
-            placeholderTextColor={'#AEB5BB'}
-          />
-        </View>
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter your phone no"
-            placeholderTextColor={'#AEB5BB'}
-            keyboardType="phone-pad"
-          />
-        </View>
-        <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.loginText}>Sign up</Text>
-        </TouchableOpacity>
-        <Text style={styles.continueText}>or continue with</Text>
-        <TouchableOpacity style={styles.googleButton}>
-          <Image
-            source={require('../assets/images/Vector.png')}
-            style={styles.googleImage}
-          />
-          <Text style={styles.googleText}>Google</Text>
-        </TouchableOpacity>
-        <View style={styles.footerContainer}>
-          <Text style={styles.accountText}>Already have an account!</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Loginscreen')}>
-            <Text style={styles.signupText}>Login</Text>
-          </TouchableOpacity>
-        </View>
-      </View> */}
-
-      {/* form 2 */}
+      
+      {/* form 1*/}
       <View>
         <View style={styles.formStyle}>
           <View style={{flex: 1, marginEnd: 5}}>
@@ -108,12 +55,12 @@ const Signupscreen = () => {
               cursorColor={'black'}
               selectionColor={'orange'}
               onChangeText={formik.handleChange('firstName')}
-            onBlur={formik.handleBlur('firstName')}
-            value={formik.values.firstName}
+              onBlur={formik.handleBlur('firstName')}
+              value={formik.values.firstName}
             />
             {formik.touched.firstName && formik.errors.firstName ? (
-            <Text style={styles.errorText}>{formik.errors.firstName}</Text>
-          ) : null}
+              <Text style={styles.errorText}>{formik.errors.firstName}</Text>
+            ) : null}
           </View>
           <View style={{flex: 1, marginStart: 5}}>
             <TextInput
@@ -123,12 +70,12 @@ const Signupscreen = () => {
               cursorColor={'black'}
               selectionColor={'orange'}
               onChangeText={formik.handleChange('lastName')}
-            onBlur={formik.handleBlur('lastName')}
-            value={formik.values.lastName}
+              onBlur={formik.handleBlur('lastName')}
+              value={formik.values.lastName}
             />
             {formik.touched.lastName && formik.errors.lastName ? (
-            <Text style={styles.errorText}>{formik.errors.lastName}</Text>
-          ) : null}
+              <Text style={styles.errorText}>{formik.errors.lastName}</Text>
+            ) : null}
           </View>
         </View>
         <View style={{marginTop: 20}}>
@@ -136,7 +83,7 @@ const Signupscreen = () => {
             style={styles.formInputContainer}
             placeholder="Email"
             placeholderTextColor={'gray'}
-              cursorColor={'black'}
+            cursorColor={'black'}
             selectionColor={'orange'}
             keyboardType="email-address"
             onChangeText={formik.handleChange('email')}
@@ -152,14 +99,14 @@ const Signupscreen = () => {
             style={getInputStyle('password')}
             placeholder="Password"
             placeholderTextColor={'gray'}
-              cursorColor={'black'}
+            cursorColor={'black'}
             selectionColor={'orange'}
             secureTextEntry
             onChangeText={formik.handleChange('password')}
             onBlur={formik.handleBlur('password')}
             value={formik.values.password}
           />
-           {formik.touched.password && formik.errors.password ? (
+          {formik.touched.password && formik.errors.password ? (
             <Text style={styles.errorText}>{formik.errors.password}</Text>
           ) : null}
         </View>
@@ -168,7 +115,7 @@ const Signupscreen = () => {
             style={styles.formInputContainer}
             placeholder="Confirm Password"
             placeholderTextColor={'gray'}
-              cursorColor={'black'}
+            cursorColor={'black'}
             selectionColor={'orange'}
             secureTextEntry
           />
@@ -178,7 +125,7 @@ const Signupscreen = () => {
             style={styles.formInputContainer}
             placeholder="Mobile"
             placeholderTextColor={'gray'}
-              cursorColor={'black'}
+            cursorColor={'black'}
             selectionColor={'orange'}
             keyboardType="phone-pad"
             onChangeText={formik.handleChange('phonenumber')}
@@ -190,25 +137,29 @@ const Signupscreen = () => {
           ) : null}
         </View>
       </View>
-      <TouchableOpacity style={[styles.loginButton, formik.isValid ? styles.buttonEnabled : styles.buttonDisabled]}
-              onPress={formik.handleSubmit}
-              disabled={!formik.isValid}>
-          <Text style={styles.loginText}>Sign up</Text>
+      <TouchableOpacity
+        style={[
+          styles.loginButton,
+          formik.isValid ? styles.buttonEnabled : styles.buttonDisabled,
+        ]}
+        onPress={formik.handleSubmit}
+        disabled={!formik.isValid}>
+        <Text style={styles.loginText}>Sign up</Text>
+      </TouchableOpacity>
+      <Text style={styles.continueText}>or continue with</Text>
+      <TouchableOpacity style={styles.googleButton}>
+        <Image
+          source={require('../assets/images/Vector.png')}
+          style={styles.googleImage}
+        />
+        <Text style={styles.googleText}>Google</Text>
+      </TouchableOpacity>
+      <View style={styles.footerContainer}>
+        <Text style={styles.accountText}>Already have an account!</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Loginscreen')}>
+          <Text style={styles.signupText}>Login</Text>
         </TouchableOpacity>
-        <Text style={styles.continueText}>or continue with</Text>
-        <TouchableOpacity style={styles.googleButton}>
-          <Image
-            source={require('../assets/images/Vector.png')}
-            style={styles.googleImage}
-          />
-          <Text style={styles.googleText}>Google</Text>
-        </TouchableOpacity>
-        <View style={styles.footerContainer}>
-          <Text style={styles.accountText}>Already have an account!</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Loginscreen')}>
-            <Text style={styles.signupText}>Login</Text>
-          </TouchableOpacity>
-        </View>
+      </View>
     </View>
   );
 };
@@ -218,8 +169,8 @@ export default Signupscreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    padding: 20,
+    backgroundColor: COLORS.$White,
+    padding: SIZES.padding_20,
   },
   backButton: {
     height: 40,
@@ -230,80 +181,79 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textContainer: {
-    marginVertical: 20,
+    marginVertical: SIZES.margin_20,
   },
   headingText: {
-    fontSize: 32,
-    color: '#45484A',
+    fontSize: SIZES.sz_32_font,
+    color: COLORS.$primary,
     fontFamily: 'Poppins-SemiBold',
   },
   formContainer: {
-    marginTop: 20,
+    marginTop: SIZES.margin_20,
   },
   inputContainer: {
     borderWidth: 1,
-    borderColor: '#AEB5BB',
+    borderColor: COLORS.$secondary,
     borderRadius: 100,
-    paddingHorizontal: 20,
+    paddingHorizontal: SIZES.padding_20,
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 2,
+    padding: SIZES.padding_2,
     marginVertical: 10,
   },
   textInput: {
     flex: 1,
-    paddingHorizontal: 10,
+    paddingHorizontal: SIZES.padding_10,
     fontFamily: 'Poppins-Light',
   },
   forgotPasswordText: {
     textAlign: 'right',
-    color: '#45484A',
+    color: COLORS.$primary,
     fontFamily: 'Poppins-SemiBold',
     marginVertical: 10,
   },
   loginButton: {
-    backgroundColor: '#1F41BB',
+    backgroundColor: COLORS.$blue_shade_2,
     borderRadius: 100,
-    marginTop: 20,
+    marginTop: SIZES.margin_20,
   },
   loginText: {
-    color: '#FFFFFF',
-    fontSize: 20,
+    color: COLORS.$White,
+    fontSize: SIZES.sz_20_font,
     fontFamily: 'Poppins-SemiBold',
     textAlign: 'center',
-    padding: 10,
+    padding: SIZES.padding_10,
   },
   continueText: {
     textAlign: 'center',
-    marginVertical: 20,
-    fontSize: 14,
+    marginVertical: SIZES.margin_20,
+    fontSize: SIZES.sz_14_font,
     fontFamily: 'Poppins-Regular',
-    color: '#45484A',
+    color: COLORS.$primary,
   },
   title: {
-    fontSize: 40,
+    fontSize: SIZES.sz_40_font,
     fontFamily: 'Poppins-SemiBold',
-    paddingHorizontal: 20,
+    paddingHorizontal: SIZES.padding_20,
     textAlign: 'center',
-    color: '#1F41BB',
-    // marginTop: 20,
+    color: COLORS.$blue_shade_2,
   },
   subTitle: {
-    fontSize: 18,
-    paddingHorizontal: 20,
+    fontSize: SIZES.sz_18_font,
+    paddingHorizontal: SIZES.padding_20,
     textAlign: 'center',
-    color: '#000',
+    color: COLORS.$black,
     fontFamily: 'Poppins-Medium',
-    marginVertical: 20,
+    marginVertical: SIZES.margin_20,
   },
   googleButton: {
     flexDirection: 'row',
     borderWidth: 2,
-    borderColor: '#45484A',
+    borderColor: COLORS.$primary,
     borderRadius: 100,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
+    padding: SIZES.padding_10,
     gap: 10,
   },
   googleImage: {
@@ -311,49 +261,51 @@ const styles = StyleSheet.create({
     width: 20,
   },
   googleText: {
-    fontSize: 20,
+    fontSize: SIZES.sz_12_font,
     fontFamily: 'Poppins-SemiBold',
   },
   footerContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 20,
+    marginVertical: SIZES.margin_20,
     gap: 5,
   },
   accountText: {
-    color: '#45484A',
+    color: COLORS.$primary,
     fontFamily: 'Poppins-Regular',
   },
   signupText: {
-    color: '#45484A',
+    color: COLORS.$primary,
     fontFamily: 'Poppins-Bold',
   },
   buttonEnabled: {
-    backgroundColor:'blue',
+    backgroundColor: 'blue',
   },
   buttonDisabled: {
     backgroundColor: COLORS.$gray,
   },
   inputError: {
-    borderColor: 'red',
+    borderColor: COLORS.$red,
   },
   errorText: {
-    color: 'red',
-    fontSize: 12,
+    color: COLORS.$red,
+    fontSize: SIZES.sz_12_font,
     marginBottom: 8,
   },
-  // form2 styles
-  formStyle:{flexDirection: 'row', marginTop: 50},
-  formInputContainer:{
+
+  formStyle: {
+    flexDirection: 'row',
+    marginTop: 50},
+  formInputContainer: {
     backgroundColor: 'white',
     borderWidth: 1,
-    borderColor: '#45484A',
+    borderColor: COLORS.$primary,
     height: 50,
     maxHeight: 50,
     minHeight: 50,
-    fontSize: 16,
+    fontSize: SIZES.sz_16_font,
     borderRadius: 10,
-    paddingHorizontal: 20,
+    paddingHorizontal: SIZES.padding_20,
   },
 });

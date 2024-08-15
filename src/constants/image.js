@@ -6,8 +6,20 @@ const certificate = require('../assets/images/features-alt.png');
 const emptystar = require('../assets/images/emptystar.png');
 const fullstar = require('../assets/images/fullstar.png');
 const halfstar = require('../assets/images/halfstar.png');
-
+const courseImageView = require('../assets/images/courseview.png');
+const userWomen = require('../assets/images/women.png');
+const userMen = require('../assets/images/men.png');
 
 export default {
-    wishlist,videoplay,user,download,certificate,halfstar,fullstar,emptystar
-}
+  wishlist,
+  videoplay,
+  user,
+  download,
+  certificate,
+  halfstar,
+  fullstar,
+  emptystar,
+  courseImageView,
+  userMen,
+  userWomen,
+};
