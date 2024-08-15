@@ -2,7 +2,7 @@ import { StyleSheet, Text, ScrollView, TouchableOpacity, View,} from 'react-nati
 import React from 'react';
 import {COLORS, SIZES} from '../constants/themes';
 
-const Coursedetails = () => {
+const Coursedetails = ({navigation}) => {
   const DATA = [
     {
       id: '1',
@@ -11,6 +11,9 @@ const Coursedetails = () => {
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
+      student:'2719',
+      ratings:'149',
+      tutorname:'Jack Smith'
     },
     {
       id: '2',
@@ -19,6 +22,9 @@ const Coursedetails = () => {
       time: '3h 30m',
       amount: '$35.00',
       preamount: '',
+      student:'1',
+      ratings:'2',
+      tutorname:'3'
     },
     {
       id: '3',
@@ -27,6 +33,9 @@ const Coursedetails = () => {
       time: '3h 00m',
       amount: '$29.00',
       preamount: '$30.00',
+      student:'1',
+      ratings:'2',
+      tutorname:'3'
     },
     {
       id: '4',
@@ -35,6 +44,9 @@ const Coursedetails = () => {
       time: '4h 30m',
       amount: '$33.00',
       preamount: '$34.00',
+      student:'1',
+      ratings:'2',
+      tutorname:'3'
     },
     {
       id: '5',
@@ -43,8 +55,15 @@ const Coursedetails = () => {
       time: '5h 30m',
       amount: '$30.00',
       preamount: '',
+      student:'1',
+      ratings:'2',
+      tutorname:'3'
     },
   ];
+
+  const handlePress = (item) => {
+    navigation.navigate('Courseview', { ...item });
+  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -52,12 +71,9 @@ const Coursedetails = () => {
         <View style={styles.cardLayer}>
           <View key={item.id} style={styles.card}>
             <View>
-              {/* <Image source={item.src} style={styles.image} /> */}
             </View>
-            {/* <View style={styles.childContainer}> */}
               <View style={styles.headContainer}>
                 <Text style={styles.title}>{item.title}</Text>
-                {/* <Image source={require('../assets/images/icon.png')} /> */}
               </View>
               <View style={styles.priceDetails}>
                 <View>
@@ -68,8 +84,7 @@ const Coursedetails = () => {
                   <Text style={styles.courseAmount}>{item.amount}</Text>
                 </View>
               </View>
-            {/* </View> */}
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={() => handlePress(item)}>
               <Text style={styles.buttonText}>View Course Details</Text>
             </TouchableOpacity>
           </View>
@@ -82,6 +97,9 @@ const Coursedetails = () => {
 export default Coursedetails;
 
 const styles = StyleSheet.create({
+  container: {
+    flexGrow: 1,
+  },
   cardLayer: {
     borderBottomColor: COLORS.$grey_shade_1,
     borderBottomWidth: 1,

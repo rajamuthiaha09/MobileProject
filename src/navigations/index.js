@@ -17,6 +17,7 @@ import {
   Image,
   TextInput,
 } from 'react-native';
+import Courseview from '../Components/Courseview';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -29,7 +30,7 @@ const StackNavigation = () => {
       <Stack.Screen name={'Signupscreen'} component={Signupscreen} />
       <Stack.Screen name={'Coursename'} component={Coursename} />
       <Stack.Screen name={'Coursedetails'} component={Coursedetails} />
-      {/* <Stack.Screen name={'ProfileEditPage'} component={ProfileEditPage} /> */}
+      <Stack.Screen name={'Courseview'} component={Courseview} />
       <Stack.Screen name={'PrivacyPolicy'} component={PrivacyPolicy} />
       <Stack.Screen name={'Homescreen'} component={TabNavigation} />
     </Stack.Navigator>
