@@ -72,26 +72,18 @@ const Courseview = () => {
           </View>
           <View style={styles.contentRowView}>
             <Image style={styles.imgView} source={image.videoplay} />
-            <Text style={styles.descriptionContent}>
-              14 hourse on-demand video
-            </Text>
+            <Text style={styles.descriptionContent}>14 hourse on-demand video</Text>
           </View>
           <View style={styles.contentRowView}>
             <Image style={styles.imgView} source={image.download} />
-            <Text style={styles.descriptionContent}>
-              16 downloadable resources
-            </Text>
+            <Text style={styles.descriptionContent}>16 downloadable resources</Text>
           </View>
           <View style={styles.contentRowView}>
             <Image style={styles.imgView} source={image.certificate} />
-            <Text style={styles.descriptionContent}>
-              Certificate of completion
-            </Text>
+            <Text style={styles.descriptionContent}>Certificate of completion</Text>
           </View>
-          <Text style={styles.courseDescription}>
-            The Ultimate Guide To Strategic Marketing is an essential resource for anyone looking to master the art and science of marketing
-            strategy. This comprehensive guide delves into the core principles of strategic marketing, offering insights into market analysis,
-            target audience identification, and effective positioning
+          <Text style={styles.courseDescription}>The Ultimate Guide To Strategic Marketing is an essential resource for anyone looking to master the art and science of marketing
+            strategy. This comprehensive guide delves into the core principles of strategic marketing, offering insights into market analysis,target audience identification, and effective positioning
           </Text>
           <View style={styles.contentRowViewInr}>
             <View>
@@ -144,7 +136,7 @@ const Courseview = () => {
                 </View> */}
               </View>
               <Text style={styles.reviewComments}>{review.comments}</Text>
-              <Text style={styles.lastLine}></Text>
+              {index !== reviewDatas.length - 1 && <Text style={styles.lastLine}></Text>}
             </View>
           ))}
         </ScrollView>
@@ -285,8 +277,4 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
     justifyContent: 'flex-end',
   },
-  // coursePreAmount: {
-  //   fontWeight: 'bold',
-  //   color: 'green',
-  // },
 });

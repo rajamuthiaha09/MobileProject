@@ -2,12 +2,13 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import StackNavigation from './src/navigations';
+import { COLORS } from './src/constants/themes';
 
 const MyTheme = {
   ...DefaultTheme,
   color: {
-    ...DefaultTheme.color,
-    background: '#fff',
+    ...DefaultTheme.colors,
+    background: COLORS.$White,
   },
 };
 
