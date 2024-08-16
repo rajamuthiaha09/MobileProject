@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Modal,
-  Button,
+  Button,Alert,
   StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native';
@@ -77,30 +77,37 @@ const ProfileEditPage = () => {
     },
   ];
 
-  const handlePress = screen => {
-    if (screen === 'CouponsScreen') {
-      // setModalContent('Here is your Coupons content'); // Set the content you want to show in the modal
-      setIsModalVisible(true);
-    } else {
-      navigation.navigate(screen);
+  const handlePress = (action, actCode, screen) => {
+    if (action === 'showAlert') {
+      Alert.alert('Activation Code', `Activation Code: ${actCode}`, [
+        {
+          text: 'OK',
+          onPress: () => setIsModalVisible(false),
+        },
+      ]);
+    } else if (action === 'navigate') {
+      if (screen === 'CouponsScreen') {
+        setIsModalVisible(true);
+      } else {
+        navigation.navigate(screen);
+      }
     }
   };
+  
 
   return (
     <View style={styles.container}>
       <View style={styles.profileHeaderView}>
         <Text style={styles.profileHeader}>My Profile</Text>
         <Text style={styles.profileUser}>Rajaha Muthiaha</Text>
-        <Text style={styles.profileUserEmail}>
-          rajahamuthiaha@thoughtbees.com
-        </Text>
+        <Text style={styles.profileUserEmail}>rajahamuthiaha@thoughtbees.com</Text>
       </View>
       <ScrollView contentContainerStyle={styles.menuList}>
         {DATA.map(item => (
           <TouchableOpacity
             key={item.id}
             style={styles.item}
-            onPress={() => handlePress(item.screen)}>
+            onPress={() => handlePress('navigate', null, item.screen)}>
             <Text style={styles.titleHeading}>{item.listname}</Text>
           </TouchableOpacity>
         ))}
@@ -117,7 +124,7 @@ const ProfileEditPage = () => {
                 contentContainerStyle={styles.menuList}
                 showsVerticalScrollIndicator={false}>
                 {couponsData.map(item => (
-                  <TouchableOpacity
+                  <TouchableOpacity onPress={() => handlePress('showAlert', item.actCode)}
                     key={item.id}
                     style={styles.couponContentContainer}>
                     <View style={styles.cupContInr}>
