@@ -4,10 +4,12 @@ import {useRoute} from '@react-navigation/native';
 import {COLORS, SIZES} from '../constants/themes';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import image from '../constants/image';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import { faUser, faLaptopCode, faAward, faDownload, faStar, faStarHalfAlt,} from '@fortawesome/free-solid-svg-icons';
 
 const Courseview = () => {
   const {params} = useRoute();
-  const {title, amount, preamount, tutorname, ratings, student} = params;
+  const {title, amount, preamount, tutorname, ratings, student, starating} = params;
   const titles = ['Description', 'Lessons', 'Instructor', 'Reviews'];
   const [selectedTitle, setSelectedTitle] = useState('Description');
   const handleTitlePress = title => {
@@ -15,16 +17,19 @@ const Courseview = () => {
   };
 
   const reviewDatas = [
-    { username: 'Selvakumar', reviewDate: '18-09-2024', comments: 'Excellent course. Very useful' , star: '', gender: 'Male',},
-    { username: 'Dhanushiya', reviewDate: '20-10-2022', comments: 'An excellent course. The tutor was v. knowledgeable' , star: '', gender: 'Female',},
-    { username: 'Varsha', reviewDate: '01-01-2020', comments: 'Well done. Good course. Excellent tutor' , star: '', gender: 'Female',},
-    { username: 'Ajith Kumar', reviewDate: '19-08-2015', comments: 'It is a top quality course. Keep going, we need this type of course to improve our studies. Excellent. Thank you!!' , star: '', gender: 'Male',},
-    { username: 'Hariprasath', reviewDate: '19-12-2019', comments: 'Good service but room for improvement.' , star: '', gender: 'Male',},
-    { username: 'Vinoth', reviewDate: '25-05-2023', comments: 'Good service but room for improvement.' , star: '', gender: 'Male',},
-    { username: 'Mohanraj', reviewDate: '22-05-2022', comments: 'Good service but room for improvement.' , star: '', gender: 'Male',},
-    { username: 'Girija', reviewDate: '09-05-2021', comments: 'Good service but room for improvement.' , star: '', gender: 'Female',},
-    { username: 'Jenifer', reviewDate: '02-02-2020', comments: 'Good service but room for improvement.' , star: '', gender: 'Female',},
+    { username: 'Selvakumar', reviewDate: '18-09-2024', comments: 'Excellent course. Very useful', starCount: '5', gender: 'Male' },
+    { username: 'Dhanushiya', reviewDate: '20-10-2022', comments: 'An excellent course. The tutor was v. knowledgeable', starCount: '4.5', gender: 'Female' },
+    { username: 'Varsha', reviewDate: '01-01-2020', comments: 'Well done. Good course. Excellent tutor', starCount: '3.5', gender: 'Female' },
+    { username: 'Ajith Kumar', reviewDate: '19-08-2015', comments: 'It is a top quality course. Keep going, we need this type of course to improve our studies. Excellent. Thank you!!', starCount: '4', gender: 'Male' },
+    { username: 'Hariprasath', reviewDate: '19-12-2019', comments: 'Good service but room for improvement.', starCount: '5', gender: 'Male' },
+    { username: 'Vinoth', reviewDate: '25-05-2023', comments: 'Good service but room for improvement.', starCount: '4', gender: 'Male' },
+    { username: 'Mohanraj', reviewDate: '22-05-2022', comments: 'Good service but room for improvement.', starCount: '2', gender: 'Male' },
+    { username: 'Girija', reviewDate: '09-05-2021', comments: 'Good service but room for improvement.', starCount: '1', gender: 'Female' },
+    { username: 'Jenifer', reviewDate: '02-02-2020', comments: 'Good service but room for improvement.', starCount: '4', gender: 'Female' },
   ];
+
+  const fullStars = Math.floor(starating); // Number of full stars
+  const halfStar = starating % 1 !== 0;
 
   const parseDate = dateStr => {
     const [day, month, year] = dateStr.split('-').map(Number);
@@ -33,7 +38,11 @@ const Courseview = () => {
 
   const formatDate = dateStr => {
     const date = parseDate(dateStr);
-    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: '2-digit',});
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: '2-digit',
+    });
   };
 
   const sortedReviewDatas = reviewDatas.sort(
@@ -42,14 +51,23 @@ const Courseview = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image
-        style={styles.imageLayout} source={image.courseImageView}
-      />
+      <Image style={styles.imageLayout} source={image.courseImageView} />
       <Text style={styles.CourseTitle}>{title}</Text>
       <View style={styles.coursEnrollListView}>
-        <Text style={[styles.coursEnrollList, {paddingRight: SIZES.padding_10}]}>
-          ({ratings} ratings)
-        </Text>
+        <View style={{flexDirection: 'row'}}>
+          {Array.from({length: fullStars}, (_, index) => (
+            <FontAwesomeIcon
+              key={index}
+              icon={faStar}
+              size={20}
+              color="#FFD700"
+            />
+          ))}
+          {halfStar && (
+            <FontAwesomeIcon icon={faStarHalfAlt} size={20} color="#FFD700" />
+          )}
+        </View>
+        <Text style={styles.coursEnrollList}>({ratings} ratings)</Text>
         <Text style={styles.coursEnrollList}>{student} students</Text>
       </View>
       <View style={styles.rowContainer}>
@@ -67,23 +85,33 @@ const Courseview = () => {
         <View>
           <Text style={styles.aboutContent}>About Course</Text>
           <View style={styles.contentRowView}>
-            <Image style={styles.imgView} source={image.user} />
+            <FontAwesomeIcon icon={faUser} size={25} />
             <Text style={styles.descriptionContent}>{tutorname}</Text>
           </View>
           <View style={styles.contentRowView}>
-            <Image style={styles.imgView} source={image.videoplay} />
-            <Text style={styles.descriptionContent}>14 hourse on-demand video</Text>
+            <FontAwesomeIcon icon={faLaptopCode} size={25} />
+            <Text style={styles.descriptionContent}>
+              14 hourse on-demand video
+            </Text>
           </View>
           <View style={styles.contentRowView}>
-            <Image style={styles.imgView} source={image.download} />
-            <Text style={styles.descriptionContent}>16 downloadable resources</Text>
+            <FontAwesomeIcon icon={faDownload} size={25} />
+            <Text style={styles.descriptionContent}>
+              16 downloadable resources
+            </Text>
           </View>
           <View style={styles.contentRowView}>
-            <Image style={styles.imgView} source={image.certificate} />
-            <Text style={styles.descriptionContent}>Certificate of completion</Text>
+            <FontAwesomeIcon icon={faAward} size={25} />
+            <Text style={styles.descriptionContent}>
+              Certificate of completion
+            </Text>
           </View>
-          <Text style={styles.courseDescription}>The Ultimate Guide To Strategic Marketing is an essential resource for anyone looking to master the art and science of marketing
-            strategy. This comprehensive guide delves into the core principles of strategic marketing, offering insights into market analysis,target audience identification, and effective positioning
+          <Text style={styles.courseDescription}>
+            The Ultimate Guide To Strategic Marketing is an essential resource
+            for anyone looking to master the art and science of marketing
+            strategy. This comprehensive guide delves into the core principles
+            of strategic marketing, offering insights into market
+            analysis,target audience identification, and effective positioning
           </Text>
           <View style={styles.contentRowViewInr}>
             <View>
@@ -119,24 +147,33 @@ const Courseview = () => {
               <View style={styles.reviewInrContainer}>
                 <Image
                   source={
-                    review.gender === 'Male'
-                      ? image.userMen
-                      : image.userWomen
+                    review.gender === 'Male' ? image.userMen : image.userWomen
                   }
                   style={styles.userImage}
                 />
-                <View style={styles.detailsContainer}>
-                  <Text style={styles.reviewDates}>
-                    {formatDate(review.reviewDate)}
-                  </Text>
-                  <Text style={styles.reviewUsername}>{review.username}</Text>
+                <View style={styles.reviewFlexContainer}>
+                  <View>
+                    <Text style={styles.reviewDates}>
+                      {formatDate(review.reviewDate)}
+                    </Text>
+                    <Text style={styles.reviewUsername}>{review.username}</Text>
+                  </View>
+                  <View style={styles.starsContainer}>
+                    {Array.from({length: parseInt(review.star)}, (_, index) => (
+                      <FontAwesomeIcon
+                        key={index}
+                        icon={faStar}
+                        size={20}
+                        color="#FFD700"
+                      />
+                    ))}
+                  </View>
                 </View>
-                {/* <View style={styles.preamountContainer}>
-                  <Text style={styles.coursePreAmount}>{preamount}</Text>
-                </View> */}
               </View>
               <Text style={styles.reviewComments}>{review.comments}</Text>
-              {index !== reviewDatas.length - 1 && <Text style={styles.lastLine}></Text>}
+              {index !== reviewDatas.length - 1 && (
+                <Text style={styles.lastLine}></Text>
+              )}
             </View>
           ))}
         </ScrollView>
@@ -166,6 +203,7 @@ const styles = StyleSheet.create({
   },
   coursEnrollListView: {
     flexDirection: 'row',
+    gap: 10,
   },
   coursEnrollList: {
     fontSize: SIZES.sz_19_font,
@@ -236,10 +274,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-
   //review content styles
-  contentContainer: {
-  },
+  contentContainer: {},
   reviewContainer: {
     marginBottom: 20,
   },
@@ -272,9 +308,16 @@ const styles = StyleSheet.create({
     fontSize: SIZES.sz_18_font,
     paddingLeft: '20%',
   },
-  preamountContainer: {
-    marginTop: 5,
-    flexDirection: 'row-reverse',
-    justifyContent: 'flex-end',
+  starsContainer: {
+    flexDirection: 'row',
+  },
+  reviewFlexContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-evenly',
+  },
+  ratingText: {
+    fontSize: SIZES.sz_20_font,
+    color: '#FFD700',
   },
 });

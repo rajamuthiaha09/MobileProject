@@ -111,7 +111,7 @@ const ProfileEditPage = ({navigation}) => {
         ))}
       </ScrollView>
       <Modal
-        visible={isModalVisible} //true or false
+        visible={isModalVisible} // true or false
         transparent={true} // true or false
         animationType="fade" // none or slide
         onRequestClose={() => setIsModalVisible(false)}>

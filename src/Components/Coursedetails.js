@@ -1,6 +1,8 @@
 import { StyleSheet, Text, ScrollView, TouchableOpacity, View,} from 'react-native';
 import React from 'react';
 import {COLORS, SIZES} from '../constants/themes';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faClock} from '@fortawesome/free-solid-svg-icons';
 
 const Coursedetails = ({navigation}) => {
   const DATA = [
@@ -13,7 +15,8 @@ const Coursedetails = ({navigation}) => {
       preamount: '$35.00',
       student:'2719',
       ratings:'149',
-      tutorname:'Jack Smith'
+      tutorname:'Jack Smith',
+      starating: '4.5',
     },
     {
       id: '2',
@@ -24,7 +27,8 @@ const Coursedetails = ({navigation}) => {
       preamount: '',
       student:'1',
       ratings:'2',
-      tutorname:'3'
+      tutorname:'3',
+      starating: '3.5',
     },
     {
       id: '3',
@@ -35,7 +39,8 @@ const Coursedetails = ({navigation}) => {
       preamount: '$30.00',
       student:'1',
       ratings:'2',
-      tutorname:'3'
+      tutorname:'3',
+      starating: '5',
     },
     {
       id: '4',
@@ -46,7 +51,8 @@ const Coursedetails = ({navigation}) => {
       preamount: '$34.00',
       student:'1',
       ratings:'2',
-      tutorname:'3'
+      tutorname:'3',
+      starating: '3',
     },
     {
       id: '5',
@@ -57,7 +63,8 @@ const Coursedetails = ({navigation}) => {
       preamount: '',
       student:'1',
       ratings:'2',
-      tutorname:'3'
+      tutorname:'3',
+      starating: '4',
     },
   ];
 
@@ -76,7 +83,8 @@ const Coursedetails = ({navigation}) => {
                 <Text style={styles.title}>{item.title}</Text>
               </View>
               <View style={styles.priceDetails}>
-                <View>
+                <View style={styles.timimgContainer}>
+                <FontAwesomeIcon icon={faClock} size={20} color = {COLORS.$gray} />
                   <Text style={styles.courseTime}>{item.time}</Text>
                 </View>
                 <View style={styles.amountDetails}>
@@ -152,5 +160,10 @@ const styles = StyleSheet.create({
   amountDetails: {
     flexDirection: 'row',
     gap: 10,
+  },
+  timimgContainer: {
+    flexDirection: 'row',
+    gap: 5,
+    alignItems: 'center',
   },
 });
