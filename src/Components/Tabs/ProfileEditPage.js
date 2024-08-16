@@ -12,10 +12,8 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import {COLORS, SIZES} from '../../constants/themes';
 
-const ProfileEditPage = () => {
-  const navigation = useNavigation();
+const ProfileEditPage = ({navigation}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  // const [modalContent, setModalContent] = useState(null);
 
   const DATA = [
     {id: '1', listname: 'Wishlist', screen: 'WishlistScreen'},
