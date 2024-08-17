@@ -8,16 +8,11 @@ import Coursedetails from '../Components/Coursedetails';
 import ProfileEditPage from '../Components/Tabs/ProfileEditPage';
 import PrivacyPolicy from '../Components/PrivacyPolicy';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-
 import {
-  Text,
-  View,
-  TouchableOpacity,
-  StyleSheet,
   Image,
-  TextInput,
 } from 'react-native';
 import Courseview from '../Components/Courseview';
+import WishlistPage from '../Components/Tabs/WishlistPage';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -32,6 +27,7 @@ const StackNavigation = () => {
       <Stack.Screen name={'Coursedetails'} component={Coursedetails} />
       <Stack.Screen name={'Courseview'} component={Courseview} />
       <Stack.Screen name={'PrivacyPolicy'} component={PrivacyPolicy} />
+      <Stack.Screen name={'WishlistScreen'} component={WishlistPage} />
       <Stack.Screen name={'Homescreen'} component={TabNavigation} />
     </Stack.Navigator>
   );

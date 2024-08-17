@@ -1,10 +1,19 @@
-import { StyleSheet, Text, ScrollView, TouchableOpacity, View,} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
+import {
+  StyleSheet,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  View,
+  Pressable,
+} from 'react-native';
 import {COLORS, SIZES} from '../constants/themes';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faClock} from '@fortawesome/free-solid-svg-icons';
+import {faClock, faHeart} from '@fortawesome/free-solid-svg-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Coursedetails = ({navigation}) => {
+  const [likedItems, setLikedItems] = useState({});
   const DATA = [
     {
       id: '1',
@@ -13,9 +22,9 @@ const Coursedetails = ({navigation}) => {
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
-      student:'2719',
-      ratings:'149',
-      tutorname:'Jack Smith',
+      student: '2719',
+      ratings: '149',
+      tutorname: 'Jack Smith',
       starating: '4.5',
     },
     {
@@ -25,9 +34,9 @@ const Coursedetails = ({navigation}) => {
       time: '3h 30m',
       amount: '$35.00',
       preamount: '',
-      student:'1',
-      ratings:'2',
-      tutorname:'3',
+      student: '1',
+      ratings: '2',
+      tutorname: '3',
       starating: '3.5',
     },
     {
@@ -37,9 +46,9 @@ const Coursedetails = ({navigation}) => {
       time: '3h 00m',
       amount: '$29.00',
       preamount: '$30.00',
-      student:'1',
-      ratings:'2',
-      tutorname:'3',
+      student: '1',
+      ratings: '2',
+      tutorname: '3',
       starating: '5',
     },
     {
@@ -49,9 +58,9 @@ const Coursedetails = ({navigation}) => {
       time: '4h 30m',
       amount: '$33.00',
       preamount: '$34.00',
-      student:'1',
-      ratings:'2',
-      tutorname:'3',
+      student: '1',
+      ratings: '2',
+      tutorname: '3',
       starating: '3',
     },
     {
@@ -61,44 +70,74 @@ const Coursedetails = ({navigation}) => {
       time: '5h 30m',
       amount: '$30.00',
       preamount: '',
-      student:'1',
-      ratings:'2',
-      tutorname:'3',
+      student: '1',
+      ratings: '2',
+      tutorname: '3',
       starating: '4',
     },
   ];
 
-  const handlePress = (item) => {
-    navigation.navigate('Courseview', { ...item });
+  const toggleLike = (id) => {
+    setLikedItems(prevState => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
+
+  const handlePress = item => {
+    navigation.navigate('Courseview', {...item});
+  };
+
+  const viewWishlist = () => {
+    const likedCourses = DATA.filter(item => likedItems[item.id]);
+    navigation.navigate('WishlistScreen', { likedCourses });
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <SafeAreaView>
+      <ScrollView contentContainerStyle={styles.container}>
       {DATA.map(item => (
         <View style={styles.cardLayer}>
           <View key={item.id} style={styles.card}>
-            <View>
+            <View style={styles.headContainer}>
+              <Text style={styles.title}>{item.title}</Text>
+              <Pressable onPress={() => toggleLike(item.id)}>
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  size={30}
+                  color={likedItems[item.id] ? 'red' : COLORS.$black}
+                />
+              </Pressable>
             </View>
-              <View style={styles.headContainer}>
-                <Text style={styles.title}>{item.title}</Text>
+            <View style={styles.priceDetails}>
+              <View style={styles.timimgContainer}>
+                <FontAwesomeIcon
+                  icon={faClock}
+                  size={20}
+                  color={COLORS.$gray}
+                />
+                <Text style={styles.courseTime}>{item.time}</Text>
               </View>
-              <View style={styles.priceDetails}>
-                <View style={styles.timimgContainer}>
-                <FontAwesomeIcon icon={faClock} size={20} color = {COLORS.$gray} />
-                  <Text style={styles.courseTime}>{item.time}</Text>
-                </View>
-                <View style={styles.amountDetails}>
-                  <Text style={styles.coursePreAmount}>{item.preamount}</Text>
-                  <Text style={styles.courseAmount}>{item.amount}</Text>
-                </View>
+              <View style={styles.amountDetails}>
+                <Text style={styles.coursePreAmount}>{item.preamount}</Text>
+                <Text style={styles.courseAmount}>{item.amount}</Text>
               </View>
-            <TouchableOpacity style={styles.button} onPress={() => handlePress(item)}>
+            </View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handlePress(item)}>
               <Text style={styles.buttonText}>View Course Details</Text>
             </TouchableOpacity>
           </View>
         </View>
       ))}
     </ScrollView>
+    <TouchableOpacity style={styles.button} onPress={viewWishlist}>
+              <Text style={styles.buttonText}>View Wishlist</Text>
+            </TouchableOpacity>
+    </SafeAreaView>
+    
+    
   );
 };
 
@@ -165,5 +204,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 5,
     alignItems: 'center',
+  },
+  headContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
 });
