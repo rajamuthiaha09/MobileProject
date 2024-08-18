@@ -13,6 +13,7 @@ export const COLORS = {
 
   //gray color
   '$gray': '#D9D9D9',
+  '$darkGray': '#A9A9A9',
   '$grey_shade_1': '#959292',
 
   //pink color

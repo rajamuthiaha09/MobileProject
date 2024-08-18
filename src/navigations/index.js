@@ -14,6 +14,7 @@ import {
 import Courseview from '../Components/Courseview';
 import WishlistPage from '../Components/Tabs/WishlistPage';
 import ProfileEditForm from '../Components/forms/ProfileEditForm';
+import SupportScreen from '../Components/SupportScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -30,6 +31,7 @@ const StackNavigation = () => {
       <Stack.Screen name={'PrivacyPolicy'} component={PrivacyPolicy} />
       <Stack.Screen name={'WishlistScreen'} component={WishlistPage} />
       <Stack.Screen name={'ProfileEditForm'} component={ProfileEditForm} />
+      <Stack.Screen name={'HelpScreen'} component={SupportScreen} />
       <Stack.Screen name={'Homescreen'} component={TabNavigation} />
     </Stack.Navigator>
   );

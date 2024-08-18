@@ -20,7 +20,7 @@ const ProfileEditForm = ({ navigation }) => {
     <View style={styles.container}>
       <CommonHeader
         showIcon={true}
-        headerTitle="Edit Profile"
+        sectionHeaderTitle="Edit Profile"
         headerTitleStyle={styles.headerView}
       />
       <View style={styles.profileHeaderView}>

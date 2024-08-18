@@ -101,7 +101,7 @@ const ProfileEditPage = ({navigation}) => {
     <View style={styles.container}>
       <CommonHeader
         showIcon={false}
-        headerTitle="My Profile"
+        sectionHeaderTitle="My Profile"
         headerTitleStyle={styles.headerView}
       />
       <View style={styles.profileHeaderView}>

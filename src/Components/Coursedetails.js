@@ -96,7 +96,7 @@ const Coursedetails = ({navigation}) => {
 
   return (
     <SafeAreaView>
-      <CommonHeader headerTitle = "Course List" headerTitleStyle={styles.textHeader} navigation={navigation}/>
+      <CommonHeader sectionHeaderTitle = "Course List" headerTitleStyle={styles.textHeader} navigation={navigation}/>
       <ScrollView contentContainerStyle={styles.container}>
       {DATA.map((item, index) => (
         <View key={item.id} style={[

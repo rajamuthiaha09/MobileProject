@@ -5,7 +5,7 @@ import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { SIZES } from '../../constants/themes';
 import {useNavigation} from '@react-navigation/native';
 
-const CommonHeader = ({headerTitle,headerTitleStyle, showIcon = true}) => {
+const CommonHeader = ({sectionHeaderTitle,headerTitleStyle, showIcon = true}) => {
       const navigation = useNavigation();
   return (
     <View style={styles.headerContainer}>
@@ -14,7 +14,7 @@ const CommonHeader = ({headerTitle,headerTitleStyle, showIcon = true}) => {
           <FontAwesomeIcon icon={faAngleLeft} size={30} color="black" />
         </TouchableOpacity>
       )}
-      <Text style={[styles.containerTitle, headerTitleStyle]}>{headerTitle}</Text>
+      <Text style={[styles.containerTitle, headerTitleStyle]}>{sectionHeaderTitle}</Text>
     </View>
   )
 }
