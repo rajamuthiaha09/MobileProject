@@ -8,13 +8,19 @@ import Coursedetails from '../Components/Coursedetails';
 import ProfileEditPage from '../Components/Tabs/ProfileEditPage';
 import PrivacyPolicy from '../Components/PrivacyPolicy';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {
-  Image,
-} from 'react-native';
 import Courseview from '../Components/Courseview';
 import WishlistPage from '../Components/Tabs/WishlistPage';
 import ProfileEditForm from '../Components/forms/ProfileEditForm';
 import SupportScreen from '../Components/SupportScreen';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {
+  faHome,
+  faUserCircle,
+  faBookOpen,
+  faSearch,
+} from '@fortawesome/free-solid-svg-icons';
+import MyCourse from '../Components/MyCourse';
+import SearchCourseScreen from '../Components/SearchCourseScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -56,13 +62,42 @@ const TabNavigation = () => {
         options={{
           title: 'Home',
           tabBarIcon: ({focused}) => (
-            <Image
-              source={require('../assets/images/home.png')}
-              style={{
-                height: 30,
-                width: 30,
-                tintColor: focused ? 'red' : 'gray',
-              }}
+            <FontAwesomeIcon
+              icon={faHome}
+              size={30}
+              color={focused ? 'black' : 'gray'}
+            />
+          ),
+          tabBarActiveTintColor: 'black',
+          tabBarInactiveTintColor: 'gray',
+        }}
+      />
+      <Tab.Screen
+        name={'SearchCourseScreen'}
+        component={SearchCourseScreen}
+        options={{
+          title: 'Search',
+          tabBarIcon: ({focused}) => (
+            <FontAwesomeIcon
+              icon={faSearch}
+              size={30}
+              color={focused ? 'black' : 'gray'}
+            />
+          ),
+          tabBarActiveTintColor: 'black',
+          tabBarInactiveTintColor: 'gray',
+        }}
+      />
+      <Tab.Screen
+        name={'MyCourse'}
+        component={MyCourse}
+        options={{
+          title: 'My Course',
+          tabBarIcon: ({focused}) => (
+            <FontAwesomeIcon
+              icon={faBookOpen}
+              size={30}
+              color={focused ? 'black' : 'gray'}
             />
           ),
           tabBarActiveTintColor: 'black',
@@ -73,34 +108,12 @@ const TabNavigation = () => {
         name={'ProfileEditPage'}
         component={ProfileEditPage}
         options={{
-          title: 'Home',
+          title: 'Profile',
           tabBarIcon: ({focused}) => (
-            <Image
-              source={require('../assets/images/wishlist.png')}
-              style={{
-                height: 30,
-                width: 30,
-                tintColor: focused ? 'red' : 'gray',
-              }}
-            />
-          ),
-          tabBarActiveTintColor: 'black',
-          tabBarInactiveTintColor: 'gray',
-        }}
-      />
-      <Tab.Screen
-        name={'Signup'}
-        component={Signupscreen}
-        options={{
-          title: 'Signup',
-          tabBarIcon: ({focused}) => (
-            <Image
-              source={require('../assets/images/user.png')}
-              style={{
-                height: 30,
-                width: 30,
-                tintColor: focused ? 'red' : 'gray',
-              }}
+            <FontAwesomeIcon
+              icon={faUserCircle}
+              size={30}
+              color={focused ? 'black' : 'gray'}
             />
           ),
           tabBarActiveTintColor: 'black',
