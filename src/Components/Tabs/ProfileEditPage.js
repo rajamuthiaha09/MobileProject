@@ -5,12 +5,17 @@ import {
   TouchableOpacity,
   ScrollView,
   Modal,
-  Button,Alert,
+  Alert,
+  Image,
   StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {COLORS, SIZES} from '../../constants/themes';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faPen,faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import image from '../../constants/image';
+import {CommonHeader} from '../sharedComponents';
 
 const ProfileEditPage = ({navigation}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -58,19 +63,19 @@ const ProfileEditPage = ({navigation}) => {
     {
       id: '6',
       courseName: 'ReactJS from Scratch to Expert',
-      actCode: 'CTRL+',
+      actCode: 'CTRL+wer',
       percentage: '20',
     },
     {
       id: '7',
-      courseName: 'ReactJS from Scratch to Expert',
-      actCode: 'CTRL+',
+      courseName: 'React from Scratch to Expert',
+      actCode: 'CTRL+wewr',
       percentage: '20',
     },
     {
       id: '8',
       courseName: 'ReactJS from Scratch to Expert',
-      actCode: 'CTRL+',
+      actCode: 'CTRL+ki',
       percentage: '20',
     },
   ];
@@ -91,29 +96,41 @@ const ProfileEditPage = ({navigation}) => {
       }
     }
   };
-  
 
   return (
     <View style={styles.container}>
+      <CommonHeader
+        showIcon={false}
+        headerTitle="My Profile"
+        headerTitleStyle={styles.headerView}
+      />
       <View style={styles.profileHeaderView}>
-        <Text style={styles.profileHeader}>My Profile</Text>
-        <Text style={styles.profileUser}>Rajaha Muthiaha</Text>
-        <Text style={styles.profileUserEmail}>rajahamuthiaha@thoughtbees.com</Text>
+        <View style={styles.avatarContainer}>
+          <Image source={image.profileImageMale} style={styles.avatar} />
+          <TouchableOpacity style={styles.editIconContainer}>
+            <FontAwesomeIcon icon={faPen} size={25} color={COLORS.$black} />
+          </TouchableOpacity>
+        </View>
+        <Text style={styles.profileUserName}>Rajaha Muthiaha</Text>
+        <Text style={styles.profileUserEmail}>
+        rajahamuthiaha@thoughtbees.com
+        </Text>
       </View>
-      <ScrollView contentContainerStyle={styles.menuList}>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
         {DATA.map(item => (
           <TouchableOpacity
             key={item.id}
-            style={styles.item}
+            style={styles.dataitem}
             onPress={() => handlePress('navigate', null, item.screen)}>
             <Text style={styles.titleHeading}>{item.listname}</Text>
+            <FontAwesomeIcon icon={faChevronRight} size={23} color={COLORS.$black}/>
           </TouchableOpacity>
         ))}
       </ScrollView>
       <Modal
-        visible={isModalVisible} // true or false
-        transparent={true} // true or false
-        animationType="fade" // none or slide
+        visible={isModalVisible}
+        transparent={true}
+        animationType="fade"
         onRequestClose={() => setIsModalVisible(false)}>
         <TouchableWithoutFeedback onPress={() => setIsModalVisible(false)}>
           <View style={styles.couponsContainerOtr}>
@@ -122,7 +139,8 @@ const ProfileEditPage = ({navigation}) => {
                 contentContainerStyle={styles.menuList}
                 showsVerticalScrollIndicator={false}>
                 {couponsData.map(item => (
-                  <TouchableOpacity onPress={() => handlePress('showAlert', item.actCode)}
+                  <TouchableOpacity
+                    onPress={() => handlePress('showAlert', item.actCode)}
                     key={item.id}
                     style={styles.couponContentContainer}>
                     <View style={styles.cupContInr}>
@@ -148,7 +166,6 @@ const ProfileEditPage = ({navigation}) => {
                   </TouchableOpacity>
                 ))}
               </ScrollView>
-              {/* <Button title="Close" onPress={() => setIsModalVisible(false)} /> */}
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -162,23 +179,55 @@ export default ProfileEditPage;
 const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
-    justifyContent: 'center',
     backgroundColor: COLORS.$White,
   },
   profileHeaderView: {
     alignItems: 'center',
+    marginBottom: SIZES.margin_20,
   },
-  profileHeader: {
-    fontSize: SIZES.sz_22_font,
+  headerView: {
+    // alignSelf: 'center',
+    paddingLeft: '38%',
   },
-  profileUser: {
+  profileUserName: {
     fontSize: SIZES.sz_28_font,
     fontWeight: 'bold',
+    color: COLORS.$black,
+    marginTop: SIZES.margin_10,
   },
   profileUserEmail: {
     fontSize: SIZES.sz_25_font,
+    color: COLORS.$black,
+    paddingTop: 10,
   },
-  item: {
+  avatarContainer: {
+    position: 'relative',
+    width: 200,
+    height: 200,
+    borderRadius: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // backgroundColor: 'red'
+    // marginBottom: SIZES.margin_15,
+  },
+  avatar: {
+    width: '150%',
+    height: '150%',
+    borderRadius: 50,
+  },
+  editIconContainer: {
+    position: 'absolute',
+    bottom: 5,
+    right: 5,
+    backgroundColor: COLORS.$White,
+    borderRadius: 25,
+    padding: 10,
+    elevation: 5,
+  },
+  dataitem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     padding: SIZES.padding_20,
     marginVertical: 8,
     marginHorizontal: 16,
@@ -189,8 +238,10 @@ const styles = StyleSheet.create({
     fontSize: SIZES.sz_22_font,
     color: COLORS.$black,
   },
-
-  //model styles
+  arrow: {
+    fontSize: SIZES.sz_18_font,
+    color: COLORS.$black,
+  },
   couponsContainerOtr: {
     flex: 1,
     justifyContent: 'center',
