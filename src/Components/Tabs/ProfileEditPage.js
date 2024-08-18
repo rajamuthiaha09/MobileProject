@@ -107,7 +107,7 @@ const ProfileEditPage = ({navigation}) => {
       <View style={styles.profileHeaderView}>
         <View style={styles.avatarContainer}>
           <Image source={image.profileImageMale} style={styles.avatar} />
-          <TouchableOpacity style={styles.editIconContainer}>
+          <TouchableOpacity style={styles.editIconContainer} onPress={() => navigation.navigate('ProfileEditForm')}>
             <FontAwesomeIcon icon={faPen} size={25} color={COLORS.$black} />
           </TouchableOpacity>
         </View>

@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import Courseview from '../Components/Courseview';
 import WishlistPage from '../Components/Tabs/WishlistPage';
+import ProfileEditForm from '../Components/forms/ProfileEditForm';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -28,6 +29,7 @@ const StackNavigation = () => {
       <Stack.Screen name={'Courseview'} component={Courseview} />
       <Stack.Screen name={'PrivacyPolicy'} component={PrivacyPolicy} />
       <Stack.Screen name={'WishlistScreen'} component={WishlistPage} />
+      <Stack.Screen name={'ProfileEditForm'} component={ProfileEditForm} />
       <Stack.Screen name={'Homescreen'} component={TabNavigation} />
     </Stack.Navigator>
   );
