@@ -9,6 +9,7 @@ const halfstar = require('../assets/images/halfstar.png');
 const courseImageView = require('../assets/images/courseview.png');
 const userWomen = require('../assets/images/women.png');
 const userMen = require('../assets/images/men.png');
+const profileImageMale = require('../assets/images/profileImage.png');
 
 export default {
   wishlist,
@@ -22,4 +23,5 @@ export default {
   courseImageView,
   userMen,
   userWomen,
+  profileImageMale,
 };

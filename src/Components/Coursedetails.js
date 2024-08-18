@@ -11,6 +11,7 @@ import {COLORS, SIZES} from '../constants/themes';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faClock, faHeart} from '@fortawesome/free-solid-svg-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { CommonHeader } from './sharedComponents';
 
 const Coursedetails = ({navigation}) => {
   const [likedItems, setLikedItems] = useState({});
@@ -95,10 +96,14 @@ const Coursedetails = ({navigation}) => {
 
   return (
     <SafeAreaView>
+      <CommonHeader headerTitle = "Course List" headerTitleStyle={styles.textHeader} navigation={navigation}/>
       <ScrollView contentContainerStyle={styles.container}>
-      {DATA.map(item => (
-        <View style={styles.cardLayer}>
-          <View key={item.id} style={styles.card}>
+      {DATA.map((item, index) => (
+        <View key={item.id} style={[
+          styles.cardLayer,
+          index === DATA.length - 1 && styles.lastCardLayer, 
+        ]}>
+          <View style={styles.card}>
             <View style={styles.headContainer}>
               <Text style={styles.title}>{item.title}</Text>
               <Pressable onPress={() => toggleLike(item.id)}>
@@ -136,8 +141,6 @@ const Coursedetails = ({navigation}) => {
               <Text style={styles.buttonText}>View Wishlist</Text>
             </TouchableOpacity>
     </SafeAreaView>
-    
-    
   );
 };
 
@@ -210,4 +213,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  lastCardLayer: {
+    borderBottomWidth: 0, 
+  },
+  textHeader: {
+    paddingLeft: '31%',
+  }
 });
