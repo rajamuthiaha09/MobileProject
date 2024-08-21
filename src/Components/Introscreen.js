@@ -1,27 +1,44 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, Image, TextInput,} from 'react-native';
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  TextInput,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import { COLORS, SIZES } from '../constants/themes';
+import {COLORS, SIZES} from '../constants/themes';
 
 const IntroScreen = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-        <Image
-          source={require('../assets/images/Frame8.png')}
-          style={styles.logo}
-        />
-        <Image
-          source={require('../assets/images/Image.png')}
-          style={styles.bannerImage}
-        />
-        <Text style={styles.title}>Discover Your Dream Job here</Text>
-        <Text style={styles.subTitle}>Explore all the existing job roles based on your interest and study major</Text>
-      <TouchableOpacity
-        style={styles.loginButton}
-        onPress={() => navigation.navigate('Homescreen')}>
-        <Text style={styles.loginText}>Skip</Text>
-      </TouchableOpacity>
+      <Image
+        source={require('../assets/images/Frame8.png')}
+        style={styles.logo}
+      />
+      <Image
+        source={require('../assets/images/Image.png')}
+        style={styles.bannerImage}
+      />
+      <Text style={styles.title}>Discover Your Dream Job here</Text>
+      <Text style={styles.subTitle}>
+        Explore all the existing job roles based on your interest and study
+        major
+      </Text>
+      <View style={styles.buttonView}>
+        <TouchableOpacity
+          style={styles.loginButton}
+          onPress={() => navigation.navigate('Homescreen')}>
+          <Text style={styles.loginText}>Skip</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.loginButton1}
+          onPress={() => navigation.navigate('Loginscreen')}>
+          <Text style={styles.loginText}>Sign In</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -65,6 +82,15 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.$blue_shade_2,
     borderRadius: 5,
     marginTop: 20,
+    paddingHorizontal: 30,
+    paddingVertical: 3
+  },
+  loginButton1: {
+    backgroundColor: COLORS.$blue_shade_2,
+    borderRadius: 5,
+    marginTop: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 3
   },
   loginText: {
     color: COLORS.$White,
@@ -72,4 +98,8 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
     padding: SIZES.padding_10,
   },
+  buttonView: {
+    flexDirection: 'row',
+    gap: 20
+  }
 });
