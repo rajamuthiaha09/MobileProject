@@ -24,7 +24,7 @@ const Coursedetails = ({navigation}) => {
     {
       id: '1',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -36,7 +36,7 @@ const Coursedetails = ({navigation}) => {
     {
       id: '2',
       title: 'Home Business:The Complete CPA Marketing Course',
-      src: require('../assets/images/cs8.jpg'),
+      // src: require('../assets/images/cs8.jpg'),
       time: '3h 30m',
       amount: '$35.00',
       preamount: '',
@@ -48,7 +48,7 @@ const Coursedetails = ({navigation}) => {
     {
       id: '3',
       title: 'Digital Marketing: How to Generate Sales Leads',
-      src: require('../assets/images/cs9.jpg'),
+      // src: require('../assets/images/cs9.jpg'),
       time: '3h 00m',
       amount: '$29.00',
       preamount: '$30.00',
@@ -60,7 +60,7 @@ const Coursedetails = ({navigation}) => {
     {
       id: '4',
       title: 'Copywriting - The Psychology Of Your Irresistible Offer',
-      src: require('../assets/images/cs9.jpg'),
+      // src: require('../assets/images/cs9.jpg'),
       time: '4h 30m',
       amount: '$33.00',
       preamount: '$34.00',
@@ -72,7 +72,7 @@ const Coursedetails = ({navigation}) => {
     {
       id: '5',
       title: 'Write To gnite - Master The Art Of Sales Copy',
-      src: require('../assets/images/cs9.jpg'),
+      // src: require('../assets/images/cs9.jpg'),
       time: '5h 30m',
       amount: '$30.00',
       preamount: '',
@@ -84,7 +84,7 @@ const Coursedetails = ({navigation}) => {
     {
       id: '6',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -95,7 +95,7 @@ const Coursedetails = ({navigation}) => {
     },{
       id: '7',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -106,7 +106,7 @@ const Coursedetails = ({navigation}) => {
     },{
       id: '8',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -117,7 +117,7 @@ const Coursedetails = ({navigation}) => {
     },{
       id: '9',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -128,7 +128,7 @@ const Coursedetails = ({navigation}) => {
     },{
       id: '10',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -139,7 +139,7 @@ const Coursedetails = ({navigation}) => {
     },{
       id: '11',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -150,7 +150,7 @@ const Coursedetails = ({navigation}) => {
     },{
       id: '12',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -161,7 +161,7 @@ const Coursedetails = ({navigation}) => {
     },{
       id: '13',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -172,7 +172,7 @@ const Coursedetails = ({navigation}) => {
     },{
       id: '14',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -183,7 +183,7 @@ const Coursedetails = ({navigation}) => {
     },{
       id: '15',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -194,7 +194,7 @@ const Coursedetails = ({navigation}) => {
     },{
       id: '16',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',
@@ -205,7 +205,7 @@ const Coursedetails = ({navigation}) => {
     },{
       id: '17',
       title: 'The Ultimate Guide To Strategic Marketing',
-      src: require('../assets/images/cs7.png'),
+      // src: require('../assets/images/cs7.png'),
       time: '2h 30m',
       amount: '$34.00',
       preamount: '$35.00',

@@ -11,6 +11,17 @@ const userWomen = require('../assets/images/women.png');
 const userMen = require('../assets/images/men.png');
 const profileImageMale = require('../assets/images/profileImage.png');
 
+// free coursename images
+const courseName = require('../assets/images/coursename.png');
+const courseName1 = require('../assets/images/coursename1.png');
+const courseName2 = require('../assets/images/coursename2.png');
+const courseName3 = require('../assets/images/coursename3.png');
+const courseName4 = require('../assets/images/coursename4.png');
+const courseName5 = require('../assets/images/coursename5.png');
+const courseName6 = require('../assets/images/coursename6.png');
+const courseName7 = require('../assets/images/coursename7.png');
+const courseName8 = require('../assets/images/coursename8.png');
+
 export default {
   wishlist,
   videoplay,
@@ -24,4 +35,13 @@ export default {
   userMen,
   userWomen,
   profileImageMale,
+  courseName,
+  courseName1,
+  courseName2,
+  courseName3,
+  courseName4,
+  courseName5,
+  courseName6,
+  courseName7,
+  courseName8,
 };

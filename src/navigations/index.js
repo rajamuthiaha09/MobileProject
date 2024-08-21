@@ -57,8 +57,8 @@ const TabNavigation = () => {
         tabBarLabelStyle: {fontSize: 20, padding: 5},
       }}>
       <Tab.Screen
-        name={'Coursename'}
-        component={Coursename}
+        name={'Homescreen'}
+        component={Homescreen}
         options={{
           title: 'Home',
           tabBarIcon: ({focused}) => (
