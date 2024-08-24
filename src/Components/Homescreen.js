@@ -1,91 +1,198 @@
 import React from 'react';
-import {Text, View, ScrollView, StyleSheet, Image} from 'react-native';
-// import {useNavigation} from '@react-navigation/native';
+import {
+  Text,
+  View,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+  SafeAreaView,
+  FlatList,
+  Image,
+} from 'react-native';
 import Coursename from './Coursename';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {
+  faPeopleGroup,
+  faBullhorn,
+  faCircleCheck,
+  faChevronRight,
+  faTools,
+  faChartBar,
+  faCloud,
+  faRobot,
+  faLock,
+  faCode,
+  faDatabase,
+  faAward,
+} from '@fortawesome/free-solid-svg-icons';
+import image from '../constants/image';
+import {COLORS} from '../constants/themes';
 
 const Homescreen = () => {
-  // const navigation = useNavigation();
   const categories = [
     {
       id: '1',
       title: 'Data Science & Business Analytics',
-      icon: '',
-      backgroundColor: '#A3D8F4',
+      icon: faDatabase,
+      backgroundColor: 'rgba(163, 216, 244, 0.7)',
     },
     {
       id: '2',
       title: 'Software Development',
-      icon: '',
-      backgroundColor: '#D1C4E9',
+      icon: faCode,
+      backgroundColor: 'rgba(209, 196, 233, 0.7)',
     },
     {
       id: '3',
       title: 'Cyber Security',
-      icon: '',
-      backgroundColor: '#A5D6A7',
+      icon: faLock,
+      backgroundColor: 'rgba(165, 214, 167, 0.7)',
     },
     {
       id: '4',
       title: 'Project Management',
-      icon: '',
-      backgroundColor: '#FFCDD2',
+      icon: faPeopleGroup,
+      backgroundColor: 'rgba(255, 205, 210, 0.7)',
     },
     {
       id: '5',
       title: 'AI & Machine Learning',
-      icon: '',
-      backgroundColor: '#B39DDB',
+      icon: faRobot,
+      backgroundColor: 'rgba(179, 157, 219, 0.7)',
     },
     {
       id: '6',
       title: 'Digital Marketing',
-      icon: '',
-      backgroundColor: '#FFE082',
+      icon: faBullhorn,
+      backgroundColor: 'rgba(255, 224, 130, 0.7)',
     },
     {
       id: '7',
       title: 'Cloud Computing',
-      icon: '',
-      backgroundColor: '#80CBC4',
+      icon: faCloud,
+      backgroundColor: 'rgba(128, 203, 196, 0.7)',
     },
     {
       id: '8',
       title: 'Big Data',
-      icon: '',
-      backgroundColor: '#FFAB91',
+      icon: faChartBar,
+      backgroundColor: 'rgba(255, 171, 145, 0.7)',
     },
     {
       id: '9',
       title: 'DevOps',
-      icon: '',
-      backgroundColor: '#CE93D8',
+      icon: faTools,
+      backgroundColor: 'rgba(206, 147, 216, 0.7)',
     },
     {
       id: '10',
       title: 'Quality Management',
-      icon: '',
-      backgroundColor: '#B0BEC5',
+      icon: faCircleCheck,
+      backgroundColor: 'rgba(176, 190, 197, 0.7)',
     },
   ];
 
-  return (
-    <View style={styles.container}>
+  const programs = [
+    {
+      id: '1',
+      title: 'Post Graduate Programs',
+      description:
+        "Learn from global experts and get certified by the world's leading universities…",
+      image: image.certificateImage,
+    },
+    {
+      id: '2',
+      title: "Master's Programs",
+      description:
+        'Achieve your career goals with industry-recognized learning paths',
+      image: image.certificateImage1,
+    },
+    {
+      id: '3',
+      title: 'Certification Courses',
+      description:
+        'Get certified by global certification bodies and deepen your expertise',
+      image: image.certificateImage2,
+    },
+  ];
+
+  const ProgramCard = ({title, description, image}) => {
+    return (
+      <View style={styles.card}>
+        <Image source={image} style={styles.cardImage} />
+        <View style={styles.cardContent}>
+          <View style={styles.headerOtr}>
+            <Text style={styles.cardTitle}>{title}</Text>
+            <TouchableOpacity style={styles.editIconContainer}>
+              <FontAwesomeIcon
+                icon={faChevronRight}
+                size={13}
+                color={COLORS.$White}
+              />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.cardDescription}>{description}</Text>
+          {/* <TouchableOpacity style={styles.learnMoreButton}>
+            <Text style={styles.learnMoreText}>Learn More</Text>
+          </TouchableOpacity> */}
+        </View>
+      </View>
+    );
+  };
+
+  const renderHeader = () => (
+    <>
       <View style={styles.categoriesContainer}>
         <Text style={styles.categoriesText}>Top Categories</Text>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-      {categories.map((category) => (
-        <View
-          key={category.id}
-          style={[styles.categoryContainer, { backgroundColor: category.backgroundColor }]}
-        >
-          <Text style={styles.categoryTitle}>{category.title}</Text>
-          {/* <Image source={category.icon} style={styles.categoryImage} /> */}
-        </View>
-      ))}
-    </ScrollView>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {categories.map(category => (
+            <View
+              key={category.id}
+              style={[
+                styles.categoryContainer,
+                {backgroundColor: category.backgroundColor},
+              ]}>
+              <Text style={styles.categoryTitle}>{category.title}</Text>
+              <FontAwesomeIcon
+                icon={category.icon}
+                size={30}
+                color={category.backgroundColor.replace('0.7', '1.0')}
+              />
+            </View>
+          ))}
+        </ScrollView>
       </View>
-      <Coursename limit={4}/>
-    </View>
+      <Coursename limit={4} />
+      <View style={styles.otrcontainer}>
+        <View style={styles.header}>
+          <View style={styles.awardHeader}>
+            <FontAwesomeIcon icon={faAward} size={25} color="#FFD700" />
+            <Text style={styles.headerText}>Get Certified Get Ahead</Text>
+          </View>
+          <Text style={styles.subHeaderText}>
+            Fast-track your career with World's #1 Online Bootcamp
+          </Text>
+        </View>
+      </View>
+    </>
+  );
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={programs}
+        renderItem={({item}) => (
+          <ProgramCard
+            title={item.title}
+            description={item.description}
+            image={item.image}
+          />
+        )}
+        keyExtractor={item => item.id}
+        ListHeaderComponent={renderHeader}
+        contentContainerStyle={{paddingBottom: 20}}
+      />
+    </SafeAreaView>
   );
 };
 
@@ -94,34 +201,136 @@ export default Homescreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    // margin: 10
+    // marginHorizontal: 20,
+    // backgroundColor: '#FFFFFF',
   },
   categoriesContainer: {
     // backgroundColor: 'red',
     marginTop: 15,
-    marginLeft: 10,
-    marginBottom: 10,
+    marginLeft: 20,
+    marginBottom: 19,
   },
   categoriesText: {
     fontSize: 20,
-    paddingBottom: 12
+    paddingBottom: 12,
   },
   categoryContainer: {
     flexDirection: 'row',
     alignItems: 'center',
+    // gap: 1,
+    justifyContent: 'space-between',
     borderRadius: 12,
-    padding: 10,
-    marginRight: 10,
-    width: 200,
+    paddingVertical: 13,
+    paddingHorizontal: 15,
+    // paddingLeft: 10,
+    marginRight: 12,
+    width: 210,
   },
-  categoryImage: {
-    width: 24,
-    height: 24,
-    marginRight: 10,
-  },
+  // categoryImage: {
+  //   width: 24,
+  //   height: 24,
+  //   marginRight: 10,
+  // },
   categoryTitle: {
-    fontSize: 14,
+    fontSize: 17,
+    // fontWeight: 'bold',
+    // backgroundColor: 'red',
+    color: '#333',
+    width: '85%',
+  },
+  // ---------------------------------------------------------------------
+  otrcontainer: {
+    // flex: 1,
+    // backgroundColor: '#fff',
+    padding: 20,
+  },
+  header: {
+    marginBottom: 20,
+  },
+  headerText: {
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#333',
+  },
+  subHeaderText: {
+    fontSize: 16,
+    color: '#555',
+    marginTop: 5,
+  },
+  card: {
+    // backgroundColor: '#fff',
+    borderRadius: 10,
+    // overflow: 'hidden',
+    // marginBottom: 20,
+    marginTop: -20,
+    // elevation: 3, // For shadow effect on Android
+    // shadowColor: '#000',
+    // shadowOffset: {width: 0, height: 2}, // For shadow effect on iOS
+    // shadowOpacity: 0.2,
+    // shadowRadius: 4,
+    marginHorizontal: 20,
+  },
+  cardImage: {
+    width: '100%',
+    height: 150,
+    resizeMode: 'cover',
+    borderRadius: 20,
+    position: 'relative',
+  },
+  cardContent: {
+    padding: 15,
+    backgroundColor: '#FFF',
+    width: '88%',
+    marginHorizontal: 28,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    // alignContent: 'center',
+    borderRadius: 15,
+    // flexDirection: 'column'
+    // position: 'absolute',
+    top: -50,
+    // right: 29,
+  },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 10,
+  },
+  cardDescription: {
+    fontSize: 14,
+    alignItems: 'center',
+    color: '#777',
+    marginBottom: 15,
+  },
+  learnMoreButton: {
+    alignSelf: 'flex-end',
+  },
+  learnMoreText: {
+    color: '#007BFF',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  editIconContainer: {
+    // position: 'absolute',
+    // bottom: 5,
+    right: -65,
+    top: -5,
+    backgroundColor: '#007BFF',
+    borderRadius: 25,
+    padding: 5,
+    // elevation: 5,
+  },
+  headerOtr: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // gap: 10
+  },
+  awardHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5
   },
 });

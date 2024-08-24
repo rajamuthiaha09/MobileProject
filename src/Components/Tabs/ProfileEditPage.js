@@ -26,7 +26,7 @@ const ProfileEditPage = ({navigation}) => {
     {id: '3', listname: 'Wallet', screen: 'WalletScreen'},
     {id: '4', listname: 'Help & Support', screen: 'HelpScreen'},
     {id: '5', listname: 'Privacy Policy', screen: 'PrivacyPolicy'},
-    {id: '6', listname: 'Sign out', screen: 'Homescreen'},
+    {id: '6', listname: 'Sign out', screen: 'signoutscreen'},
   ];
 
   const couponsData = [

@@ -95,9 +95,10 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import image from '../constants/image';
-import { COLORS, SIZES } from '../constants/themes';
-import { useNavigation } from '@react-navigation/native';
-// import { FontAwesome } from '@expo/vector-icons';
+import {COLORS, SIZES} from '../constants/themes';
+import {useNavigation} from '@react-navigation/native';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faStar, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 
 const Coursename = ({limit}) => {
   const navigation = useNavigation();
@@ -222,7 +223,14 @@ const Coursename = ({limit}) => {
         <Text style={styles.headerTitle}>Courses students are learning</Text>
         {limit && (
           <TouchableOpacity onPress={() => navigation.navigate('Coursename')}>
-            <Text style={styles.seeAll}>SEE ALL</Text>
+            <View style={styles.seeViewContainer}>
+              <Text style={styles.seeAll}>SEE ALL</Text>
+              <FontAwesomeIcon
+                icon={faChevronRight}
+                size={15}
+                color="#007BFF"
+              />
+            </View>
           </TouchableOpacity>
         )}
       </View>
@@ -234,7 +242,7 @@ const Coursename = ({limit}) => {
             <View style={styles.courseInfo}>
               <Text style={styles.courseTitle}>{item.title}</Text>
               <View style={styles.courseRating}>
-                {/* <FontAwesome name="star" size={14} color="#FFC107" /> */}
+                <FontAwesomeIcon icon={faStar} size={18} color="#FFD700" />
                 <Text style={styles.courseRatingText}>{item.rating}</Text>
                 <Text style={styles.courseLearners}>{item.learners}</Text>
               </View>
@@ -263,9 +271,9 @@ export default Coursename;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: '#f5f5f5',
+    // flex: 1,
+    padding: 20,
+    // backgroundColor: '#f5f5f5',
   },
   header: {
     flexDirection: 'row',
@@ -286,7 +294,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 20,
     paddingBottom: 20,
-    paddingHorizontal: 10,
+    paddingHorizontal: 20,
     paddingTop: 10,
     // alignItems: 'center',
     // height: '50%',
@@ -307,6 +315,7 @@ const styles = StyleSheet.create({
   courseInfo: {
     flex: 1,
     // backgroundColor: 'red',
+    paddingTop: 13,
     // justifyContent: 'center',
   },
   courseTitle: {
@@ -367,5 +376,10 @@ const styles = StyleSheet.create({
     // marginTop: 4,
     // width: 100,
     // backgroundColor: 'red',
+  },
+  seeViewContainer: {
+    flexDirection: 'row', // Align items in a row
+    alignItems: 'center', 
+    gap: 5, // Vertically align the text and icon
   },
 });

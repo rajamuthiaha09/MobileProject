@@ -22,6 +22,11 @@ const courseName6 = require('../assets/images/coursename6.png');
 const courseName7 = require('../assets/images/coursename7.png');
 const courseName8 = require('../assets/images/coursename8.png');
 
+//certificate image
+const certificateImage = require('../assets/images/certificate.png');
+const certificateImage1 = require('../assets/images/certificate1.png');
+const certificateImage2 = require('../assets/images/certificate2.png');
+
 export default {
   wishlist,
   videoplay,
@@ -44,4 +49,7 @@ export default {
   courseName6,
   courseName7,
   courseName8,
+  certificateImage,
+  certificateImage1,
+  certificateImage2,
 };
