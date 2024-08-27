@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
   profileUserEmail: {
     fontSize: SIZES.sz_25_font,
     color: COLORS.$black,
-    paddingTop: 10,
+    paddingTop: SIZES.padding_10,
   },
   avatarContainer: {
     position: 'relative',
@@ -201,8 +201,6 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     justifyContent: 'center',
-    // backgroundColor: 'red'
-    // marginBottom: SIZES.margin_15,
   },
   avatar: {
     width: '150%',
@@ -215,7 +213,7 @@ const styles = StyleSheet.create({
     right: 5,
     backgroundColor: COLORS.$White,
     borderRadius: 25,
-    padding: 10,
+    padding: SIZES.padding_10,
     elevation: 5,
   },
   dataitem: {

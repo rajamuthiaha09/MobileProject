@@ -41,7 +41,7 @@ const CommonHeader = ({
         </View>
       )}
       {showProfileHeader && (
-        <View style={styles.profileHeader}>
+        <View style={[styles.profileHeader,styles.headerContainer]}>
           <View style={styles.profileHeaderInr}>
             <FontAwesomeIcon icon={faUserCircle} size={25} color={COLORS.$White} />
             <Text style={[{fontSize:19, color:COLORS.$White}]}>Hi, Rajaha Muthiaha!</Text>
@@ -61,8 +61,8 @@ export default CommonHeader;
 const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
+    paddingVertical: SIZES.padding_15,
+    paddingHorizontal: SIZES.padding_20,
     backgroundColor: COLORS.$blue_shade_1
   },
   containerTitle: {
@@ -71,13 +71,8 @@ const styles = StyleSheet.create({
     fontSize: SIZES.sz_21_font,
     color: COLORS.$White
   },
-
   profileHeader: {
-    backgroundColor: COLORS.$blue_shade_1,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   profileHeaderInr: {
     flexDirection: 'row',

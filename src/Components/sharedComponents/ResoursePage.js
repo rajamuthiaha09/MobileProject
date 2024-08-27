@@ -1,12 +1,12 @@
 //used inline styles
+//home page at last
 
-import { StyleSheet, Text, View, ScrollView,Image,Button} from 'react-native'
+import { StyleSheet, Text, View, ScrollView,Image} from 'react-native'
 import React from 'react'
 import image from '../../constants/image';
-import { COLORS } from '../../constants/themes';
+import { COLORS, SIZES } from '../../constants/themes';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { commonStyles } from '../../constants';
-// import { Button } from 'react-native';
 
 const resoure =[
     { image: image.popularResourse2, title: '500+ Articles', description: 'for comprehensive learning experience', bgcolor: '#3498db'},
@@ -24,7 +24,7 @@ const ResoursePage = () => {
             <Image source={item.image} style={styles.image} />
             <View style={[styles.itemContainerInr,{backgroundColor: item.bgcolor}]}>
             <Text style={styles.resourseTitle}>{item.title}</Text>
-            <Text style={[{color: COLORS.$White, fontSize: 12, paddingTop: 5}]}>{item.description}</Text>
+            <Text style={[{color: COLORS.$White, fontSize: SIZES.sz_12_font, paddingTop: SIZES.padding_6}]}>{item.description}</Text>
             </View>
           </View>
         ))}
@@ -44,42 +44,28 @@ export default ResoursePage
 
 const styles = StyleSheet.create({
   container: {
-    // margin: 20,
-    // backgroundColor: 'green'
-    marginHorizontal: 20,
-    // maxHeight: '50%'
-  },
-  itemContainer: {
-    // backgroundColor: 'red',
-    // maxWidth: '50%'
+    marginHorizontal: SIZES.margin_20,
   },
   image: {
     width: 250,
     height: 240,
-    // gap: 20,
     resizeMode: 'cover',
     borderRadius: 20,
-    marginRight: 20,
+    marginRight: SIZES.margin_20,
     position: 'relative',
   },
   itemContainerInr: {
     top: -97,
     width: 250,
-    // borderBottomLeftRadius: 20,
-    // borderBottomRightRadius: 20,
-    // borderTopRightRadius: 20,
-    // borderTopLeftRadius: 20,
     borderRadius: 20,
-    padding: 20
+    padding: SIZES.padding_20
   },
   resourseTitle: {
     color: COLORS.$White,
-    fontSize: 17,
+    fontSize: SIZES.sz_17_font,
     fontWeight: 'bold',
   },
   buttonClick: {
-    // backgroundColor: 'red'
-    // marginTop: -20
-    marginBottom: 20
+    marginBottom: SIZES.margin_20
   }
 })
