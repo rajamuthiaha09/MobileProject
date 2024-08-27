@@ -21,7 +21,7 @@ const ProfileEditForm = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <CommonHeader
-        showIcon={true}
+        showBackIcon={true}
         sectionHeaderTitle="Edit Profile"
         headerTitleStyle={styles.headerView}
       />

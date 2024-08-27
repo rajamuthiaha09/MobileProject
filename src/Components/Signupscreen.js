@@ -4,7 +4,6 @@ import {useNavigation} from '@react-navigation/native';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {COLORS, SIZES} from '../constants/themes';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const Signupscreen = () => {
   const navigation = useNavigation();
@@ -41,7 +40,7 @@ const Signupscreen = () => {
       </View>
       <View>
         <Text style={styles.title}>Create Account</Text>
-        <Text style={styles.subTitle}>Create an account so you can explore all the existing jobs</Text>
+        <Text style={styles.subTitle}>Create an account so you can explore all the Course</Text>
       </View>
       
       {/* form 1*/}

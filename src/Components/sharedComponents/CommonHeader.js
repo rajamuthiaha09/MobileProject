@@ -1,4 +1,6 @@
 //common header - coursedetails,supportscreen,profileeditform,profileeditpage,wishlistpage
+//different types of styles
+//style={StyleSheet.compose(styles.profileHeaderInr, { padding: 20, gap: 10 })} OR style={[styles.profileHeaderInr, { padding: 20, flexDirection: 'row', gap: 10 }]}
 
 import React from 'react';
 import {
@@ -9,24 +11,47 @@ import {
   SafeAreaView,
 } from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faAngleLeft} from '@fortawesome/free-solid-svg-icons';
-import {SIZES} from '../../constants/themes';
+import {
+  faAngleLeft,
+  faUserCircle,
+  faBell,
+  faMagnifyingGlass,
+} from '@fortawesome/free-solid-svg-icons';
+import {COLORS, SIZES} from '../../constants/themes';
 import {useNavigation} from '@react-navigation/native';
 
-const CommonHeader = ({ sectionHeaderTitle,headerTitleStyle,showIcon = true,}) => {
+const CommonHeader = ({
+  sectionHeaderTitle,
+  headerTitleStyle,
+  showBackIcon,
+  showHeader,
+  showProfileHeader,
+}) => {
   const navigation = useNavigation();
   return (
     <SafeAreaView>
-      <View style={styles.headerContainer}>
-        {showIcon && (
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <FontAwesomeIcon icon={faAngleLeft} size={30} color="black" />
-          </TouchableOpacity>
-        )}
-        <Text style={[styles.containerTitle, headerTitleStyle]}>
-          {sectionHeaderTitle}
-        </Text>
-      </View>
+      {showHeader && (
+        <View style={styles.headerContainer}>
+          {showBackIcon && (
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <FontAwesomeIcon icon={faAngleLeft} size={25} color={COLORS.$White} />
+            </TouchableOpacity>
+          )}
+          <Text style={[styles.containerTitle, headerTitleStyle]}>{sectionHeaderTitle}</Text>
+        </View>
+      )}
+      {showProfileHeader && (
+        <View style={styles.profileHeader}>
+          <View style={styles.profileHeaderInr}>
+            <FontAwesomeIcon icon={faUserCircle} size={25} color={COLORS.$White} />
+            <Text style={[{fontSize:19, color:COLORS.$White}]}>Hi, Rajaha Muthiaha!</Text>
+          </View>
+          <View style={[styles.profileHeaderInr, { gap: 20 }]}>    
+            <FontAwesomeIcon icon={faMagnifyingGlass} size={18} color={COLORS.$White} />
+            <FontAwesomeIcon icon={faBell} size={18} color={COLORS.$White} />
+          </View>
+        </View>
+      )}
     </SafeAreaView>
   );
 };
@@ -36,13 +61,27 @@ export default CommonHeader;
 const styles = StyleSheet.create({
   headerContainer: {
     flexDirection: 'row',
-    paddingHorizontal: 15,
-    paddingVertical: 25,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    backgroundColor: COLORS.$blue_shade_1
   },
   containerTitle: {
     flex: 1,
-    paddingLeft: '35%',
-    fontSize: SIZES.sz_25_font,
-    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: SIZES.sz_21_font,
+    color: COLORS.$White
   },
+
+  profileHeader: {
+    backgroundColor: COLORS.$blue_shade_1,
+    paddingVertical: 15,
+    paddingHorizontal: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  profileHeaderInr: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10
+  }
 });

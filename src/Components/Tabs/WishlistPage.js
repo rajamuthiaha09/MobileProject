@@ -19,7 +19,7 @@ const WishlistPage = ({navigation, route}) => {
   // const navigation = useNavigation();
   return (
     <SafeAreaView>
-      <CommonHeader sectionHeaderTitle = "Whislist" navigation={navigation}/>
+      <CommonHeader showHeader={true} showBackIcon={true} sectionHeaderTitle = "Whislist" navigation={navigation}/>
       <ScrollView contentContainerStyle={styles.container}>
         {likedCourses.length > 0 ? (
           likedCourses.map((course, index) => (

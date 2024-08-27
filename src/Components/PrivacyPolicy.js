@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, FlatList, StyleSheet} from 'react-native';
 import { COLORS, SIZES } from '../constants/themes';
+import { CommonHeader } from './sharedComponents';
 
 const PrivacyPolicy = () => {
     const DATA = [
@@ -16,9 +17,8 @@ const PrivacyPolicy = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.textcontainer}>
-        <Text style={styles.textHeader}>Privacy Policy</Text>
-      </View>
+      <CommonHeader showHeader={true} sectionHeaderTitle='Privacy Policy' showBackIcon={true}/>
+      <View style={[{margin: SIZES.margin_20}]}>
       <FlatList
         data={DATA}
         renderItem={({item, index}) => (
@@ -29,6 +29,7 @@ const PrivacyPolicy = () => {
         )}
         showsVerticalScrollIndicator={false}
       />
+      </View>
     </View>
   );
 };
@@ -38,8 +39,6 @@ export default PrivacyPolicy;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: SIZES.margin_20,
-    marginVertical: SIZES.margin_10,
   },
   contentHeader: {
     color: COLORS.$black,
@@ -53,10 +52,10 @@ const styles = StyleSheet.create({
     borderColor: COLORS.$gray,
     borderWidth: 1,
     padding: SIZES.padding_20,
-    marginVertical: 20,
+    marginVertical: SIZES.margin_20,
   },
   textcontainer: {
-    marginBottom: 20,
+    marginBottom: SIZES.margin_20,
     alignItems: 'center',
   },
   textHeader: {

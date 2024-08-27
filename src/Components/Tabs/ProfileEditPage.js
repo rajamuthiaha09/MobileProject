@@ -100,20 +100,18 @@ const ProfileEditPage = ({navigation}) => {
   return (
     <View style={styles.container}>
       <CommonHeader
-        showIcon={false}
+        showBackIcon={false} showHeader={true}
         sectionHeaderTitle="My Profile"
-        headerTitleStyle={styles.headerView}
       />
       <View style={styles.profileHeaderView}>
         <View style={styles.avatarContainer}>
           <Image source={image.profileImageMale} style={styles.avatar} />
           <TouchableOpacity style={styles.editIconContainer} onPress={() => navigation.navigate('ProfileEditForm')}>
-            <FontAwesomeIcon icon={faPen} size={25} color={COLORS.$black} />
+            <FontAwesomeIcon icon={faPen} size={20} color={COLORS.$black} />
           </TouchableOpacity>
         </View>
         <Text style={styles.profileUserName}>Rajaha Muthiaha</Text>
-        <Text style={styles.profileUserEmail}>
-        rajahamuthiaha@thoughtbees.com
+        <Text style={styles.profileUserEmail}>rajahamuthiaha@thoughtbees.com
         </Text>
       </View>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -183,17 +181,13 @@ const styles = StyleSheet.create({
   },
   profileHeaderView: {
     alignItems: 'center',
-    marginBottom: SIZES.margin_20,
-  },
-  headerView: {
-    // alignSelf: 'center',
-    paddingLeft: '38%',
+    marginVertical: SIZES.margin_20,
   },
   profileUserName: {
     fontSize: SIZES.sz_28_font,
     fontWeight: 'bold',
     color: COLORS.$black,
-    marginTop: SIZES.margin_10,
+    marginTop: SIZES.margin_12,
   },
   profileUserEmail: {
     fontSize: SIZES.sz_25_font,

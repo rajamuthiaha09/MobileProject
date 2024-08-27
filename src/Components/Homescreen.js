@@ -26,7 +26,10 @@ import {
   faAward,
 } from '@fortawesome/free-solid-svg-icons';
 import image from '../constants/image';
-import {COLORS} from '../constants/themes';
+import {COLORS, SIZES} from '../constants/themes';
+import { CommonHeader } from './sharedComponents';
+import ResoursePage from './sharedComponents/ResoursePage';
+import { commonStyles } from '../constants';
 
 const Homescreen = () => {
   const categories = [
@@ -132,9 +135,6 @@ const Homescreen = () => {
             </TouchableOpacity>
           </View>
           <Text style={styles.cardDescription}>{description}</Text>
-          {/* <TouchableOpacity style={styles.learnMoreButton}>
-            <Text style={styles.learnMoreText}>Learn More</Text>
-          </TouchableOpacity> */}
         </View>
       </View>
     );
@@ -142,8 +142,9 @@ const Homescreen = () => {
 
   const renderHeader = () => (
     <>
+    {/* <CommonHeader showProfileHeader={true} showHeader={false}></CommonHeader> */}
       <View style={styles.categoriesContainer}>
-        <Text style={styles.categoriesText}>Top Categories</Text>
+        <Text style={commonStyles.commonHeaderText}>Top Categories</Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
           {categories.map(category => (
             <View
@@ -167,7 +168,7 @@ const Homescreen = () => {
         <View style={styles.header}>
           <View style={styles.awardHeader}>
             <FontAwesomeIcon icon={faAward} size={25} color="#FFD700" />
-            <Text style={styles.headerText}>Get Certified Get Ahead</Text>
+            <Text style={commonStyles.commonHeaderText}>Get Certified Get Ahead</Text>
           </View>
           <Text style={styles.subHeaderText}>
             Fast-track your career with World's #1 Online Bootcamp
@@ -179,6 +180,7 @@ const Homescreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <CommonHeader showProfileHeader={true} showHeader={false}></CommonHeader>
       <FlatList
         data={programs}
         renderItem={({item}) => (
@@ -190,7 +192,9 @@ const Homescreen = () => {
         )}
         keyExtractor={item => item.id}
         ListHeaderComponent={renderHeader}
-        contentContainerStyle={{paddingBottom: 20}}
+        showsVerticalScrollIndicator={false}
+        ListFooterComponent={<ResoursePage></ResoursePage>}
+        // contentContainerStyle={{backgroundColor: 'red', borderWidth: 5, borderColor: 'black'}}
       />
     </SafeAreaView>
   );
@@ -200,7 +204,7 @@ export default Homescreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     // margin: 10
     // marginHorizontal: 20,
     // backgroundColor: '#FFFFFF',
@@ -210,10 +214,6 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 20,
     marginBottom: 19,
-  },
-  categoriesText: {
-    fontSize: 20,
-    paddingBottom: 12,
   },
   categoryContainer: {
     flexDirection: 'row',
@@ -248,15 +248,15 @@ const styles = StyleSheet.create({
   header: {
     marginBottom: 20,
   },
-  headerText: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: '#333',
-  },
+  // headerText: {
+  //   fontSize: 22,
+  //   fontWeight: 'bold',
+  //   color: '#333',
+  // },
   subHeaderText: {
     fontSize: 16,
     color: '#555',
-    marginTop: 5,
+    // marginTop: 5,
   },
   card: {
     // backgroundColor: '#fff',
@@ -330,7 +330,8 @@ const styles = StyleSheet.create({
   },
   awardHeader: {
     flexDirection: 'row',
-    alignItems: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     gap: 5
   },
 });

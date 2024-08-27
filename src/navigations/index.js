@@ -20,7 +20,7 @@ import {
   faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import MyCourse from '../Components/MyCourse';
-import SearchCourseScreen from '../Components/SearchCourseScreen';
+// import SearchCourseScreen from '../Components/SearchCourseScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -72,7 +72,7 @@ const TabNavigation = () => {
           tabBarInactiveTintColor: 'gray',
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name={'SearchCourseScreen'}
         component={SearchCourseScreen}
         options={{
@@ -87,7 +87,7 @@ const TabNavigation = () => {
           tabBarActiveTintColor: 'black',
           tabBarInactiveTintColor: 'gray',
         }}
-      />
+      /> */}
       <Tab.Screen
         name={'MyCourse'}
         component={MyCourse}

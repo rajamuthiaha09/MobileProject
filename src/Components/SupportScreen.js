@@ -93,8 +93,7 @@ const SupportScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <CommonHeader
-        sectionHeaderTitle="Help & Support"
-        headerTitleStyle={styles.titleStyle}
+        sectionHeaderTitle="Help & Support" showBackIcon={true} showHeader={true}
       />
       <SectionList
         sections={sections.map(section => ({
@@ -120,8 +119,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     padding: SIZES.padding_20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    // marginVertical: 10,
+    // marginHorizontal: 16,
     backgroundColor: COLORS.$pink_shade_1,
     borderRadius: 10,
   },
@@ -141,8 +140,5 @@ const styles = StyleSheet.create({
   contentContainerTitle: {
     fontSize: SIZES.sz_19_font,
     color: COLORS.$darkGray,
-  },
-  titleStyle: {
-    paddingLeft: '27%',
   },
 });

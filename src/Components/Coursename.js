@@ -99,6 +99,7 @@ import {COLORS, SIZES} from '../constants/themes';
 import {useNavigation} from '@react-navigation/native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faStar, faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import { commonStyles } from '../constants';
 
 const Coursename = ({limit}) => {
   const navigation = useNavigation();
@@ -220,7 +221,7 @@ const Coursename = ({limit}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Courses students are learning</Text>
+        <Text style={commonStyles.commonHeaderText}>Courses students are learning</Text>
         {limit && (
           <TouchableOpacity onPress={() => navigation.navigate('Coursename')}>
             <View style={styles.seeViewContainer}>
@@ -278,13 +279,13 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    // marginBottom: 10,
   },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
+  // headerTitle: {
+  //   fontSize: 18,
+  //   fontWeight: 'bold',
+  //   color: '#333',
+  // },
   seeAll: {
     color: '#007BFF',
     fontSize: 14,

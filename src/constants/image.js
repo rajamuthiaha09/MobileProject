@@ -1,3 +1,7 @@
+//logo
+const logo = require('../assets/images/applogo.png');
+const infoImage = require('../assets/images/infoimage.png');
+
 const wishlist = require('../assets/images/heart.png');
 const videoplay = require('../assets/images/online-video.png');
 const user = require('../assets/images/account.png');
@@ -27,6 +31,12 @@ const certificateImage = require('../assets/images/certificate.png');
 const certificateImage1 = require('../assets/images/certificate1.png');
 const certificateImage2 = require('../assets/images/certificate2.png');
 
+//resourse image
+const popularResourse = require('../assets/images/popularcourse.png');
+const popularResourse1 = require('../assets/images/popularcourse1.png');
+const popularResourse2 = require('../assets/images/popularcourse2.png');
+
+
 export default {
   wishlist,
   videoplay,
@@ -52,4 +62,8 @@ export default {
   certificateImage,
   certificateImage1,
   certificateImage2,
+  popularResourse,
+  popularResourse1,
+  popularResourse2,
+  logo,infoImage
 };

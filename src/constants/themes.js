@@ -2,7 +2,6 @@ import { Dimensions } from 'react-native';
 const { width, height } = Dimensions.get('window');
 
 export const COLORS = {
-
   //Common Theme colors
   '$White': '#fff',
   '$black': '#000',
@@ -20,22 +19,29 @@ export const COLORS = {
   '$pink_shade_1': '#FFF7FC',
 
   //blue color
-  '$blue_shade_1': '#007bff',
+  // '$blue_shade': '#007BFF',
+  '$blue_shade_1': '#2196F3',
+  '$blue_shade_3': '#007bff',
   '$blue_shade_2': '#1F41BB',
 
 };
 
 export const SIZES = {
   // margin
-  margin_10: 12,
+  margin_10: 10,
+  margin_12: 12,
   margin_20: 20,
+  margin_30: 30,
+  margin_40: 40,
 
   // padding
   padding_2: 2,
   padding_3: 3,
   padding_6: 6,
   padding_10: 10,
+  padding_15: 15,
   padding_20: 20,
+  padding_30: 30,
   padding_25: 25,
 
   // font
@@ -53,6 +59,7 @@ export const SIZES = {
   sz_28_font: 28,
   sz_30_font: 30,
   sz_32_font: 32,
+  sz_34_font: 34,
   sz_40_font: 40,
 
   // font weight
