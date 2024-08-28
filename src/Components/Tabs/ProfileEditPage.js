@@ -10,7 +10,6 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
 import {COLORS, SIZES} from '../../constants/themes';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPen,faChevronRight} from '@fortawesome/free-solid-svg-icons';

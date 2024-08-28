@@ -14,35 +14,42 @@ const resoure =[
     { image: image.popularResourse, title: '200+ Webinars', description: 'organised by top industry experts for your needs', bgcolor: '#f1948a'},
 
 ];
+
 const ResoursePage = () => {
   return (
     <>
-    <View style={[styles.divider]}/>
-    <View style={styles.container}>
-      <Text style={commonStyles.commonHeaderText}>Popular Resourse</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
-        {resoure.map((item, index) => (
-          <View key={index} style={styles.itemContainer}>
-            <Image source={item.image} style={styles.image} />
-            <View style={[styles.itemContainerInr,{backgroundColor: item.bgcolor}]}>
-            <Text style={styles.resourseTitle}>{item.title}</Text>
-            <Text style={[{color: COLORS.$White, fontSize: SIZES.sz_12_font, paddingTop: SIZES.padding_6}]}>{item.description}</Text>
+      <View style={[styles.divider]} />
+      <View style={styles.container}>
+        <Text style={commonStyles.commonHeaderText}>Popular Resourse</Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.scrollViewContent}>
+          {resoure.map((item, index) => (
+            <View key={index} style={styles.itemContainer}>
+              <Image source={item.image} style={styles.image} />
+              <View style={[styles.itemContainerInr,{backgroundColor: item.bgcolor},]}>
+                <Text style={styles.resourseTitle}>{item.title}</Text>
+                <Text style={styles.descTitle}>
+                  {item.description}
+                </Text>
+              </View>
             </View>
-          </View>
-        ))}
-      </ScrollView>
-      {/* <TouchableOpacity>
+          ))}
+        </ScrollView>
+        {/* <TouchableOpacity>
         <Text>sjfhisfiji</Text>
       </TouchableOpacity> */}
-      {/* <Button style={styles.buttonClick} color={'red'}
+        {/* <Button style={styles.buttonClick} color={'red'}
         title="View All Resourse"
         // onPress={() => Alert.alert('Simple Button pressed')}
       /> */}
-    </View></>
-  )
-}
+      </View>
+    </>
+  );
+};
 
-export default ResoursePage
+export default ResoursePage;
 
 const styles = StyleSheet.create({
   container: {
@@ -60,7 +67,7 @@ const styles = StyleSheet.create({
     top: -97,
     width: 250,
     borderRadius: 20,
-    padding: SIZES.padding_20
+    padding: SIZES.padding_20,
   },
   resourseTitle: {
     color: COLORS.$White,
@@ -68,11 +75,16 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   buttonClick: {
-    marginBottom: SIZES.margin_20
+    marginBottom: SIZES.margin_20,
   },
   divider: {
     height: 10,
     backgroundColor: COLORS.$White,
-    marginBottom: 15
+    marginBottom: SIZES.margin_15,
+  },
+  descTitle: {
+    color: COLORS.$White,
+    fontSize: SIZES.sz_12_font,
+    paddingTop: SIZES.padding_6,
   }
-})
+});

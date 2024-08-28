@@ -3,31 +3,14 @@
 //style={StyleSheet.compose(styles.profileHeaderInr, { padding: 20, gap: 10 })} OR style={[styles.profileHeaderInr, { padding: 20, flexDirection: 'row', gap: 10 }]}
 
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  SafeAreaView,
-} from 'react-native';
+import {View,Text,TouchableOpacity,StyleSheet,SafeAreaView,} from 'react-native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {
-  faAngleLeft,
-  faUserCircle,
-  faBell,
-  faMagnifyingGlass,
-} from '@fortawesome/free-solid-svg-icons';
+import {faAngleLeft,faUserCircle,faBell,faMagnifyingGlass,} from '@fortawesome/free-solid-svg-icons';
 import {COLORS, SIZES} from '../../constants/themes';
 import {useNavigation} from '@react-navigation/native';
 import { commonStyles } from '../../constants';
 
-const CommonHeader = ({
-  sectionHeaderTitle,
-  headerTitleStyle,
-  showBackIcon,
-  showHeader,
-  showProfileHeader,
-}) => {
+const CommonHeader = ({sectionHeaderTitle,headerTitleStyle,showBackIcon,showHeader,showProfileHeader,}) => {
   const navigation = useNavigation();
   return (
     <SafeAreaView>
