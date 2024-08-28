@@ -1,62 +1,49 @@
-import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  ScrollView,
-  TouchableOpacity,
-  View,
-  Pressable,
-} from 'react-native';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faClock, faHeart} from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
+import {StyleSheet, Text, ScrollView, View, Image, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {COLORS, SIZES} from '../../constants/themes';
+import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
+import {faStar, faTag, faHeart} from '@fortawesome/free-solid-svg-icons';
+import { COLORS } from '../../constants';
 import { CommonHeader } from '../sharedComponents';
-import { commonStyles } from '../../constants';
-// import {useNavigation} from '@react-navigation/native';
 
 const WishlistPage = ({navigation, route}) => {
-  const {likedCourses = []} = route.params || {};
-  // const navigation = useNavigation();
+  const {likedCourseView = []} = route.params || {};
+
   return (
-    <SafeAreaView>
-      <CommonHeader showHeader={true} showBackIcon={true} sectionHeaderTitle = "Whislist" navigation={navigation}/>
-      <ScrollView contentContainerStyle={styles.container}>
-        {likedCourses.length > 0 ? (
-          likedCourses.map((course, index) => (
-            <View
-              key={index}
-              style={[
-                styles.cardLayer,
-                index === likedCourses.length - 1 && styles.lastCardLayer,
-              ]}>
-              <View style={styles.card}>
-                <View style={styles.headContainer}>
-                  <Text style={styles.title}>{course.title}</Text>
-                  <FontAwesomeIcon icon={faHeart} size={30} color={'red'} />
+    <SafeAreaView style={styles.container}>
+      <CommonHeader showHeader={true} showBackIcon={true} sectionHeaderTitle="Wishlist" navigation={navigation} />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        {likedCourseView.length > 0 ? (
+          likedCourseView.map((item, index) => (
+            <View key={item.id} style={styles.courseContainer}>
+              <View style={styles.imageContainer}>
+                <Image source={item.image} style={[styles.courseImage, {height: 160, width: 160}]}/>
+                <View style={[styles.tagContainer, item.isFree ? styles.freeTag : styles.paidTag]}>
+                  <Text style={styles.tagText}>
+                    {item.isFree ? 'FREE' : 'PAID'}
+                  </Text>
                 </View>
-                <View style={styles.priceDetails}>
-                  <View style={styles.timimgContainer}>
-                    <FontAwesomeIcon
-                      icon={faClock}
-                      size={20}
-                      color={COLORS.$gray}
-                    />
-                    <Text style={styles.courseTime}>{course.time}</Text>
-                  </View>
-                  <View style={styles.amountDetails}>
-                    <Text style={styles.coursePreAmount}>
-                      {course.preamount}
-                    </Text>
-                    <Text style={styles.courseAmount}>{course.amount}</Text>
-                  </View>
-                </View>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={() => handlePress(course)}>
-                  <Text style={styles.buttonText}>View Course Details</Text>
-                </TouchableOpacity>
               </View>
+              <View style={[styles.courseInfo,{paddingTop: 10, paddingLeft: 15},]}>
+                <Text style={styles.courseTitle}>{item.title}</Text>
+                <View style={styles.courseRating}>
+                  <FontAwesomeIcon icon={faStar} size={18} color="#FFD700"/>
+                  <Text style={styles.courseRatingText}>{item.rating}</Text>
+                  <Text style={styles.courseLearners}>{item.learners}</Text>
+                </View>
+                <Text style={styles.courseTest}>{item.test}</Text>
+                <View style={styles.offerContainer}>
+                  <FontAwesomeIcon icon={faTag} size={15} color="#FFD700"/>
+                  <Text style={styles.offerText}>{item.offer}</Text>
+                </View>
+                <View style={styles.priceContainer}>
+                  <Text style={styles.discountText}>{item.discount}</Text>
+                  <Text style={styles.originalPrice}>{item.actAmount}</Text>
+                </View>
+              </View>
+              <TouchableOpacity style={styles.likeButton}>
+                <FontAwesomeIcon icon={faHeart} size={25} color='red'/>
+              </TouchableOpacity>
             </View>
           ))
         ) : (
@@ -73,79 +60,108 @@ export default WishlistPage;
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
   },
-  cardLayer: {
-    borderBottomColor: COLORS.$grey_shade_1,
-    borderBottomWidth: 1,
+  scrollContainer: {
+    padding: 20,
   },
-  card: {
-    marginBottom: 20,
-    paddingHorizontal: SIZES.padding_20,
-  },
-  title: {
-    fontSize: SIZES.sz_18_font,
-    fontWeight: 'bold',
-    marginVertical: 10,
-  },
-  courseTime: {
-    fontSize: SIZES.sz_20_font,
-    color: COLORS.$gray,
-  },
-  priceContainer: {
-    ...commonStyles.flexJustifySpace,
-    marginVertical: 10,
-  },
-  courseAmount: {
-    fontSize: SIZES.sz_22_font,
-    fontWeight: 'bold',
-    color: COLORS.$green,
-  },
-  coursePreAmount: {
-    fontSize: SIZES.sz_16_font,
-    textDecorationLine: 'line-through',
-    color: 'gray',
-    paddingTop: SIZES.padding_6,
-  },
-  button: {
-    backgroundColor: COLORS.$blue_shade_1,
-    paddingVertical: SIZES.padding_10,
-    paddingHorizontal: SIZES.padding_20,
-    borderRadius: 5,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: COLORS.$White,
-    fontSize: SIZES.sz_16_font,
-  },
-  priceDetails: {
-    ...commonStyles.flexJustifySpace,
+  courseContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    borderRadius: 20,
+    paddingBottom: 20,
+    paddingHorizontal: 20,
+    paddingTop: 10,
     marginBottom: 10,
   },
-  amountDetails: {
-    flexDirection: 'row',
-    gap: 10,
+  imageContainer: {
+    position: 'relative',
   },
-  timimgContainer: {
+  courseImage: {
+    width: 110,
+    height: 110,
+    borderRadius: 20,
+  },
+  courseInfo: {
+    flex: 1,
+    paddingTop: 13,
+  },
+  courseTitle: {
+    fontSize: 19,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  courseRating: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 4,
+  },
+  courseRatingText: {
+    marginLeft: 4,
+    fontSize: 17,
+    color: '#555',
+  },
+  courseLearners: {
+    marginLeft: 10,
+    fontSize: 16,
+    color: '#777',
+  },
+  courseTest: {
+    fontSize: 15,
+    marginTop: 4,
+  },
+  offerContainer: {
+    flexDirection: 'row',
+    marginTop: 4,
+  },
+  offerText: {
+    color: '#FFD700',
+  },
+  priceContainer: {
     flexDirection: 'row',
     gap: 5,
-    alignItems: 'center',
+    marginTop: 4,
   },
-  headContainer: {
-    ...commonStyles.flexContainer,
+  discountText: {
+    fontSize: 19,
+    color: COLORS.$black,
+    fontWeight: 'bold',
   },
-  emptyTextContainer: {
-    flex: 1, 
+  originalPrice: {
+    fontSize: 19,
+    textDecorationLine: 'line-through',
+  },
+  likeButton: {
     justifyContent: 'center',
     alignItems: 'center',
   },
-  emptyText: {
-    fontSize: SIZES.sz_21_font,
-    color: COLORS.$black,
-    fontWeight: 'bold',
-    marginVertical: '80%',
+  emptyTextContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    height: 200,
   },
-  lastCardLayer: {
-    borderBottomWidth: 0,
+  emptyText: {
+    fontSize: 18,
+    color: '#888',
+  },
+  tagContainer: {
+    position: 'absolute',
+    top: '90%',
+    right: 29,
+    borderRadius: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+  },
+  freeTag: {
+    backgroundColor: '#4CAF50',
+  },
+  paidTag: {
+    backgroundColor: '#FFD700',
+  },
+  tagText: {
+    color: '#fff',
+    fontSize: 15,
+    fontWeight: 'bold',
   },
 });
