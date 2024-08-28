@@ -14,6 +14,7 @@ import {CommonHeader} from './sharedComponents';
 import {COLORS, SIZES} from '../constants/themes';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faAngleDown, faAngleUp} from '@fortawesome/free-solid-svg-icons';
+import { commonStyles } from '../constants';
 
 if (
   Platform.OS === 'android' &&
@@ -119,15 +120,11 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'flex-start',
     padding: SIZES.padding_20,
-    // marginVertical: 10,
-    // marginHorizontal: 16,
     backgroundColor: COLORS.$pink_shade_1,
     borderRadius: 10,
   },
   sectionInr: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    ...commonStyles.flexContainer,
   },
   sectionTitle: {
     fontSize: SIZES.sz_20_font,

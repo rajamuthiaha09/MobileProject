@@ -12,6 +12,7 @@ import {faClock, faHeart} from '@fortawesome/free-solid-svg-icons';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {COLORS, SIZES} from '../../constants/themes';
 import { CommonHeader } from '../sharedComponents';
+import { commonStyles } from '../../constants';
 // import {useNavigation} from '@react-navigation/native';
 
 const WishlistPage = ({navigation, route}) => {
@@ -92,8 +93,7 @@ const styles = StyleSheet.create({
     color: COLORS.$gray,
   },
   priceContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    ...commonStyles.flexJustifySpace,
     marginVertical: 10,
   },
   courseAmount: {
@@ -119,8 +119,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.sz_16_font,
   },
   priceDetails: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    ...commonStyles.flexJustifySpace,
     marginBottom: 10,
   },
   amountDetails: {
@@ -133,9 +132,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    ...commonStyles.flexContainer,
   },
   emptyTextContainer: {
     flex: 1, 

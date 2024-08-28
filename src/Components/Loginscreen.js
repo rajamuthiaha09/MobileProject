@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet, Image, TextInput,KeyboardAvoidingView, Platform} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import { COLORS, SIZES } from '../constants/themes';
+import { commonStyles } from '../constants';
 
 const Loginscreen = () => {
   const navigation = useNavigation();
@@ -137,12 +138,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   inputContainer: {
+    ...commonStyles.flexAlignCenter,
     borderWidth: 1,
     borderColor: '#AEB5BB',
     borderRadius: 100,
     paddingHorizontal: SIZES.padding_20,
-    flexDirection: 'row',
-    alignItems: 'center',
     padding: SIZES.padding_2,
     marginVertical: 10,
   },
@@ -177,12 +177,10 @@ const styles = StyleSheet.create({
     color: COLORS.$primary,
   },
   googleButton: {
-    flexDirection: 'row',
+    ...commonStyles.flexCenter,
     borderWidth: 2,
     borderColor: COLORS.$primary,
     borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: SIZES.padding_10,
     gap: 10,
   },
@@ -195,9 +193,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
   },
   footerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    ...commonStyles.flexCenter,
     marginVertical: 20,
     gap: 5,
   },

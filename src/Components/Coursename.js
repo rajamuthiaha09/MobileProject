@@ -124,8 +124,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    ...commonStyles.flexJustifySpace,
   },
   seeAll: {
     color: '#007BFF',
@@ -157,8 +156,7 @@ const styles = StyleSheet.create({
     color: '#333',
   },
   courseRating: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    ...commonStyles.flexAlignCenter,
     marginTop: 4,
   },
   courseRatingText: {
@@ -214,8 +212,7 @@ const styles = StyleSheet.create({
     color: '#777',
   },
   seeViewContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    ...commonStyles.flexAlignCenter,
     gap: 5,
   },
   iconFill: {

@@ -16,6 +16,7 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faPen,faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import image from '../../constants/image';
 import {CommonHeader} from '../sharedComponents';
+import { commonStyles } from '../../constants';
 
 const ProfileEditPage = ({navigation}) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -217,8 +218,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   dataitem: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    ...commonStyles.flexContainer,
     alignItems: 'center',
     padding: SIZES.padding_20,
     marginVertical: 8,
@@ -255,8 +255,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   cupContInr: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    ...commonStyles.flexAlignCenter,
     gap: 10,
   },
   percentageText: {

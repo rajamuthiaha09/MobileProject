@@ -5,6 +5,7 @@ import {COLORS, SIZES} from '../constants/themes';
 import image from '../constants/image';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faDiamond} from '@fortawesome/free-solid-svg-icons';
+import { commonStyles } from '../constants';
 
 const IntroScreen = () => {
   const navigation = useNavigation();
@@ -63,9 +64,7 @@ const styles = StyleSheet.create({
     padding: SIZES.padding_20,
   },
   headerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    ...commonStyles.flexCenter,
     marginBottom: SIZES.margin_30,
   },
   logoImg: {
@@ -87,9 +86,7 @@ const styles = StyleSheet.create({
     width: 305,
   },
   sloganContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    ...commonStyles.flexCenter,
     gap: 10,
     marginTop: SIZES.margin_10,
   },

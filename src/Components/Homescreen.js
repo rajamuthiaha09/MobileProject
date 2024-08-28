@@ -142,7 +142,6 @@ const Homescreen = () => {
 
   const renderHeader = () => (
     <>
-    {/* <CommonHeader showProfileHeader={true} showHeader={false}></CommonHeader> */}
       <View style={styles.categoriesContainer}>
         <Text style={commonStyles.commonHeaderText}>Top Categories</Text>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
@@ -194,7 +193,6 @@ const Homescreen = () => {
         ListHeaderComponent={renderHeader}
         showsVerticalScrollIndicator={false}
         ListFooterComponent={<ResoursePage></ResoursePage>}
-        // contentContainerStyle={{backgroundColor: 'red', borderWidth: 5, borderColor: 'black'}}
       />
     </SafeAreaView>
   );
@@ -203,72 +201,38 @@ const Homescreen = () => {
 export default Homescreen;
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // margin: 10
-    // marginHorizontal: 20,
-    // backgroundColor: '#FFFFFF',
-  },
   categoriesContainer: {
-    // backgroundColor: 'red',
     marginTop: 15,
     marginLeft: 20,
     marginBottom: 19,
   },
   categoryContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    // gap: 1,
-    justifyContent: 'space-between',
+    ...commonStyles.flexContainer,
     borderRadius: 12,
     paddingVertical: 13,
     paddingHorizontal: 15,
-    // paddingLeft: 10,
     marginRight: 12,
     width: 210,
   },
-  // categoryImage: {
-  //   width: 24,
-  //   height: 24,
-  //   marginRight: 10,
-  // },
   categoryTitle: {
     fontSize: 17,
-    // fontWeight: 'bold',
-    // backgroundColor: 'red',
     color: '#333',
     width: '85%',
   },
   // ---------------------------------------------------------------------
   otrcontainer: {
-    // flex: 1,
-    // backgroundColor: '#fff',
     padding: 20,
   },
   header: {
     marginBottom: 20,
   },
-  // headerText: {
-  //   fontSize: 22,
-  //   fontWeight: 'bold',
-  //   color: '#333',
-  // },
   subHeaderText: {
     fontSize: 16,
     color: '#555',
-    // marginTop: 5,
   },
   card: {
-    // backgroundColor: '#fff',
     borderRadius: 10,
-    // overflow: 'hidden',
-    // marginBottom: 20,
     marginTop: -20,
-    // elevation: 3, // For shadow effect on Android
-    // shadowColor: '#000',
-    // shadowOffset: {width: 0, height: 2}, // For shadow effect on iOS
-    // shadowOpacity: 0.2,
-    // shadowRadius: 4,
     marginHorizontal: 20,
   },
   cardImage: {
@@ -283,14 +247,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFF',
     width: '88%',
     marginHorizontal: 28,
-    // justifyContent: 'center',
     alignItems: 'center',
-    // alignContent: 'center',
     borderRadius: 15,
-    // flexDirection: 'column'
-    // position: 'absolute',
     top: -50,
-    // right: 29,
   },
   cardTitle: {
     fontSize: 18,
@@ -313,25 +272,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   editIconContainer: {
-    // position: 'absolute',
-    // bottom: 5,
     right: -65,
     top: -5,
     backgroundColor: '#007BFF',
     borderRadius: 25,
     padding: 5,
-    // elevation: 5,
   },
   headerOtr: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    // gap: 10
+    ...commonStyles.flexContainer,
   },
   awardHeader: {
     flexDirection: 'row',
-    // alignItems: 'center',
-    // justifyContent: 'center',
     gap: 5
   },
 });

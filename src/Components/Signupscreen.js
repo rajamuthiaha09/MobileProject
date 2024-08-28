@@ -4,6 +4,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {COLORS, SIZES} from '../constants/themes';
+import { commonStyles } from '../constants';
 
 const Signupscreen = () => {
   const navigation = useNavigation();
@@ -191,12 +192,11 @@ const styles = StyleSheet.create({
     marginTop: SIZES.margin_20,
   },
   inputContainer: {
+    ...commonStyles.flexAlignCenter,
     borderWidth: 1,
     borderColor: COLORS.$secondary,
     borderRadius: 100,
     paddingHorizontal: SIZES.padding_20,
-    flexDirection: 'row',
-    alignItems: 'center',
     padding: SIZES.padding_2,
     marginVertical: 10,
   },
@@ -246,12 +246,10 @@ const styles = StyleSheet.create({
     marginVertical: SIZES.margin_20,
   },
   googleButton: {
-    flexDirection: 'row',
+    ...commonStyles.flexCenter,
     borderWidth: 2,
     borderColor: COLORS.$primary,
     borderRadius: 100,
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: SIZES.padding_10,
     gap: 10,
   },
@@ -264,9 +262,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
   },
   footerContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    ...commonStyles.flexCenter,
     marginVertical: SIZES.margin_20,
     gap: 5,
   },

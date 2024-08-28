@@ -19,6 +19,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {COLORS, SIZES} from '../../constants/themes';
 import {useNavigation} from '@react-navigation/native';
+import { commonStyles } from '../../constants';
 
 const CommonHeader = ({
   sectionHeaderTitle,
@@ -75,8 +76,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   profileHeaderInr: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    ...commonStyles.flexAlignCenter,
     gap: 10
   }
 });
