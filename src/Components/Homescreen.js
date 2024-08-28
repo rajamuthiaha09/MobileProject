@@ -163,7 +163,7 @@ const Homescreen = () => {
           ))}
         </ScrollView>
       </View>
-      <Coursename limit={4} />
+      <Coursename limit={4} isRedirected={true} />
       <View style={styles.otrcontainer}>
         <View style={styles.header}>
           <View style={styles.awardHeader}>
