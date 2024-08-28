@@ -6,19 +6,13 @@ import {useNavigation} from '@react-navigation/native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faStar,faChevronRight,faTag,faHeart,} from '@fortawesome/free-solid-svg-icons';
 import {commonStyles} from '../constants';
+import { useLikedCourses } from './LikedCoursesContext';
 
 const Coursename = ({limit, isRedirected}) => {
   const navigation = useNavigation();
 
-  const [likedCourses, setLikedCourses] = useState({});
+  const { likedCourses, toggleLike } = useLikedCourses();
 
-  const toggleLike = (courseId) => {
-    setLikedCourses(prevLikedCourses => ({
-      ...prevLikedCourses,
-      [courseId]: !prevLikedCourses[courseId]
-    }));
-  };
-  
   const courses = [
     { id: '1', title: 'Power BI for Beginners', rating: 4.6, learners: '201K Learners', image: image.courseName7, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
     { id: '2', title: 'Introduction to MS Excel', rating: 4.6, learners: '285K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
@@ -78,7 +72,7 @@ const Coursename = ({limit, isRedirected}) => {
                 <View style={styles.imageContainer}>
                   <Image source={item.image} style={styles.courseImage} />
                   <View
-                    style={[styles.tagContainer,item.isFree ? styles.freeTag : styles.paidTag,]}>
+                    style={[styles.tagContainer,item.isFree ? styles.freeTagOdd : styles.paidTagOdd,]}>
                     <Text style={styles.tagText}>
                       {item.isFree ? 'FREE' : 'PAID'}
                     </Text>
@@ -140,14 +134,21 @@ const Coursename = ({limit, isRedirected}) => {
         )}
         keyExtractor={item => item.id}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
-        ListFooterComponent={
-          !isRedirected ? (
+        // ListFooterComponent={
+        //   !isRedirected ? (
+        //     <TouchableOpacity style={styles.wishlistButton} activeOpacity={0.5} onPress={viewWishlist}>
+        //       <Text style={styles.buttonText}>View Wishlist</Text>
+        //     </TouchableOpacity>
+        //   ) : null
+        // }
+      />
+      <View>
+        {!isRedirected ? (
             <TouchableOpacity style={styles.wishlistButton} activeOpacity={0.5} onPress={viewWishlist}>
               <Text style={styles.buttonText}>View Wishlist</Text>
             </TouchableOpacity>
-          ) : null
-        }
-      />
+          ) : null}
+      </View>
     </View>
   );
 };
@@ -157,7 +158,8 @@ export default Coursename;
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-  },
+
+flex: 1  },
   seeAll: {
     color: '#007BFF',
     fontSize: 14,
@@ -202,22 +204,28 @@ const styles = StyleSheet.create({
     color: '#777',
   },
   freeTag: {
-    position: 'absolute',
-    top: '90%',
-    right: 29,
+    ...commonStyles.paidorFree,
     backgroundColor: '#4CAF50',
-    borderRadius: 4,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
+    top: '92%',
+    right: 58,
   },
   paidTag: {
-    position: 'absolute',
-    top: '90%',
-    right: 29,
-    borderRadius: 4,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
+    ...commonStyles.paidorFree,
     backgroundColor: '#FFD700',
+    top: '92%',
+    right: 58,
+  },
+  freeTagOdd: {
+    ...commonStyles.paidorFree,
+    backgroundColor: '#4CAF50',
+    top: '90%',
+    right: 35,
+  },
+  paidTagOdd: {
+    ...commonStyles.paidorFree,
+    backgroundColor: '#FFD700',
+    top: '90%',
+    right: 35,
   },
   freeTagText: {
     color: '#fff',
@@ -253,12 +261,12 @@ const styles = StyleSheet.create({
     top: 3,
   },
   wishlistButton: {
-    bottom: 50,
     backgroundColor: COLORS.$blue_shade_1,
     borderRadius: 5,
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 20
   },
   buttonText: {
     color: COLORS.$White,

@@ -16,6 +16,8 @@ const resoure =[
 ];
 const ResoursePage = () => {
   return (
+    <>
+    <View style={[styles.divider]}/>
     <View style={styles.container}>
       <Text style={commonStyles.commonHeaderText}>Popular Resourse</Text>
       <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.scrollViewContent}>
@@ -36,7 +38,7 @@ const ResoursePage = () => {
         title="View All Resourse"
         // onPress={() => Alert.alert('Simple Button pressed')}
       /> */}
-    </View>
+    </View></>
   )
 }
 
@@ -67,5 +69,10 @@ const styles = StyleSheet.create({
   },
   buttonClick: {
     marginBottom: SIZES.margin_20
+  },
+  divider: {
+    height: 10,
+    backgroundColor: COLORS.$White,
+    marginBottom: 15
   }
 })

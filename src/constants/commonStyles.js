@@ -24,5 +24,11 @@ export const commonStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  paidorFree: {
+    position: 'absolute',
+    borderRadius: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
   }
 });

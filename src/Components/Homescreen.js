@@ -162,7 +162,9 @@ const Homescreen = () => {
           ))}
         </ScrollView>
       </View>
+      <View style={[styles.divider]}/>
       <Coursename limit={4} isRedirected={true} />
+      <View style={[styles.divider]}/>
       <View style={styles.otrcontainer}>
         <View style={styles.header}>
           <View style={styles.awardHeader}>
@@ -216,7 +218,7 @@ const styles = StyleSheet.create({
   },
   categoryTitle: {
     fontSize: 17,
-    color: '#333',
+    // color: '#333',
     width: '85%',
   },
   // ---------------------------------------------------------------------
@@ -285,4 +287,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 5
   },
+  divider: {
+    height: 10,
+    backgroundColor: COLORS.$White
+  }
 });

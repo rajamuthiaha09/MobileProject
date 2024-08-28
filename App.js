@@ -2,7 +2,7 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
 import StackNavigation from './src/navigations';
-import { COLORS } from './src/constants/themes';
+import {LikedCoursesProvider} from './src/Components/LikedCoursesContext';
 
 // const MyTheme = {
 //   ...DefaultTheme,
@@ -15,9 +15,11 @@ import { COLORS } from './src/constants/themes';
 const App = () => {
   return (
     // <NavigationContainer theme={MyTheme}>
-    <NavigationContainer>
-      <StackNavigation/>
-    </NavigationContainer>
+    <LikedCoursesProvider>
+      <NavigationContainer>
+        <StackNavigation />
+      </NavigationContainer>
+    </LikedCoursesProvider>
   );
 };
 

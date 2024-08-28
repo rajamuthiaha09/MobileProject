@@ -5,9 +5,11 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faStar, faTag, faHeart} from '@fortawesome/free-solid-svg-icons';
 import { COLORS } from '../../constants';
 import { CommonHeader } from '../sharedComponents';
+import { useLikedCourses } from '../LikedCoursesContext';
 
 const WishlistPage = ({navigation, route}) => {
   const {likedCourseView = []} = route.params || {};
+  const { toggleLike } = useLikedCourses();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,8 +43,12 @@ const WishlistPage = ({navigation, route}) => {
                   <Text style={styles.originalPrice}>{item.actAmount}</Text>
                 </View>
               </View>
-              <TouchableOpacity style={styles.likeButton}>
-                <FontAwesomeIcon icon={faHeart} size={25} color='red'/>
+              <TouchableOpacity onPress={() => toggleLike(item.id)} style={styles.likeButton}>
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  size={25}
+                  color='red'
+                />
               </TouchableOpacity>
             </View>
           ))
