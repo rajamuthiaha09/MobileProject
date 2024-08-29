@@ -1,7 +1,9 @@
 // profile edit form
 
 import React from 'react';
-import {View,Text,TextInput,TouchableOpacity,StyleSheet,Image,} from 'react-native';
+import {View,Text,TextInput,TouchableOpacity,StyleSheet,Image,Alert} from 'react-native';
+// import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { launchCamera,launchImageLibrary } from 'react-native-image-picker';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {COLORS, SIZES} from '../../constants/themes';
@@ -20,13 +22,48 @@ const ProfileEditForm = ({navigation}) => {
     location: Yup.string().required('Location is required'),
   });
 
+  const openCameraOrGallery = () => {
+    Alert.alert(
+      "Select Image Source",
+      "Choose an option",
+      [
+        {
+          text: "Camera",
+          onPress: () => launchCamera({ mediaType: 'photo' }, (response) => {
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else {
+              console.log('Image selected: ', response.assets);
+            }
+          })
+        },
+        {
+          text: "Gallery",
+          onPress: () => launchImageLibrary({ mediaType: 'photo' }, (response) => {
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else {
+              console.log('Image selected: 50 ', response.assets);
+            }
+          })
+        },
+        { text: "Cancel", style: "cancel" }
+      ],
+      { cancelable: true }
+    );
+  };
+
   return (
     <View style={styles.container}>
       <CommonHeader showBackIcon={true} sectionHeaderTitle="Edit Profile" headerTitleStyle={styles.headerView}/>
       <View style={styles.profileHeaderView}>
         <View style={styles.avatarContainer}>
           <Image source={image.profileImageMale} style={styles.avatar} />
-          <TouchableOpacity style={styles.editIconContainer}>
+          <TouchableOpacity style={styles.editIconContainer} onPress={openCameraOrGallery}>
             <FontAwesomeIcon icon={faCamera} size={25} color={COLORS.$black} />
           </TouchableOpacity>
         </View>
