@@ -1,24 +1,25 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  Modal,
-  Alert,
-  Image,
-  StyleSheet,
-  TouchableWithoutFeedback,
-} from 'react-native';
+import React, {useState,useEffect} from 'react';
+import {View,Text,TouchableOpacity,ScrollView,Modal,Alert,Image,StyleSheet,TouchableWithoutFeedback,} from 'react-native';
 import {COLORS, SIZES} from '../../constants/themes';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faPen,faChevronRight} from '@fortawesome/free-solid-svg-icons';
+import {faPen, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import image from '../../constants/image';
 import {CommonHeader} from '../sharedComponents';
-import { commonStyles } from '../../constants';
+import {commonStyles} from '../../constants';
 
-const ProfileEditPage = ({navigation}) => {
+const ProfileEditPage = ({route, navigation}) => {
+  const [userName, setUserName] = useState('Rajaha Muthiaha');
+  const [userEmail, setUserEmail] = useState('rajahamuthiaha@thoughtbees.com');
   const [isModalVisible, setIsModalVisible] = useState(false);
+
+  useEffect(() => {
+    if (route.params?.updatedName) {
+      setUserName(route.params.updatedName);
+    }
+    if (route.params?.updatedEmail) {
+      setUserEmail(route.params.updatedEmail);
+    }
+  }, [route.params]);
 
   const DATA = [
     {id: '1', listname: 'Wishlist', screen: 'WishlistScreen'},
@@ -30,54 +31,14 @@ const ProfileEditPage = ({navigation}) => {
   ];
 
   const couponsData = [
-    {
-      id: '1',
-      courseName: 'Mobile Application Development',
-      actCode: 'START',
-      percentage: '20',
-    },
-    {
-      id: '2',
-      courseName: 'UI/UX Design',
-      actCode: 'DFR56987',
-      percentage: '20',
-    },
-    {
-      id: '3',
-      courseName: 'Java from Scratch to Expert',
-      actCode: 'JAVA',
-      percentage: '20',
-    },
-    {
-      id: '4',
-      courseName: 'Instagram Marketing',
-      actCode: '23569856',
-      percentage: '20',
-    },
-    {
-      id: '5',
-      courseName: 'Angular from Scratch to Expert',
-      actCode: 'act54[]',
-      percentage: '20',
-    },
-    {
-      id: '6',
-      courseName: 'ReactJS from Scratch to Expert',
-      actCode: 'CTRL+wer',
-      percentage: '20',
-    },
-    {
-      id: '7',
-      courseName: 'React from Scratch to Expert',
-      actCode: 'CTRL+wewr',
-      percentage: '20',
-    },
-    {
-      id: '8',
-      courseName: 'ReactJS from Scratch to Expert',
-      actCode: 'CTRL+ki',
-      percentage: '20',
-    },
+    { id: '1', courseName: 'Mobile Application Development', actCode: 'START', percentage: '20',},
+    { id: '2', courseName: 'UI/UX Design', actCode: 'DFR56987', percentage: '20',},
+    { id: '3', courseName: 'Java from Scratch to Expert', actCode: 'JAVA', percentage: '20',},
+    { id: '4', courseName: 'Instagram Marketing', actCode: '23569856', percentage: '20',},
+    { id: '5', courseName: 'Angular from Scratch to Expert', actCode: 'act54[]', percentage: '20',},
+    { id: '6', courseName: 'ReactJS from Scratch to Expert', actCode: 'CTRL+wer', percentage: '20',},
+    { id: '7', courseName: 'React from Scratch to Expert', actCode: 'CTRL+wewr', percentage: '20',},
+    { id: '8', courseName: 'ReactJS from Scratch to Expert', actCode: 'CTRL+ki', percentage: '20',},
   ];
 
   const handlePress = (action, actCode, screen) => {
@@ -99,21 +60,26 @@ const ProfileEditPage = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <CommonHeader
-        showBackIcon={false} showHeader={true}
-        sectionHeaderTitle="My Profile"
-      />
+      <CommonHeader showBackIcon={false} showHeader={true} sectionHeaderTitle="My Profile"/>
       <View style={styles.profileHeaderView}>
         <View style={styles.avatarContainer}>
-          <Image source={image.profileImageMale} style={styles.avatar} />
-          <TouchableOpacity style={styles.editIconContainer} onPress={() => navigation.navigate('ProfileEditForm')}>
+          <View style={styles.avatarCircle}>
+            <Image source={image.profileImageMale} style={styles.avatar} />
+          </View>
+          <TouchableOpacity style={styles.editIconContainer} 
+              onPress={() =>
+                navigation.navigate('ProfileEditForm', {
+                  routeName: userName,
+                  routeEmail: userEmail,
+                })
+              }>
             <FontAwesomeIcon icon={faPen} size={20} color={COLORS.$black} />
           </TouchableOpacity>
         </View>
-        <Text style={styles.profileUserName}>Rajaha Muthiaha</Text>
-        <Text style={styles.profileUserEmail}>rajahamuthiaha@thoughtbees.com
-        </Text>
+        <Text style={styles.profileUserName}>{userName}</Text>
+        <Text style={styles.profileUserEmail}>{userEmail}</Text>
       </View>
+
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {DATA.map(item => (
           <TouchableOpacity
@@ -133,9 +99,7 @@ const ProfileEditPage = ({navigation}) => {
         <TouchableWithoutFeedback onPress={() => setIsModalVisible(false)}>
           <View style={styles.couponsContainerOtr}>
             <View style={styles.couponsContainerInr}>
-              <ScrollView
-                contentContainerStyle={styles.menuList}
-                showsVerticalScrollIndicator={false}>
+              <ScrollView contentContainerStyle={styles.menuList} showsVerticalScrollIndicator={false}>
                 {couponsData.map(item => (
                   <TouchableOpacity
                     onPress={() => handlePress('showAlert', item.actCode)}
@@ -143,9 +107,7 @@ const ProfileEditPage = ({navigation}) => {
                     style={styles.couponContentContainer}>
                     <View style={styles.cupContInr}>
                       <View>
-                        <Text style={styles.percentageText}>
-                          {item.percentage}
-                        </Text>
+                        <Text style={styles.percentageText}>{item.percentage}</Text>
                       </View>
                       <View style={styles.inrContainer}>
                         <Text style={styles.titleHeading}>%</Text>
@@ -153,12 +115,8 @@ const ProfileEditPage = ({navigation}) => {
                       </View>
                       <View style={styles.verticalLine}></View>
                       <View>
-                        <Text style={styles.courseNameText}>
-                          {item.courseName}
-                        </Text>
-                        <Text style={styles.actCodetext}>
-                          Activation Code : {item.actCode}
-                        </Text>
+                        <Text style={styles.courseNameText}>{item.courseName}</Text>
+                        <Text style={styles.actCodetext}>Activation Code : {item.actCode}</Text>
                       </View>
                     </View>
                   </TouchableOpacity>
@@ -181,7 +139,32 @@ const styles = StyleSheet.create({
   },
   profileHeaderView: {
     alignItems: 'center',
-    marginVertical: SIZES.margin_20,
+  },
+  avatarContainer: {
+    position: 'relative',
+  },
+  avatarCircle: {
+    width : 200, 
+    height: 200,
+    borderRadius: 100,
+    borderWidth: 1,
+    borderColor: COLORS.$darkGray,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  avatar: {
+    width: 180,
+    height: 180,
+    borderRadius: 90,
+  },
+  editIconContainer: {
+    position: 'absolute',
+    bottom: 15,
+    right: 10,
+    backgroundColor: COLORS.$White,
+    borderRadius: 25,
+    padding: SIZES.padding_10,
+    elevation: 5,
   },
   profileUserName: {
     fontSize: SIZES.sz_28_font,
@@ -193,28 +176,6 @@ const styles = StyleSheet.create({
     fontSize: SIZES.sz_25_font,
     color: COLORS.$black,
     paddingTop: SIZES.padding_10,
-  },
-  avatarContainer: {
-    position: 'relative',
-    width: 200,
-    height: 200,
-    borderRadius: 50,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatar: {
-    width: '150%',
-    height: '150%',
-    borderRadius: 50,
-  },
-  editIconContainer: {
-    position: 'absolute',
-    bottom: 5,
-    right: 5,
-    backgroundColor: COLORS.$White,
-    borderRadius: 25,
-    padding: SIZES.padding_10,
-    elevation: 5,
   },
   dataitem: {
     ...commonStyles.flexContainer,
