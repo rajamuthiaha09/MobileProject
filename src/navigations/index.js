@@ -20,7 +20,6 @@ import {
   faSearch,
 } from '@fortawesome/free-solid-svg-icons';
 import MyCourse from '../Components/MyCourse';
-// import SearchCourseScreen from '../Components/SearchCourseScreen';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -38,7 +37,7 @@ const StackNavigation = () => {
       <Stack.Screen name={'WishlistScreen'} component={WishlistPage} />
       <Stack.Screen name={'ProfileEditForm'} component={ProfileEditForm} />
       <Stack.Screen name={'HelpScreen'} component={SupportScreen} />
-      <Stack.Screen name={'Homescreen'} component={TabNavigation} />
+      <Stack.Screen name={'MainTabs'} component={TabNavigation} />
     </Stack.Navigator>
   );
 };
@@ -72,22 +71,6 @@ const TabNavigation = () => {
           tabBarInactiveTintColor: 'gray',
         }}
       />
-      {/* <Tab.Screen
-        name={'SearchCourseScreen'}
-        component={SearchCourseScreen}
-        options={{
-          title: 'Search',
-          tabBarIcon: ({focused}) => (
-            <FontAwesomeIcon
-              icon={faSearch}
-              size={30}
-              color={focused ? 'black' : 'gray'}
-            />
-          ),
-          tabBarActiveTintColor: 'black',
-          tabBarInactiveTintColor: 'gray',
-        }}
-      /> */}
       <Tab.Screen
         name={'MyCourse'}
         component={MyCourse}

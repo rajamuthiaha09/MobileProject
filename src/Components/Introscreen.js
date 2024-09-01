@@ -40,7 +40,7 @@ const IntroScreen = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.button} activeOpacity={0.5}
-          onPress={() => navigation.navigate('Homescreen')}>
+          onPress={() => navigation.navigate('MainTabs', { screen: 'Homescreen' })}>
           <Text style={styles.buttonText}>Skip</Text>
         </TouchableOpacity>
         <TouchableOpacity

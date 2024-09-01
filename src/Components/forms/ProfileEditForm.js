@@ -1,16 +1,17 @@
 // profile edit form
 
-import React from 'react';
-import {View,Text,TextInput,TouchableOpacity,StyleSheet,Image,Alert} from 'react-native';
-// import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { launchCamera,launchImageLibrary } from 'react-native-image-picker';
-import {Formik} from 'formik';
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image, Modal, Alert } from 'react-native';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
-import {COLORS, SIZES} from '../../constants/themes';
-import {CommonHeader} from '../sharedComponents';
+import { COLORS, SIZES } from '../../constants/themes';
+import { CommonHeader } from '../sharedComponents';
 import image from '../../constants/image';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faCamera} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCamera, faImage, faTrash } from '@fortawesome/free-solid-svg-icons';
+// import { PermissionsAndroid, Platform } from 'react-native';
+// import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 const ProfileEditForm = ({navigation}) => {
   const validationSchema = Yup.object().shape({
@@ -22,39 +23,125 @@ const ProfileEditForm = ({navigation}) => {
     location: Yup.string().required('Location is required'),
   });
 
-  const openCameraOrGallery = () => {
-    Alert.alert(
-      "Select Image Source",
-      "Choose an option",
-      [
-        {
-          text: "Camera",
-          onPress: () => launchCamera({ mediaType: 'photo' }, (response) => {
-            if (response.didCancel) {
-              console.log('User cancelled image picker');
-            } else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
-            } else {
-              console.log('Image selected: ', response.assets);
-            }
-          })
-        },
-        {
-          text: "Gallery",
-          onPress: () => launchImageLibrary({ mediaType: 'photo' }, (response) => {
-            if (response.didCancel) {
-              console.log('User cancelled image picker');
-            } else if (response.error) {
-              console.log('ImagePicker Error: ', response.error);
-            } else {
-              console.log('Image selected: 50 ', response.assets);
-            }
-          })
-        },
-        { text: "Cancel", style: "cancel" }
-      ],
-      { cancelable: true }
-    );
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  // const requestCameraPermission = async () => {
+  //   if (Platform.OS === 'android') {
+  //     const granted = await PermissionsAndroid.request(
+  //       PermissionsAndroid.PERMISSIONS.CAMERA,
+  //       {
+  //         title: 'Camera Permission',
+  //         message: 'This app needs access to your camera to take photos.',
+  //         buttonNeutral: 'Ask Me Later',
+  //         buttonNegative: 'Cancel',
+  //         buttonPositive: 'OK',
+  //       },
+  //     );
+  //     return granted === PermissionsAndroid.RESULTS.GRANTED;
+  //   } else {
+  //     const status = await request(PERMISSIONS.IOS.CAMERA);
+  //     return status === RESULTS.GRANTED;
+  //   }
+  // };
+
+  // const openCameraOrGallery = async () => {
+  //   const hasCameraPermission = await requestCameraPermission();
+  //   if (!hasCameraPermission) {
+  //     Alert.alert("Permission Denied", "Camera permission is required to take photos.");
+  //     return;
+  //   }
+
+  //   Alert.alert(
+  //     "Select Image Source",
+  //     "Choose an option",
+  //     [
+  //       {
+  //         text: "Camera",
+  //         onPress: () => launchCamera({ mediaType: 'photo' }, (response) => {
+  //           if (response.didCancel) {
+  //             console.log('User cancelled image picker');
+  //           } else if (response.errorCode) {
+  //             console.log('ImagePicker Error: ', response.errorMessage);
+  //           } else if (response.assets && response.assets.length > 0) {
+  //             console.log('Image selected from camera: ', response.assets[0]);
+  //           } else {
+  //             console.log('No image selected from camera');
+  //           }
+  //         })
+  //       },
+  //       {
+  //         text: "Gallery",
+  //         onPress: () => launchImageLibrary({ mediaType: 'photo' }, (response) => {
+  //           if (response.didCancel) {
+  //             console.log('User cancelled image picker');
+  //           } else if (response.errorCode) {
+  //             console.log('ImagePicker Error: ', response.errorMessage);
+  //           } else if (response.assets && response.assets.length > 0) {
+  //             console.log('Image selected from gallery: ', response.assets[0]);
+  //           } else {
+  //             console.log('No image selected from gallery');
+  //           }
+  //         })
+  //       },
+  //       { text: "Cancel", style: "cancel" }
+  //     ],
+  //     { cancelable: true }
+  //   );
+  // };
+
+  const handleGalleryOpen = () => {
+    const options = {
+      mediaType: 'photo',
+      includeBase64: false,
+      maxHeight: 2000,
+      maxWidth: 2000,
+    };
+
+    launchImageLibrary(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('Image picker error: ', response.error);
+      } else {
+        let imageUri = response.uri || response.assets?.[0]?.uri;
+        setSelectedImage(imageUri);
+      }
+    });
+    setModalVisible(false);
+  };
+  const handleCameraOpen = () => {
+    const options = {
+      mediaType: 'photo',
+      includeBase64: false,
+      maxHeight: 2000,
+      maxWidth: 2000,
+    };
+
+    launchCamera(options, response => {
+      if (response.didCancel) {
+        console.log('User cancelled camera');
+      } else if (response.error) {
+        console.log('Camera Error: ', response.error);
+      } else {
+        let imageUri = response.uri || response.assets?.[0]?.uri;
+        setSelectedImage(imageUri);
+        console.log(imageUri);
+      }
+    });
+    setModalVisible(false);
+  };
+  const handleRemoveImage = () => {
+    setModalVisible(false);
+    Alert.alert('Remove Image', 'Are you sure you want to remove the image?', [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Remove',
+        onPress: () => setSelectedImage(null),
+      },
+    ]);
   };
 
   return (
@@ -62,16 +149,18 @@ const ProfileEditForm = ({navigation}) => {
       <CommonHeader showBackIcon={true} sectionHeaderTitle="Edit Profile" headerTitleStyle={styles.headerView}/>
       <View style={styles.profileHeaderView}>
         <View style={styles.avatarContainer}>
-          <Image source={image.profileImageMale} style={styles.avatar} />
-          <TouchableOpacity style={styles.editIconContainer} onPress={openCameraOrGallery}>
+          <Image resizeMode="contain" source={selectedImage == null ? image.profileImageMale : {uri: selectedImage}} style={styles.avatar} />
+          <TouchableOpacity style={styles.editIconContainer} onPress={() => setModalVisible(true)}>
             <FontAwesomeIcon icon={faCamera} size={25} color={COLORS.$black} />
           </TouchableOpacity>
         </View>
         <Formik
           initialValues={{name: '', email: '', phoneNumber: '', location: ''}}
           validationSchema={validationSchema}
-          onSubmit={values => {console.log(values)}}>
-          {({ handleChange,handleBlur,handleSubmit,values,errors,touched,}) => (
+          onSubmit={values => {
+            console.log(values);
+          }}>
+          {({handleChange,handleBlur,handleSubmit,values,errors,touched,}) => (
             <View style={styles.ProfileEditFormContainer}>
               <View style={styles.inputContainer}>
                 <TextInput
@@ -132,6 +221,24 @@ const ProfileEditForm = ({navigation}) => {
           )}
         </Formik>
       </View>
+      <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={() => setModalVisible(false)}>
+        <TouchableOpacity style={styles.modalContainer} onPress={() => setModalVisible(false)}>
+          <TouchableOpacity activeOpacity={1} style={styles.modalContent}>
+            <TouchableOpacity style={styles.modalButton} onPress={handleCameraOpen}>
+              <FontAwesomeIcon icon={faCamera} size={25} color={COLORS.$black} />
+              <Text style={styles.modalButtonText}>Camera</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={handleGalleryOpen}>
+              <FontAwesomeIcon icon={faImage} size={25} color={COLORS.$black} />
+              <Text style={styles.modalButtonText}>Gallery</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.modalButton} onPress={selectedImage ? handleRemoveImage : null} disabled={!selectedImage}>
+              <FontAwesomeIcon icon={faTrash} size={25} style={!selectedImage && styles.displayBlur}/>
+              <Text style={[styles.modalButtonText,!selectedImage && styles.displayBlur,]}>Remove</Text>
+            </TouchableOpacity>
+          </TouchableOpacity>
+        </TouchableOpacity>
+      </Modal>
     </View>
   );
 };
@@ -201,5 +308,35 @@ const styles = StyleSheet.create({
     color: COLORS.$White,
     fontSize: SIZES.sz_20_font,
     fontWeight: 'bold',
+  },
+
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: COLORS.$White,
+    borderRadius: 15,
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    gap: 20,
+  },
+  modalButton: {
+    flexDirection: 'column',
+    borderRadius: 15,
+    gap: 5,
+    alignItems: 'center',
+    width: 85,
+    height: 70,
+    backgroundColor: COLORS.$gray,
+    padding: 10,
+  },
+  modalButtonText: {fontSize: 18},
+  displayBlur: {
+    opacity: 0.5,
   },
 });
