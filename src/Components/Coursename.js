@@ -1,17 +1,22 @@
-import React, { useState } from 'react';
-import {View,Text,Image,FlatList,StyleSheet,TouchableOpacity,} from 'react-native';
+import React, { useState , useEffect} from 'react';
+import {View,Text,Image,FlatList,StyleSheet,TouchableOpacity,TextInput, Modal} from 'react-native';
 import image from '../constants/image';
 import {COLORS, SIZES} from '../constants/themes';
 import {useNavigation} from '@react-navigation/native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faStar,faChevronRight,faTag,faHeart,} from '@fortawesome/free-solid-svg-icons';
+import {faStar,faChevronRight,faTag,faHeart,faArrowLeft,faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import {commonStyles} from '../constants';
 import { useLikedCourses } from './LikedCoursesContext';
+import { CommonHeader } from './sharedComponents';
 
 const Coursename = ({limit, isRedirected}) => {
   const navigation = useNavigation();
 
   const { likedCourses, toggleLike } = useLikedCourses();
+  const [searchText, setSearchText] = useState('');
+  const [filteredCourses, setFilteredCourses] = useState([]);
+  const [isOpenSearch, setIsOpenSearch] = useState(false);
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
 
   const courses = [
     { id: '1', title: 'Power BI for Beginners', rating: 4.6, learners: '201K Learners', image: image.courseName7, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
@@ -30,126 +35,209 @@ const Coursename = ({limit, isRedirected}) => {
     { id: '14', title: 'Digital Marketing Essentials', rating: 4.6, learners: '122K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
   ];
 
+  useEffect(() => {
+    if (searchText === '') {
+      setFilteredCourses(courses);
+    } else {
+      const filtered = courses.filter(course =>
+        course.title.toLowerCase().includes(searchText.toLowerCase())
+      );
+      setFilteredCourses(filtered);
+    }
+  }, [searchText]);
+
   const viewWishlist = () => {
     const likedCourseView = courses.filter(item => likedCourses[item.id]);
     navigation.navigate('WishlistScreen', { likedCourseView });
   };
 
-  const displayedCourses = limit ? courses.slice(0, limit) : courses;
+  const displayedCourses = limit ? filteredCourses.slice(0, limit) : filteredCourses;
+
   return (
-    <View style={styles.container}>
-      <View style={commonStyles.flexJustifySpace}>
-        <Text style={commonStyles.commonHeaderText}>
-          Courses students are learning
-        </Text>
-        {limit && (
-          <TouchableOpacity onPress={() => navigation.navigate('Coursename')}>
-            <View style={styles.seeViewContainer}>
-              <Text style={styles.seeAll}>SEE ALL</Text>
-              <FontAwesomeIcon icon={faChevronRight} size={15} color="#007BFF"/>
-            </View>
-          </TouchableOpacity>
-        )}
-      </View>
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        data={displayedCourses}
-        renderItem={({item}) => (
-          <View>
-            {isRedirected ? (
-              <View style={styles.courseContainer}>
-                <View style={styles.courseInfo}>
-                  <Text style={styles.courseTitle}>{item.title}</Text>
-                  <View style={styles.courseRating}>
-                    <FontAwesomeIcon icon={faStar} size={18} color="#FFD700" />
-                    <Text style={styles.courseRatingText}>{item.rating}</Text>
-                    <Text style={styles.courseLearners}>{item.learners}</Text>
-                  </View>
-                  <View style={styles.courseViewTypeContainer}>
-                    <Text style={styles.courseViewType}>Video Lessons</Text>
-                  </View>
-                </View>
-                <View style={styles.imageContainer}>
-                  <Image source={item.image} style={styles.courseImage} />
-                  <View
-                    style={[styles.tagContainer,item.isFree ? styles.freeTagOdd : styles.paidTagOdd,]}>
-                    <Text style={styles.tagText}>
-                      {item.isFree ? 'FREE' : 'PAID'}
-                    </Text>
-                  </View>
-                </View>
+    <>
+      {!isRedirected && (
+        <View>
+          {isOpenSearch ? (
+            <View style={styles.header}>
+              <TouchableOpacity
+                onPress={() => setIsOpenSearch(false)}
+                style={styles.backButton}>
+                <FontAwesomeIcon icon={faArrowLeft} size={20} color={COLORS.$black} />
+              </TouchableOpacity>
+              <View style={styles.searchContainer}>
+                <TextInput
+                  style={styles.searchInput}
+                  placeholder="What do you want to learn?"
+                  placeholderTextColor="#888"
+                  value={searchText}
+                  onChangeText={setSearchText}
+                  autoFocus
+                />
               </View>
-            ) : (
-              <View style={styles.courseContainer}>
-                <View style={styles.imageContainer}>
-                  <Image source={item.image} style={[styles.courseImage, {height: 160, width: 160}]}/>
-                  <View
-                    style={[ styles.tagContainer,item.isFree ? styles.freeTag : styles.paidTag,]}>
-                    <Text style={styles.tagText}>
-                      {item.isFree ? 'FREE' : 'PAID'}
-                    </Text>
-                  </View>
-                </View>
-                <View
-                  style={[styles.courseInfo,{paddingTop: 10, paddingLeft: 15},]}>
-                  <Text style={styles.courseTitle}>{item.title}</Text>
-                  <View style={styles.courseRating}>
-                    <FontAwesomeIcon icon={faStar} size={18} color="#FFD700" />
-                    <Text style={styles.courseRatingText}>{item.rating}</Text>
-                    <Text style={styles.courseLearners}>{item.learners}</Text>
-                  </View>
-                  <Text style={[{fontSize: 15, marginTop: 4}]}>
-                    {item.test}
-                  </Text>
-                  <View style={[{flexDirection: 'row', marginTop: 4}]}>
-                    <FontAwesomeIcon icon={faTag} size={15} color="#FFD700" />
-                    <Text style={[{color: '#FFD700'}]}>{item.offer}</Text>
-                  </View>
-                  <View style={[{flexDirection: 'row', gap: 5, marginTop: 4}]}>
-                    <Text style={[{fontSize: 19,color: COLORS.$black,fontWeight: 'bold',}]}>
-                      {item.discount}
-                    </Text>
-                    <Text style={[{fontSize: 19, textDecorationLine: 'line-through'},]}>
-                      {item.actAmount}
-                    </Text>
-                  </View>
-                </View>
-                <TouchableOpacity onPress={() => toggleLike(item.id)}>
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    size={25}
-                    color={likedCourses[item.id] ? 'red' : 'black'}
-                    style={styles.iconBorder}
-                  />
-                  <FontAwesomeIcon
-                    icon={faHeart}
-                    size={18}
-                    color={likedCourses[item.id] ? 'red' : 'white'}
-                    style={styles.iconFill}
-                  />
+            </View>
+          ) : (
+            <CommonHeader
+              showCourseFilterHeader={true}
+              sectionHeaderTitle={'Course'}
+              onSearchPress={() => setIsOpenSearch(true)}
+              onFilterPress={() => setIsFilterModalVisible(true)}
+            />
+          )}
+
+          {/* Filter Modal */}
+          <Modal
+            visible={isFilterModalVisible}
+            transparent={true}
+            animationType="slide"
+            onRequestClose={() => setIsFilterModalVisible(false)}>
+            <View style={styles.modalContainer}>
+              <View style={styles.modalContent}>
+                <Text>Filter Options</Text>
+                <TouchableOpacity onPress={() => setIsFilterModalVisible(false)}>
+                  <Text>Close</Text>
                 </TouchableOpacity>
               </View>
-            )}
-          </View>
-        )}
-        keyExtractor={item => item.id}
-        ItemSeparatorComponent={() => <View style={styles.separator} />}
-        // ListFooterComponent={
-        //   !isRedirected ? (
-        //     <TouchableOpacity style={styles.wishlistButton} activeOpacity={0.5} onPress={viewWishlist}>
-        //       <Text style={styles.buttonText}>View Wishlist</Text>
-        //     </TouchableOpacity>
-        //   ) : null
-        // }
-      />
-      <View>
-        {!isRedirected ? (
-            <TouchableOpacity style={styles.wishlistButton} activeOpacity={0.5} onPress={viewWishlist}>
+            </View>
+          </Modal>
+        </View>
+      )}
+
+      {/* <View>{renderfilterContent()}</View>; */}
+      <View style={styles.container}>
+        <View style={commonStyles.flexJustifySpace}>
+          <Text style={commonStyles.commonHeaderText}>Courses students are learning</Text>
+          {limit && (
+            <TouchableOpacity onPress={() => navigation.navigate('Coursename')}>
+              <View style={styles.seeViewContainer}>
+                <Text style={styles.seeAll}>SEE ALL</Text>
+                <FontAwesomeIcon icon={faChevronRight} size={15} color="#007BFF"/>
+              </View>
+            </TouchableOpacity>
+          )}
+        </View>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          data={displayedCourses}
+          renderItem={({item}) => (
+            <View>
+              {isRedirected ? (
+                <View style={styles.courseContainer}>
+                  <View style={styles.courseInfo}>
+                    <Text style={styles.courseTitle}>{item.title}</Text>
+                    <View style={styles.courseRating}>
+                      <FontAwesomeIcon icon={faStar} size={18} color="#FFD700"/>
+                      <Text style={styles.courseRatingText}>{item.rating}</Text>
+                      <Text style={styles.courseLearners}>{item.learners}</Text>
+                    </View>
+                    <View style={styles.courseViewTypeContainer}>
+                      <Text style={styles.courseViewType}>Video Lessons</Text>
+                    </View>
+                  </View>
+                  <View style={styles.imageContainer}>
+                    <Image source={item.image} style={styles.courseImage} />
+                    <View
+                      style={[
+                        styles.tagContainer,
+                        item.isFree ? styles.freeTagOdd : styles.paidTagOdd,
+                      ]}>
+                      <Text style={styles.tagText}>
+                        {item.isFree ? 'FREE' : 'PAID'}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              ) : (
+                <View style={styles.courseContainer}>
+                  <View style={styles.imageContainer}>
+                    <Image
+                      source={item.image}
+                      style={[styles.courseImage, {height: 160, width: 160}]}
+                    />
+                    <View
+                      style={[
+                        styles.tagContainer,
+                        item.isFree ? styles.freeTag : styles.paidTag,
+                      ]}>
+                      <Text style={styles.tagText}>
+                        {item.isFree ? 'FREE' : 'PAID'}
+                      </Text>
+                    </View>
+                  </View>
+                  <View
+                    style={[
+                      styles.courseInfo,
+                      {paddingTop: 10, paddingLeft: 15},
+                    ]}>
+                    <Text style={styles.courseTitle}>{item.title}</Text>
+                    <View style={styles.courseRating}>
+                      <FontAwesomeIcon
+                        icon={faStar}
+                        size={18}
+                        color="#FFD700"
+                      />
+                      <Text style={styles.courseRatingText}>{item.rating}</Text>
+                      <Text style={styles.courseLearners}>{item.learners}</Text>
+                    </View>
+                    <Text style={[{fontSize: 15, marginTop: 4}]}>
+                      {item.test}
+                    </Text>
+                    <View style={[{flexDirection: 'row', marginTop: 4}]}>
+                      <FontAwesomeIcon icon={faTag} size={15} color="#FFD700" />
+                      <Text style={[{color: '#FFD700'}]}>{item.offer}</Text>
+                    </View>
+                    <View
+                      style={[{flexDirection: 'row', gap: 5, marginTop: 4}]}>
+                      <Text
+                        style={[
+                          {
+                            fontSize: 19,
+                            color: COLORS.$black,
+                            fontWeight: 'bold',
+                          },
+                        ]}>
+                        {item.discount}
+                      </Text>
+                      <Text
+                        style={[
+                          {fontSize: 19, textDecorationLine: 'line-through'},
+                        ]}>
+                        {item.actAmount}
+                      </Text>
+                    </View>
+                  </View>
+                  <TouchableOpacity onPress={() => toggleLike(item.id)}>
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      size={25}
+                      color={likedCourses[item.id] ? 'red' : 'black'}
+                      style={styles.iconBorder}
+                    />
+                    <FontAwesomeIcon
+                      icon={faHeart}
+                      size={18}
+                      color={likedCourses[item.id] ? 'red' : 'white'}
+                      style={styles.iconFill}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )}
+            </View>
+          )}
+          keyExtractor={item => item.id}
+          ItemSeparatorComponent={() => <View style={styles.separator} />}
+        />
+        <View>
+          {!isRedirected ? (
+            <TouchableOpacity
+              style={styles.wishlistButton}
+              activeOpacity={0.5}
+              onPress={viewWishlist}>
               <Text style={styles.buttonText}>View Wishlist</Text>
             </TouchableOpacity>
           ) : null}
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 
@@ -158,8 +246,8 @@ export default Coursename;
 const styles = StyleSheet.create({
   container: {
     padding: 20,
-
-flex: 1  },
+    flex: 1,
+  },
   seeAll: {
     color: '#007BFF',
     fontSize: 14,
@@ -266,10 +354,26 @@ flex: 1  },
     height: 50,
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20
+    marginTop: 20,
   },
   buttonText: {
     color: COLORS.$White,
     fontSize: SIZES.sz_18_font,
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.$White,
+    paddingHorizontal: 20,
+  },
+  backButton: {
+    marginRight: 10,
+  },
+  searchContainer: {
+    height: 50,
+  },
+  searchInput: {
+    fontSize: 16,
+    color: COLORS.$Black,
   },
 });
