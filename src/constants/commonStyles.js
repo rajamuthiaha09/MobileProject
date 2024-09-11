@@ -30,5 +30,9 @@ export const commonStyles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 6,
     paddingVertical: 2,
+  },
+  flexContentCenter: {
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 });

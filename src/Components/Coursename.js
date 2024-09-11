@@ -4,10 +4,12 @@ import image from '../constants/image';
 import {COLORS, SIZES} from '../constants/themes';
 import {useNavigation} from '@react-navigation/native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faStar,faChevronRight,faTag,faHeart,faArrowLeft,faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
+import {faStar,faChevronRight,faTag,faHeart,faArrowLeft,faXmark} from '@fortawesome/free-solid-svg-icons';
+import { faSort, faList, faMoneyBill, faClock } from '@fortawesome/free-solid-svg-icons';
 import {commonStyles} from '../constants';
 import { useLikedCourses } from './LikedCoursesContext';
 import { CommonHeader } from './sharedComponents';
+import InputTypes from './sharedComponents/InputTypes';
 
 const Coursename = ({limit, isRedirected}) => {
   const navigation = useNavigation();
@@ -25,15 +27,56 @@ const Coursename = ({limit, isRedirected}) => {
     { id: '4', title: 'Introduction to SQL', rating: 4.6, learners: '179K Learners', image: image.courseName6, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
     { id: '5', title: 'Python for Beginners', rating: 4.5, learners: '299K Learners', image: image.courseName1, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
     { id: '6', title: 'Introduction to Cryptocurrency', rating: 4.7, learners: '110K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '7', title: 'CI/CD for Beginners', rating: 4.6, learners: '93K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '8', title: 'UI/UX Basics', rating: 4.6, learners: '125K Learners', image: image.courseName4, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '7', title: 'CI/CD for Beginners', rating: 4.6, learners: '93K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '8', title: 'UI/UX Basics', rating: 4.6, learners: '125K Learners', image: image.courseName4, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
     { id: '9', title: 'React Native for Beginners', rating: 4.7, learners: '83K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '10', title: 'Introduction to Java', rating: 4.5, learners: '215K Learners', image: image.courseName3, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '10', title: 'Introduction to Java', rating: 4.5, learners: '215K Learners', image: image.courseName3, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
     { id: '11', title: 'Angular for Beginners', rating: 4.6, learners: '98K Learners', image: image.courseName2, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '12', title: 'AWS for Beginners', rating: 4.7, learners: '165K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '12', title: 'AWS for Beginners', rating: 4.7, learners: '165K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
     { id: '13', title: 'Social Media Marketing for Beginners', rating: 4.5, learners: '88K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '14', title: 'Digital Marketing Essentials', rating: 4.6, learners: '122K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '14', title: 'Digital Marketing Essentials', rating: 4.6, learners: '122K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
   ];
+
+  const filterSort = [
+    { id: '1', name: 'Sort by', icon: faSort },
+    { id: '2', name: 'Category', icon: faList },
+    { id: '3', name: 'Rating', icon: faStar },
+    { id: '4', name: 'Price', icon: faMoneyBill },
+    { id: '5', name: 'Duration', icon: faClock },
+  ];
+
+  const sortByLabels = [
+    { label: 'Paid', value: 0 },
+    { label: 'Free', value: 1 }
+  ];
+
+  const ratingLabels = [
+    { label: 'Any', value: 0 },
+    { label: '5', value: 1 },
+    { label: '4', value: 2 },
+    { label: '3', value: 3 },
+  ];
+
+  const [selectedId, setSelectedId] = useState(filterSort[3].id);
+
+  const handlePress = (id) => {
+    setSelectedId(id);
+  };
+
+  const renderContent = () => {
+    switch (selectedId) {
+      case '1':
+        return <InputTypes radioButtonLabels={sortByLabels}/>;
+      case '2':
+        return <InputTypes/>;
+      case '3':
+        return <InputTypes radioButtonLabels={ratingLabels}/>;
+      case '4':
+        return <InputTypes/>;
+      default:
+        return null;
+    }
+  };
 
   useEffect(() => {
     if (searchText === '') {
@@ -59,9 +102,7 @@ const Coursename = ({limit, isRedirected}) => {
         <View>
           {isOpenSearch ? (
             <View style={styles.header}>
-              <TouchableOpacity
-                onPress={() => setIsOpenSearch(false)}
-                style={styles.backButton}>
+              <TouchableOpacity onPress={() => setIsOpenSearch(false)} style={styles.backButton}>
                 <FontAwesomeIcon icon={faArrowLeft} size={20} color={COLORS.$black} />
               </TouchableOpacity>
               <View style={styles.searchContainer}>
@@ -76,12 +117,7 @@ const Coursename = ({limit, isRedirected}) => {
               </View>
             </View>
           ) : (
-            <CommonHeader
-              showCourseFilterHeader={true}
-              sectionHeaderTitle={'Course'}
-              onSearchPress={() => setIsOpenSearch(true)}
-              onFilterPress={() => setIsFilterModalVisible(true)}
-            />
+            <CommonHeader showCourseFilterHeader={true} sectionHeaderTitle={'Course'} onSearchPress={() => setIsOpenSearch(true)} onFilterPress={() => setIsFilterModalVisible(true)} />
           )}
 
           {/* Filter Modal */}
@@ -90,19 +126,49 @@ const Coursename = ({limit, isRedirected}) => {
             transparent={true}
             animationType="slide"
             onRequestClose={() => setIsFilterModalVisible(false)}>
-            <View style={styles.modalContainer}>
-              <View style={styles.modalContent}>
-                <Text>Filter Options</Text>
-                <TouchableOpacity onPress={() => setIsFilterModalVisible(false)}>
-                  <Text>Close</Text>
-                </TouchableOpacity>
+            <View style={styles.filterModalContainer}>
+              <View style={styles.filterModalContainerInr}>
+                <View style={styles.filterModalHeader}>
+                  <Text style={[{fontSize: SIZES.sz_19_font}]}>Sort & Filter</Text>
+                  <TouchableOpacity onPress={() => setIsFilterModalVisible(false)}>
+                    <FontAwesomeIcon size={25} icon={faXmark} />
+                  </TouchableOpacity>
+                </View>
+                <View>
+                  {filterSort.map(item => {
+                    const isSelected = selectedId === item.id;
+                    return (
+                      <View style={{backgroundColor: COLORS.$gray,maxWidth: '17%',}}>
+                        <TouchableOpacity
+                          key={item.id}
+                          onPress={() => handlePress(item.id)}
+                          style={[styles.filterSortView,{
+                              backgroundColor: isSelected ? 'white' : 'gray',
+                              borderLeftWidth: isSelected ? 5 : 0,
+                              borderLeftColor: isSelected ? 'orange': 'transparent',
+                            },]}>
+                          <FontAwesomeIcon icon={item.icon} size={22} color={isSelected ? COLORS.$blue_shade_1 : 'black'} />
+                          <Text style={{fontSize: 15,color: isSelected ? COLORS.$blue_shade_1 : 'black',}}>{item.name}</Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })}
+                  <View style={{marginTop: 20}}>{renderContent()}</View>
+                </View>
+                <View style={styles.filterModalFooter}>
+                  <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={() =>  navigation.navigate('MainTabs', {screen: 'Homescreen'})}>
+                    <Text style={styles.buttonText}>RESET</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={() => navigation.navigate('Loginscreen')}>
+                    <Text style={styles.buttonText}>APPLY</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
             </View>
           </Modal>
         </View>
       )}
 
-      {/* <View>{renderfilterContent()}</View>; */}
       <View style={styles.container}>
         <View style={commonStyles.flexJustifySpace}>
           <Text style={commonStyles.commonHeaderText}>Courses students are learning</Text>
@@ -135,89 +201,39 @@ const Coursename = ({limit, isRedirected}) => {
                   </View>
                   <View style={styles.imageContainer}>
                     <Image source={item.image} style={styles.courseImage} />
-                    <View
-                      style={[
-                        styles.tagContainer,
-                        item.isFree ? styles.freeTagOdd : styles.paidTagOdd,
-                      ]}>
-                      <Text style={styles.tagText}>
-                        {item.isFree ? 'FREE' : 'PAID'}
-                      </Text>
+                    <View style={[ styles.tagContainer, item.isFree ? styles.freeTagOdd : styles.paidTagOdd,]}>
+                      <Text style={styles.tagText}>{item.isFree ? 'FREE' : 'PAID'}</Text>
                     </View>
                   </View>
                 </View>
               ) : (
                 <View style={styles.courseContainer}>
                   <View style={styles.imageContainer}>
-                    <Image
-                      source={item.image}
-                      style={[styles.courseImage, {height: 160, width: 160}]}
-                    />
-                    <View
-                      style={[
-                        styles.tagContainer,
-                        item.isFree ? styles.freeTag : styles.paidTag,
-                      ]}>
-                      <Text style={styles.tagText}>
-                        {item.isFree ? 'FREE' : 'PAID'}
-                      </Text>
+                    <Image source={item.image} style={[styles.courseImage, {height: 160, width: 160}]}/>
+                    <View style={[ styles.tagContainer, item.isFree ? styles.freeTag : styles.paidTag,]}>
+                      <Text style={styles.tagText}>{item.isFree ? 'FREE' : 'PAID'}</Text>
                     </View>
                   </View>
-                  <View
-                    style={[
-                      styles.courseInfo,
-                      {paddingTop: 10, paddingLeft: 15},
-                    ]}>
+                  <View style={[styles.courseInfo,{paddingTop: 10, paddingLeft: 15},]}>
                     <Text style={styles.courseTitle}>{item.title}</Text>
                     <View style={styles.courseRating}>
-                      <FontAwesomeIcon
-                        icon={faStar}
-                        size={18}
-                        color="#FFD700"
-                      />
+                      <FontAwesomeIcon icon={faStar} size={18} color="#FFD700"/>
                       <Text style={styles.courseRatingText}>{item.rating}</Text>
                       <Text style={styles.courseLearners}>{item.learners}</Text>
                     </View>
-                    <Text style={[{fontSize: 15, marginTop: 4}]}>
-                      {item.test}
-                    </Text>
+                    <Text style={[{fontSize: 15, marginTop: 4}]}>{item.test}</Text>
                     <View style={[{flexDirection: 'row', marginTop: 4}]}>
                       <FontAwesomeIcon icon={faTag} size={15} color="#FFD700" />
                       <Text style={[{color: '#FFD700'}]}>{item.offer}</Text>
                     </View>
-                    <View
-                      style={[{flexDirection: 'row', gap: 5, marginTop: 4}]}>
-                      <Text
-                        style={[
-                          {
-                            fontSize: 19,
-                            color: COLORS.$black,
-                            fontWeight: 'bold',
-                          },
-                        ]}>
-                        {item.discount}
-                      </Text>
-                      <Text
-                        style={[
-                          {fontSize: 19, textDecorationLine: 'line-through'},
-                        ]}>
-                        {item.actAmount}
-                      </Text>
+                    <View style={[{flexDirection: 'row', gap: 5, marginTop: 4}]}>
+                      <Text style={[{fontSize: 19,color: COLORS.$black,fontWeight: 'bold',},]}>{item.discount}</Text>
+                      <Text style={[{fontSize: 19, textDecorationLine: 'line-through'},]}>{item.actAmount}</Text>
                     </View>
                   </View>
                   <TouchableOpacity onPress={() => toggleLike(item.id)}>
-                    <FontAwesomeIcon
-                      icon={faHeart}
-                      size={25}
-                      color={likedCourses[item.id] ? 'red' : 'black'}
-                      style={styles.iconBorder}
-                    />
-                    <FontAwesomeIcon
-                      icon={faHeart}
-                      size={18}
-                      color={likedCourses[item.id] ? 'red' : 'white'}
-                      style={styles.iconFill}
-                    />
+                    <FontAwesomeIcon icon={faHeart} size={25} color={likedCourses[item.id] ? 'red' : 'black'} style={styles.iconBorder} />
+                    <FontAwesomeIcon icon={faHeart} size={18} color={likedCourses[item.id] ? 'red' : 'white'} style={styles.iconFill} />
                   </TouchableOpacity>
                 </View>
               )}
@@ -349,11 +365,10 @@ const styles = StyleSheet.create({
     top: 3,
   },
   wishlistButton: {
+    ...commonStyles.flexContentCenter,
     backgroundColor: COLORS.$blue_shade_1,
     borderRadius: 5,
     height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
     marginTop: 20,
   },
   buttonText: {
@@ -361,8 +376,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.sz_18_font,
   },
   header: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    ...commonStyles.flexAlignCenter,
     backgroundColor: COLORS.$White,
     paddingHorizontal: 20,
   },
@@ -375,5 +389,48 @@ const styles = StyleSheet.create({
   searchInput: {
     fontSize: 16,
     color: COLORS.$Black,
+  },
+
+  filterModalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  filterModalContainerInr: {
+    height: '60%',
+    backgroundColor: COLORS.$White,
+    borderTopEndRadius: 25,
+    borderTopStartRadius: 25,
+  },
+  filterModalHeader: {
+    ...commonStyles.flexContainer,
+    paddingHorizontal: 30,
+    paddingVertical: SIZES.padding_10,
+    borderBottomWidth: 1,
+    borderBottomColor: COLORS.$black,
+  },
+  filterModalFooter: {
+    ...commonStyles.flexContainer,
+    paddingHorizontal: 30,
+    paddingVertical: SIZES.padding_10,
+  },
+  button: {
+    backgroundColor: COLORS.$blue_shade_1,
+    borderRadius: 5,
+    paddingHorizontal: SIZES.padding_30,
+    paddingVertical: SIZES.padding_10,
+  },
+  buttonText: {
+    color: COLORS.$White,
+    fontSize: SIZES.sz_20_font,
+    fontFamily: 'Poppins-SemiBold',
+  },
+  filterSortView: {
+    flexDirection: 'column',
+    paddingVertical: SIZES.padding_15,
+    paddingHorizontal: SIZES.padding_10,
+    alignItems: 'center',
+    borderBottomColor: 'red',
+    borderBottomWidth: 1,
+    gap: 5,
   },
 });

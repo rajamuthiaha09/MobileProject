@@ -23,6 +23,7 @@ export const COLORS = {
   '$blue_shade_1': '#2196F3',
   '$blue_shade_3': '#007bff',
   '$blue_shade_2': '#1F41BB',
+  '$inputBorderBlue': '#456DFE',
 
 };
 
