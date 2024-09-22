@@ -25,6 +25,9 @@ export const COLORS = {
   '$blue_shade_2': '#1F41BB',
   '$inputBorderBlue': '#456DFE',
 
+  //yellow color
+  '$yellow': '#FFD700',
+
 };
 
 export const SIZES = {

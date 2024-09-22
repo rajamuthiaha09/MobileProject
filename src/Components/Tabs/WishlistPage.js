@@ -29,13 +29,13 @@ const WishlistPage = ({navigation, route}) => {
               <View style={[styles.courseInfo,{paddingTop: 10, paddingLeft: 15},]}>
                 <Text style={styles.courseTitle}>{item.title}</Text>
                 <View style={styles.courseRating}>
-                  <FontAwesomeIcon icon={faStar} size={18} color="#FFD700"/>
+                  <FontAwesomeIcon icon={faStar} size={18} color={COLORS.$yellow}/>
                   <Text style={styles.courseRatingText}>{item.rating}</Text>
                   <Text style={styles.courseLearners}>{item.learners}</Text>
                 </View>
                 <Text style={styles.courseTest}>{item.test}</Text>
                 <View style={styles.offerContainer}>
-                  <FontAwesomeIcon icon={faTag} size={15} color="#FFD700"/>
+                  <FontAwesomeIcon icon={faTag} size={15} color={COLORS.$yellow}/>
                   <Text style={styles.offerText}>{item.offer}</Text>
                 </View>
                 <View style={styles.priceContainer}>

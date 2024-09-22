@@ -21,22 +21,35 @@ const Coursename = ({limit, isRedirected}) => {
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
   const [filterType, setFilterType] = useState(null);
 
+
   const courses = [
-    { id: '1', title: 'Power BI for Beginners', rating: 4, learners: '201K Learners', image: image.courseName7, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '2', title: 'Introduction to MS Excel', rating: 4, learners: '285K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '3', title: 'PMP Basics', rating: 3, learners: '59K Learners', image: image.courseName5, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '4', title: 'Introduction to SQL', rating: 3, learners: '179K Learners', image: image.courseName6, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '5', title: 'Python for Beginners', rating: 3, learners: '299K Learners', image: image.courseName1, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '6', title: 'Introduction to Cryptocurrency', rating: 4, learners: '110K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '7', title: 'CI/CD for Beginners', rating: 4, learners: '93K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '8', title: 'UI/UX Basics', rating: 4, learners: '125K Learners', image: image.courseName4, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '9', title: 'React Native for Beginners', rating: 4, learners: '83K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '10', title: 'Introduction to Java', rating: 5, learners: '215K Learners', image: image.courseName3, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '11', title: 'Angular for Beginners', rating: 4, learners: '98K Learners', image: image.courseName2, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '12', title: 'AWS for Beginners', rating: 4, learners: '165K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '13', title: 'Social Media Marketing for Beginners', rating: 5, learners: '88K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '14', title: 'Digital Marketing Essentials', rating: 4, learners: '122K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '1', title: 'Power BI for Beginners', rating: 4, learners: '201K Learners', image: image.courseName7, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '2', title: 'Introduction to MS Excel', rating: 4, learners: '285K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '3', title: 'PMP Basics', rating: 3.5, learners: '59K Learners', image: image.courseName5, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '4', title: 'Introduction to SQL', rating: 3, learners: '179K Learners', image: image.courseName6, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '5', title: 'Python for Beginners', rating: 3, learners: '299K Learners', image: image.courseName1, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '6', title: 'Introduction to Cryptocurrency', rating: 4, learners: '110K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '7', title: 'CI/CD for Beginners', rating: 4, learners: '93K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '8', title: 'UI/UX Basics', rating: 4, learners: '125K Learners', image: image.courseName4, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '9', title: 'React Native for Beginners', rating: 4, learners: '83K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '10', title: 'Introduction to Java', rating: 5, learners: '215K Learners', image: image.courseName3, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '11', title: 'Angular for Beginners', rating: 4, learners: '98K Learners', image: image.courseName2, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '12', title: 'AWS for Beginners', rating: 4, learners: '165K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '13', title: 'Social Media Marketing for Beginners', rating: 5, learners: '88K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
+    { id: '14', title: 'Digital Marketing Essentials', rating: 4, learners: '122K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises', tutorName: 'Raja'},
   ];
+
+  const handleImagePress = (item) => {
+    navigation.navigate('Courseview', {
+      images: item.image,  // Pass the item image
+      title: item.title,   // Pass the item title
+      rating: item.rating, // Pass the item rating
+      MName: item.tutorName, // Pass the item rating
+      amount: item.discount, // Pass the item rating
+      preamount: item.actAmount, // Pass the item rating
+    });
+  };
+  
 
   const filterSort = [
     { id: '1', name: 'Sort by', icon: faSort },
@@ -263,7 +276,7 @@ const Coursename = ({limit, isRedirected}) => {
                   <View style={styles.courseInfo}>
                     <Text style={styles.courseTitle}>{item.title}</Text>
                     <View style={styles.courseRating}>
-                      <FontAwesomeIcon icon={faStar} size={18} color="#FFD700"/>
+                      <FontAwesomeIcon icon={faStar} size={18} color={COLORS.$yellow}/>
                       <Text style={styles.courseRatingText}>{item.rating}</Text>
                       <Text style={styles.courseLearners}>{item.learners}</Text>
                     </View>
@@ -272,7 +285,10 @@ const Coursename = ({limit, isRedirected}) => {
                     </View>
                   </View>
                   <View style={styles.imageContainer}>
-                    <Image source={item.image} style={styles.courseImage} />
+                  <TouchableOpacity onPress={() => handleImagePress(item)}>
+  <Image source={item.image} style={styles.courseImage} />
+</TouchableOpacity>
+
                     <View style={[ styles.tagContainer, item.isFree ? styles.freeTagOdd : styles.paidTagOdd,]}>
                       <Text style={styles.tagText}>{item.isFree ? 'FREE' : 'PAID'}</Text>
                     </View>
@@ -281,7 +297,9 @@ const Coursename = ({limit, isRedirected}) => {
               ) : (
                 <View style={styles.courseContainer}>
                   <View style={styles.imageContainer}>
+                  <TouchableOpacity onPress={() => handleImagePress(item)}>
                     <Image source={item.image} style={[styles.courseImage, {height: 160, width: 160}]}/>
+                    </TouchableOpacity>
                     <View style={[ styles.tagContainer, item.isFree ? styles.freeTag : styles.paidTag,]}>
                       <Text style={styles.tagText}>{item.isFree ? 'FREE' : 'PAID'}</Text>
                     </View>
@@ -289,19 +307,20 @@ const Coursename = ({limit, isRedirected}) => {
                   <View style={[styles.courseInfo,{paddingTop: 10, paddingLeft: 15},]}>
                     <Text style={styles.courseTitle}>{item.title}</Text>
                     <View style={styles.courseRating}>
-                      <FontAwesomeIcon icon={faStar} size={18} color="#FFD700"/>
+                      <FontAwesomeIcon icon={faStar} size={18} color={COLORS.$yellow}/>
                       <Text style={styles.courseRatingText}>{item.rating}</Text>
                       <Text style={styles.courseLearners}>{item.learners}</Text>
                     </View>
                     <Text style={[{fontSize: 15, marginTop: 4}]}>{item.test}</Text>
                     <View style={[{flexDirection: 'row', marginTop: 4}]}>
-                      <FontAwesomeIcon icon={faTag} size={15} color="#FFD700" />
+                      <FontAwesomeIcon icon={faTag} size={15} color={COLORS.$yellow} />
                       <Text style={[{color: '#FFD700'}]}>{item.offer}</Text>
                     </View>
-                    <View style={[{flexDirection: 'row', gap: 5, marginTop: 4}]}>
-                      <Text style={[{fontSize: 19,color: COLORS.$black,fontWeight: 'bold',},]}>{item.discount}</Text>
-                      <Text style={[{fontSize: 19, textDecorationLine: 'line-through'},]}>{item.actAmount}</Text>
-                    </View>
+                    {!item.isFree && 
+                      (<View style={[{flexDirection: 'row', gap: 5, marginTop: 4}]}>
+                        <Text style={[{fontSize: 19,color: COLORS.$black,fontWeight: 'bold',},]}>{item.discount}</Text>
+                        <Text style={[{fontSize: 19, textDecorationLine: 'line-through'},]}>{item.actAmount}</Text>
+                    </View>)}
                   </View>
                   <TouchableOpacity onPress={() => toggleLike(item.id)}>
                     <FontAwesomeIcon icon={faHeart} size={25} color={likedCourses[item.id] ? 'red' : 'black'} style={styles.iconBorder} />

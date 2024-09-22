@@ -168,7 +168,7 @@ const Homescreen = () => {
       <View style={styles.otrcontainer}>
         <View style={styles.header}>
           <View style={styles.awardHeader}>
-            <FontAwesomeIcon icon={faAward} size={25} color="#FFD700" />
+            <FontAwesomeIcon icon={faAward} size={25} color={COLORS.$yellow} />
             <Text style={commonStyles.commonHeaderText}>Get Certified Get Ahead</Text>
           </View>
           <Text style={styles.subHeaderText}>

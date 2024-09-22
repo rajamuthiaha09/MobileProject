@@ -3,14 +3,14 @@ import React, {useState} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {COLORS, SIZES} from '../constants/themes';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import image from '../constants/image';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import { faUser, faLaptopCode, faAward, faDownload, faStar, faStarHalfAlt,} from '@fortawesome/free-solid-svg-icons';
+import { image } from '../constants';
 
 const Courseview = () => {
   const {params} = useRoute();
-  const {title, amount, preamount, tutorname, ratings, student, starating} = params;
-  const titles = ['Description', 'Lessons', 'Instructor', 'Reviews'];
+  const {title, rating, images,MName,amount,preamount} = params || {};
+  const titles = ['Description', 'Lessons', 'Reviews'];
   const [selectedTitle, setSelectedTitle] = useState('Description');
   const handleTitlePress = title => {
     setSelectedTitle(title);
@@ -28,8 +28,8 @@ const Courseview = () => {
     { username: 'Jenifer', reviewDate: '02-02-2020', comments: 'Good service but room for improvement.', starCount: '4', gender: 'Female' },
   ];
 
-  const fullStars = Math.floor(starating); // Number of full stars
-  const halfStar = starating % 1 !== 0;
+  const fullStars = Math.floor(rating);
+  const halfStar = rating % 1 !== 0;
 
   const parseDate = dateStr => {
     const [day, month, year] = dateStr.split('-').map(Number);
@@ -51,34 +51,24 @@ const Courseview = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Image style={styles.imageLayout} source={image.courseImageView} />
+      <Image style={styles.imageLayout} source={images} />
       <Text style={styles.CourseTitle}>{title}</Text>
       <View style={styles.coursEnrollListView}>
+      <Text style={styles.coursEnrollList}>{rating}</Text>
         <View style={{flexDirection: 'row'}}>
           {Array.from({length: fullStars}, (_, index) => (
-            <FontAwesomeIcon
-              key={index}
-              icon={faStar}
-              size={20}
-              color="#FFD700"
-            />
+            <FontAwesomeIcon key={index} icon={faStar} size={20} color={COLORS.$yellow}/>
           ))}
           {halfStar && (
-            <FontAwesomeIcon icon={faStarHalfAlt} size={20} color="#FFD700" />
+            <FontAwesomeIcon icon={faStarHalfAlt} size={20} color={COLORS.$yellow} />
           )}
         </View>
-        <Text style={styles.coursEnrollList}>({ratings} ratings)</Text>
-        <Text style={styles.coursEnrollList}>{student} students</Text>
+        <Text style={styles.coursEnrollList}>(152 ratings)</Text>
+        <Text style={styles.coursEnrollList}>2,159 students</Text>
       </View>
       <View style={styles.rowContainer}>
         {titles.map((item, index) => (
-          <Text
-            key={index}
-            style={styles.titleDescription}
-            onPress={() => handleTitlePress(item)}>
-            {item}
-          </Text>
-        ))}
+          <Text key={index} style={styles.titleDescription} onPress={() => handleTitlePress(item)}>{item}</Text>))}
       </View>
 
       {selectedTitle === 'Description' && (
@@ -86,25 +76,19 @@ const Courseview = () => {
           <Text style={styles.aboutContent}>About Course</Text>
           <View style={styles.contentRowView}>
             <FontAwesomeIcon icon={faUser} size={25} />
-            <Text style={styles.descriptionContent}>{tutorname}</Text>
+            <Text style={styles.descriptionContent}>{MName}</Text>
           </View>
           <View style={styles.contentRowView}>
             <FontAwesomeIcon icon={faLaptopCode} size={25} />
-            <Text style={styles.descriptionContent}>
-              14 hourse on-demand video
-            </Text>
+            <Text style={styles.descriptionContent}>14 hourse on-demand video</Text>
           </View>
           <View style={styles.contentRowView}>
             <FontAwesomeIcon icon={faDownload} size={25} />
-            <Text style={styles.descriptionContent}>
-              16 downloadable resources
-            </Text>
+            <Text style={styles.descriptionContent}>16 downloadable resources</Text>
           </View>
           <View style={styles.contentRowView}>
             <FontAwesomeIcon icon={faAward} size={25} />
-            <Text style={styles.descriptionContent}>
-              Certificate of completion
-            </Text>
+            <Text style={styles.descriptionContent}>Certificate of completion</Text>
           </View>
           <Text style={styles.courseDescription}>
             The Ultimate Guide To Strategic Marketing is an essential resource
@@ -125,13 +109,6 @@ const Courseview = () => {
         </View>
       )}
       {selectedTitle === 'Lessons' && (
-        <>
-          <Text style={styles.content}>Lesson 1</Text>
-          <Text style={styles.content}>Lesson 2</Text>
-          <Text style={styles.content}>Lesson 3</Text>
-        </>
-      )}
-      {selectedTitle === 'Instructor' && (
         <>
           <Text style={styles.content}>Lesson 1</Text>
           <Text style={styles.content}>Lesson 2</Text>
@@ -164,7 +141,7 @@ const Courseview = () => {
                         key={index}
                         icon={faStar}
                         size={20}
-                        color="#FFD700"
+                        color={COLORS.$yellow}
                       />
                     ))}
                   </View>
