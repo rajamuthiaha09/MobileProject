@@ -19,22 +19,23 @@ const Coursename = ({limit, isRedirected}) => {
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [isOpenSearch, setIsOpenSearch] = useState(false);
   const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
+  const [filterType, setFilterType] = useState(null);
 
   const courses = [
-    { id: '1', title: 'Power BI for Beginners', rating: 4.6, learners: '201K Learners', image: image.courseName7, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '2', title: 'Introduction to MS Excel', rating: 4.6, learners: '285K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '3', title: 'PMP Basics', rating: 4.6, learners: '59K Learners', image: image.courseName5, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '4', title: 'Introduction to SQL', rating: 4.6, learners: '179K Learners', image: image.courseName6, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '5', title: 'Python for Beginners', rating: 4.5, learners: '299K Learners', image: image.courseName1, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '6', title: 'Introduction to Cryptocurrency', rating: 4.7, learners: '110K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '7', title: 'CI/CD for Beginners', rating: 4.6, learners: '93K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '8', title: 'UI/UX Basics', rating: 4.6, learners: '125K Learners', image: image.courseName4, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '9', title: 'React Native for Beginners', rating: 4.7, learners: '83K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '10', title: 'Introduction to Java', rating: 4.5, learners: '215K Learners', image: image.courseName3, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '11', title: 'Angular for Beginners', rating: 4.6, learners: '98K Learners', image: image.courseName2, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '12', title: 'AWS for Beginners', rating: 4.7, learners: '165K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '13', title: 'Social Media Marketing for Beginners', rating: 4.5, learners: '88K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
-    { id: '14', title: 'Digital Marketing Essentials', rating: 4.6, learners: '122K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '1', title: 'Power BI for Beginners', rating: 4, learners: '201K Learners', image: image.courseName7, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '2', title: 'Introduction to MS Excel', rating: 4, learners: '285K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '3', title: 'PMP Basics', rating: 3, learners: '59K Learners', image: image.courseName5, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '4', title: 'Introduction to SQL', rating: 3, learners: '179K Learners', image: image.courseName6, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '5', title: 'Python for Beginners', rating: 3, learners: '299K Learners', image: image.courseName1, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '6', title: 'Introduction to Cryptocurrency', rating: 4, learners: '110K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '7', title: 'CI/CD for Beginners', rating: 4, learners: '93K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '8', title: 'UI/UX Basics', rating: 4, learners: '125K Learners', image: image.courseName4, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '9', title: 'React Native for Beginners', rating: 4, learners: '83K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '10', title: 'Introduction to Java', rating: 5, learners: '215K Learners', image: image.courseName3, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '11', title: 'Angular for Beginners', rating: 4, learners: '98K Learners', image: image.courseName2, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '12', title: 'AWS for Beginners', rating: 4, learners: '165K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '13', title: 'Social Media Marketing for Beginners', rating: 5, learners: '88K Learners', image: image.courseName, isFree: true, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
+    { id: '14', title: 'Digital Marketing Essentials', rating: 4, learners: '122K Learners', image: image.courseName, isFree: false, actAmount: '$25.00', discount: '$20.00', offer: '50% OFF FOR 4 DAYS', test: '10 mock tests and exercises',},
   ];
 
   const filterSort = [
@@ -51,10 +52,9 @@ const Coursename = ({limit, isRedirected}) => {
   ];
 
   const ratingLabels = [
-    { label: 'Any', value: 0 },
-    { label: '5', value: 1 },
-    { label: '4', value: 2 },
-    { label: '3', value: 3 },
+    { label: '5', value: 0 },
+    { label: '4', value: 1 },
+    { label: '3', value: 2 },
   ];
 
   const [selectedId, setSelectedId] = useState(filterSort[3].id);
@@ -66,7 +66,7 @@ const Coursename = ({limit, isRedirected}) => {
   const renderContent = () => {
     switch (selectedId) {
       case '1':
-        return <InputTypes radioButtonLabels={sortByLabels}/>;
+        return <InputTypes radioButtonLabels={sortByLabels} onValueChange={handleFilterChange}/>;
       case '2':
         return <InputTypes/>;
       case '3':
@@ -75,6 +75,25 @@ const Coursename = ({limit, isRedirected}) => {
         return <InputTypes/>;
       default:
         return null;
+    }
+  };
+
+  const handleFilterChange = (val) => {
+    setFilterType(val);
+  };
+
+  const handleApply = () => {
+    applyFilter(filterType); // Apply the selected filter
+    setIsFilterModalVisible(false); // Close the modal
+  };
+
+  const applyFilter = (filter) => {
+    if (filter === 0) {
+      setFilteredCourses(courses.filter(course => !course.isFree));
+    } else if (filter === 1) {
+      setFilteredCourses(courses.filter(course => course.isFree));
+    } else {
+      setFilteredCourses(courses);
     }
   };
 
@@ -159,7 +178,7 @@ const Coursename = ({limit, isRedirected}) => {
                   <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={() =>  navigation.navigate('MainTabs', {screen: 'Homescreen'})}>
                     <Text style={styles.buttonText}>RESET</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={() => navigation.navigate('Loginscreen')}>
+                  <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={handleApply}>
                     <Text style={styles.buttonText}>APPLY</Text>
                   </TouchableOpacity>
                 </View>
