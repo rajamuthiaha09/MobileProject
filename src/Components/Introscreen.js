@@ -17,7 +17,6 @@ const IntroScreen = () => {
         <View style={[{marginLeft: -30}]}>
           <View style={styles.logoTextContainer}>
             <Text style={styles.biggerText}>Courselog</Text>
-            {/* <Text style={styles.smallerText}>ourselog</Text> */}
           </View>
           <View style={styles.sloganContainer}>
             {['Aware', 'Aspire', 'Achieve'].map((text, index) => (
@@ -32,10 +31,7 @@ const IntroScreen = () => {
       
       <Image source={image.infoImage} style={styles.bannerImage} />
       <Text style={styles.title}>Enjoy 1000+ hrs of learning for free</Text>
-      <Text style={styles.subTitle}>
-        Knowledge is the new currency, therefore invest in yourself and unlock
-        your potential to achieve success now.
-      </Text>
+      <Text style={styles.subTitle}>Knowledge is the new currency, therefore invest in yourself and unlock your potential to achieve success now.</Text>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -57,10 +53,9 @@ export default IntroScreen;
 
 const styles = StyleSheet.create({
   container: {
+    ...commonStyles.flexContentCenter,
     flex: 1,
     backgroundColor: COLORS.$White,
-    alignItems: 'center',
-    justifyContent: 'center',
     padding: SIZES.padding_20,
   },
   headerContainer: {
@@ -72,9 +67,7 @@ const styles = StyleSheet.create({
     width: 170,
   },
   logoTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'center',
+    ...commonStyles.rowFlexCenter
   },
   biggerText: {
     fontSize: SIZES.sz_34_font,

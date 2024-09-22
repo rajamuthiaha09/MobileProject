@@ -34,5 +34,10 @@ export const commonStyles = StyleSheet.create({
   flexContentCenter: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  rowFlexCenter: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   }
 });

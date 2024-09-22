@@ -35,6 +35,7 @@ export const SIZES = {
   margin_10: 10,
   margin_12: 12,
   margin_15: 15,
+  margin_19: 19,
   margin_20: 20,
   margin_30: 30,
   margin_40: 40,
