@@ -19,8 +19,6 @@ import {CommonHeader} from '../sharedComponents';
 import image from '../../constants/image';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faCamera, faImage, faTrash} from '@fortawesome/free-solid-svg-icons';
-// import { PermissionsAndroid, Platform } from 'react-native';
-// import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 
 const ProfileEditForm = ({ route, navigation }) => {
   const { routeName, routeEmail } = route.params;
@@ -35,69 +33,6 @@ const ProfileEditForm = ({ route, navigation }) => {
 
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  // const requestCameraPermission = async () => {
-  //   if (Platform.OS === 'android') {
-  //     const granted = await PermissionsAndroid.request(
-  //       PermissionsAndroid.PERMISSIONS.CAMERA,
-  //       {
-  //         title: 'Camera Permission',
-  //         message: 'This app needs access to your camera to take photos.',
-  //         buttonNeutral: 'Ask Me Later',
-  //         buttonNegative: 'Cancel',
-  //         buttonPositive: 'OK',
-  //       },
-  //     );
-  //     return granted === PermissionsAndroid.RESULTS.GRANTED;
-  //   } else {
-  //     const status = await request(PERMISSIONS.IOS.CAMERA);
-  //     return status === RESULTS.GRANTED;
-  //   }
-  // };
-
-  // const openCameraOrGallery = async () => {
-  //   const hasCameraPermission = await requestCameraPermission();
-  //   if (!hasCameraPermission) {
-  //     Alert.alert("Permission Denied", "Camera permission is required to take photos.");
-  //     return;
-  //   }
-
-  //   Alert.alert(
-  //     "Select Image Source",
-  //     "Choose an option",
-  //     [
-  //       {
-  //         text: "Camera",
-  //         onPress: () => launchCamera({ mediaType: 'photo' }, (response) => {
-  //           if (response.didCancel) {
-  //             console.log('User cancelled image picker');
-  //           } else if (response.errorCode) {
-  //             console.log('ImagePicker Error: ', response.errorMessage);
-  //           } else if (response.assets && response.assets.length > 0) {
-  //             console.log('Image selected from camera: ', response.assets[0]);
-  //           } else {
-  //             console.log('No image selected from camera');
-  //           }
-  //         })
-  //       },
-  //       {
-  //         text: "Gallery",
-  //         onPress: () => launchImageLibrary({ mediaType: 'photo' }, (response) => {
-  //           if (response.didCancel) {
-  //             console.log('User cancelled image picker');
-  //           } else if (response.errorCode) {
-  //             console.log('ImagePicker Error: ', response.errorMessage);
-  //           } else if (response.assets && response.assets.length > 0) {
-  //             console.log('Image selected from gallery: ', response.assets[0]);
-  //           } else {
-  //             console.log('No image selected from gallery');
-  //           }
-  //         })
-  //       },
-  //       { text: "Cancel", style: "cancel" }
-  //     ],
-  //     { cancelable: true }
-  //   );
-  // };
 
   const handleGalleryOpen = () => {
     const options = {
@@ -164,7 +99,7 @@ const ProfileEditForm = ({ route, navigation }) => {
       <View style={styles.profileHeaderView}>
         <View style={styles.avatarContainer}>
           <View style={styles.avatarCircle}>
-          <Image resizeMode="contain" source={selectedImage == null ? image.profileImageMale : {uri: selectedImage}} style={styles.avatar} />
+          <Image source={selectedImage == null ? image.profileImageMale : { uri: selectedImage }} style={[ styles.avatar,selectedImage !== null && { width: 180, height: 180 }]}/>
           </View>
           <TouchableOpacity style={styles.editIconContainer} onPress={() => setModalVisible(true)}>
             <FontAwesomeIcon icon={faCamera} size={25} color={COLORS.$black} />
@@ -176,8 +111,7 @@ const ProfileEditForm = ({ route, navigation }) => {
         validationSchema={validationSchema}
         onSubmit={values => {
           console.log(values);
-          navigation.goBack(); // Navigate back to the previous page
-          // Optionally, pass the updated values back
+          navigation.goBack();
           navigation.navigate('ProfileEditPage', {
             updatedName: values.name,
             updatedEmail: values.email,
@@ -304,13 +238,11 @@ export default ProfileEditForm;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: COLORS.$White,
     margin: 20,
   },
   ProfileEditFormContainer: {
     marginTop: SIZES.margin_30,
     width: '100%',
-    // paddingHorizontal: SIZES.padding_20,
   },
   inputContainer: {
     marginBottom: SIZES.margin_20,
@@ -369,12 +301,9 @@ const styles = StyleSheet.create({
   },
   profileHeaderView: {
     alignItems: 'center',
-    // marginTop: '1%',
-    // marginBottom: '5%',
   },
   avatarContainer: {
     position: 'relative',
-    // marginBottom: 10,
   },
   avatarCircle: {
     width : 200, 
@@ -386,8 +315,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   avatar: {
-    width: 180,
-    height: 180,
+    width: 210,
+    height: 250,
     borderRadius: 90,
   },
   editIconContainer: {

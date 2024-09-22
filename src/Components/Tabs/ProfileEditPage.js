@@ -151,10 +151,11 @@ const styles = StyleSheet.create({
     borderColor: COLORS.$darkGray,
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 10,
   },
   avatar: {
-    width: 180,
-    height: 180,
+    width: 210,
+    height: 250,
     borderRadius: 90,
   },
   editIconContainer: {
