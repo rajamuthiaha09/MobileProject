@@ -4,7 +4,7 @@ import image from '../constants/image';
 import {COLORS, SIZES} from '../constants/themes';
 import {useNavigation} from '@react-navigation/native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faStar,faChevronRight,faTag,faHeart,faArrowLeft,faXmark} from '@fortawesome/free-solid-svg-icons';
+import {faStar,faChevronRight,faCheck,faTag,faHeart,faArrowLeft,faXmark,faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
 import { faSort, faList, faMoneyBill, faClock } from '@fortawesome/free-solid-svg-icons';
 import {commonStyles} from '../constants';
 import { useLikedCourses } from './LikedCoursesContext';
@@ -57,22 +57,73 @@ const Coursename = ({limit, isRedirected}) => {
     { label: '3', value: 2 },
   ];
 
+  const durationLabels = [
+    { label: '0-3 Hours', value: 0 },
+    { label: '3-6 Hours', value: 1 },
+    { label: '6-9 Hours', value: 2 },
+    { label: '9+ Hours', value: 3 },
+  ];
+
+  const categoriesLabels = [
+    { label: 'Data Science & Business Analytics', value: 0,},
+    { label: 'Software Development', value: 1,},
+    { label: 'Cyber Security', value: 2,},
+    { label: 'Project Management', value: 3,},
+    { label: 'AI & Machine Learning', value: 4,},
+    { label: 'Digital Marketing', value: 5,},
+    { label: 'Cloud Computing', value: 6,},
+    { label: 'Big Data', value: 7,},
+    { label: 'DevOps', value: 8,},
+    { label: 'Quality Management', value: 9,},
+  ];
+
   const [selectedId, setSelectedId] = useState(filterSort[3].id);
 
   const handlePress = (id) => {
     setSelectedId(id);
   };
 
+  const handleCheckBoxChange = (values) => {
+    console.log('Selected checkbox values:', values);
+  };
+
   const renderContent = () => {
     switch (selectedId) {
       case '1':
-        return <InputTypes radioButtonLabels={sortByLabels} onValueChange={handleFilterChange}/>;
+        return <InputTypes radioButton={true} radioButtonLabels={sortByLabels} onValueChange={handleFilterChange}/>;
       case '2':
-        return <InputTypes/>;
+        return (<>
+        <View style={styles.FilterSearchContainer}>
+        <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                size={18}
+                color={COLORS.$black}
+              />
+        <TextInput style={styles.searchInput} placeholder="Search by category name" />
+      </View>
+      <View style={styles.FilterSelectActions}>
+        <View style={{flexDirection: 'row'}}>
+        <TouchableOpacity style={{flexDirection: 'row'}} >
+        <FontAwesomeIcon size={25} icon={faCheck} />
+          <Text style={styles.selectText}>Select All</Text>
+        </TouchableOpacity>
+        </View>
+        <View>
+        <TouchableOpacity >
+        <FontAwesomeIcon size={25} icon={faXmark} />
+          <Text style={styles.clearText}>Clear All</Text>
+        </TouchableOpacity>
+        </View>
+      </View>
+        <InputTypes checkBox={true} checkBoxLabels={categoriesLabels} onValueCheckBoxChange={handleCheckBoxChange}/>
+        </>
+        );
       case '3':
-        return <InputTypes radioButtonLabels={ratingLabels}/>;
+        return <InputTypes radioButton={true} radioButtonLabels={ratingLabels}/>;
       case '4':
-        return <InputTypes/>;
+        return <InputTypes checkBox={true} checkBoxLabels={durationLabels} onValueCheckBoxChange={handleCheckBoxChange}/>;
+      case '5':
+        return <InputTypes checkBox={true} checkBoxLabels={durationLabels} onValueCheckBoxChange={handleCheckBoxChange}/>;
       default:
         return null;
     }
@@ -153,11 +204,12 @@ const Coursename = ({limit, isRedirected}) => {
                     <FontAwesomeIcon size={25} icon={faXmark} />
                   </TouchableOpacity>
                 </View>
-                <View>
+                <View style={styles.displayModel}>
+                  <View>
                   {filterSort.map(item => {
                     const isSelected = selectedId === item.id;
                     return (
-                      <View style={{backgroundColor: COLORS.$gray,maxWidth: '17%',}}>
+                      <View style={{backgroundColor: COLORS.$gray}}>
                         <TouchableOpacity
                           key={item.id}
                           onPress={() => handlePress(item.id)}
@@ -172,7 +224,8 @@ const Coursename = ({limit, isRedirected}) => {
                       </View>
                     );
                   })}
-                  <View style={{marginTop: 20}}>{renderContent()}</View>
+                  </View>
+                  <View style={{width: '75%',marginTop: 20}}>{renderContent()}</View>
                 </View>
                 <View style={styles.filterModalFooter}>
                   <TouchableOpacity style={styles.button} activeOpacity={0.5} onPress={() =>  navigation.navigate('MainTabs', {screen: 'Homescreen'})}>
@@ -415,10 +468,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   filterModalContainerInr: {
-    height: '60%',
+    // height: '60%',
     backgroundColor: COLORS.$White,
     borderTopEndRadius: 25,
     borderTopStartRadius: 25,
+  },
+  displayModel: {
+    flexDirection: 'row',
+    gap: 20,
+    width: '100%'
+    // justifyContent: 'center'
+    // justifyContent: 'space-between',
   },
   filterModalHeader: {
     ...commonStyles.flexContainer,
@@ -444,12 +504,32 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-SemiBold',
   },
   filterSortView: {
-    flexDirection: 'column',
+    // flexDirection: 'column',
     paddingVertical: SIZES.padding_15,
     paddingHorizontal: SIZES.padding_10,
     alignItems: 'center',
     borderBottomColor: 'red',
     borderBottomWidth: 1,
     gap: 5,
+  },
+  FilterSearchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    // backgroundColor: 'red',
+    borderBottomColor: 'red',
+    borderBottomWidth: 1,
+    gap: 15,
+  },
+  FilterSelectActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  selectText: {
+    color: 'blue',
+    fontWeight: 'bold',
+  },
+  clearText: {
+    color: 'blue',
+    fontWeight: 'bold',
   },
 });
