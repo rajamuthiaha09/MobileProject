@@ -7,16 +7,20 @@ export const COLORS = {
   '$black': '#000',
   '$primary': '#45484A',
   '$secondary': '#AEB5BB',
-  '$green':'#008000',
   '$red':'#FF0000',
 
   //gray color
   '$gray': '#D9D9D9',
   '$darkGray': '#A9A9A9',
   '$grey_shade_1': '#959292',
+  '$grey_shade_2': '#f0f0f0',
 
   //pink color
   '$pink_shade_1': '#FFF7FC',
+
+  //green color
+  '$green':'#008000',
+  '$green_shade_1': '#4CBB17',
 
   //blue color
   // '$blue_shade': '#007BFF',

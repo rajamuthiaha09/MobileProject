@@ -90,7 +90,7 @@ const Courseview = () => {
       <View>
         <View style={styles.separator} />
         <View style={styles.skillsContainer}>
-          <Text style={{fontSize: 18, color: COLORS.$black, fontWeight: 'bold'}}> What will I Learn?</Text>
+          <Text style={styles.titleText}> What will I Learn?</Text>
           <Text style={styles.courseDescription}>{CourseOverView}</Text>
         </View>
         <View style={styles.separator} />
@@ -136,7 +136,6 @@ const Courseview = () => {
               )}
               keyExtractor={item => item.id}
               ListHeaderComponent={<Text style={styles.aboutContent}>About Course</Text>}
-              // ItemSeparatorComponent={<View style={styles.separator} />}
               showsVerticalScrollIndicator={false}
               ListFooterComponent={<RenderFooter></RenderFooter>}
             />
@@ -237,12 +236,12 @@ const styles = StyleSheet.create({
   },
   rowContainer: {
     ...commonStyles.flexContainer,
-    marginVertical: 30,
+    marginVertical: SIZES.margin_30,
   },
   titleDescription: {
-    fontSize: 18,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    fontSize: SIZES.sz_18_font,
+    paddingVertical: SIZES.padding_10,
+    paddingHorizontal: SIZES.padding_10,
     backgroundColor: 'transparent',
     color: COLORS.$black,
   },
@@ -261,21 +260,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   contentRowView: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    ...commonStyles.flexAlignCenter,
     gap: 10,
-    marginVertical: 10,
-    paddingHorizontal: 20,
-  },
-  imgView: {
-    width: 30,
-    height: 30,
+    marginVertical: SIZES.margin_10,
+    paddingHorizontal: SIZES.padding_20,
   },
   descriptionContent: {
-    fontSize: SIZES.sz_21_font,
+    fontSize: SIZES.sz_18_font,
   },
   courseDescription: {
-    fontSize: 25,
+    fontSize: SIZES.sz_16_font,
+    paddingVertical: SIZES.padding_10
   },
   courseAmount: {
     fontSize: SIZES.sz_30_font,
@@ -289,16 +284,14 @@ const styles = StyleSheet.create({
     paddingTop: SIZES.padding_6,
   },
   contentRowViewInr: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    ...commonStyles.flexContainer,
     backgroundColor: COLORS.$gray,
     opacity: 2,
-    padding: 25,
+    padding: SIZES.padding_25,
   },
   button: {
     backgroundColor: COLORS.$blue_shade_1,
-    paddingVertical: 15,
+    paddingVertical: SIZES.padding_15,
     paddingHorizontal: '26%',
     borderRadius: 10,
     alignItems: 'center',
@@ -309,11 +302,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textTransform: 'uppercase',
   },
-  contentContainer: {
-    // marginBottom: 100
-  },
   reviewContainer: {
-    marginBottom: 20,
+    marginBottom: SIZES.margin_20,
   },
   lastLine: {
     borderBottomWidth: 1,
@@ -326,9 +316,6 @@ const styles = StyleSheet.create({
     width: '17.2%',
     height: 80,
   },
-  detailsContainer: {
-    marginTop: 10,
-  },
   reviewDates: {
     fontSize: SIZES.sz_16_font,
     paddingBottom: SIZES.padding_3,
@@ -340,7 +327,7 @@ const styles = StyleSheet.create({
     paddingBottom: SIZES.padding_10,
   },
   reviewComments: {
-    marginTop: -10,
+    marginTop: -SIZES.margin_10,
     fontSize: SIZES.sz_18_font,
     paddingLeft: '20%',
   },
@@ -352,14 +339,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
-  ratingText: {
-    fontSize: SIZES.sz_20_font,
-    color: '#FFD700',
-  },
   videoContainer: {
     width: '100%',
     height: 213,
-    marginVertical: 20,
+    marginVertical: SIZES.margin_20,
   },
   webview: {
     flex: 1,
@@ -367,77 +350,66 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   freeText: {
-    fontSize: 25,
-    color: 'green',
-  },
-  separator: {
-    height: 10,
-    backgroundColor: 'red',
-    marginHorizontal: -15,
-    marginVertical: 10,
+    fontSize: SIZES.sz_25_font,
+    color: COLORS.$green_shade_1,
   },
   titleText: {
-    fontSize: 18,
-    color: 'black',
+    fontSize: SIZES.sz_18_font,
+    color: COLORS.$black,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: SIZES.margin_10,
   },
   learnContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginTop: 10,
+    marginVertical: SIZES.margin_10,
   },
   learnItem: {
-    backgroundColor: '#f0f0f0',
-    paddingVertical: 10,
-    paddingHorizontal: 15,
+    backgroundColor: COLORS.$grey_shade_2,
+    paddingVertical: SIZES.padding_10,
+    paddingHorizontal: SIZES.padding_15,
     borderRadius: 20,
-    marginRight: 10,
-    marginBottom: 10,
+    marginRight: SIZES.margin_20,
+    marginBottom: SIZES.margin_10,
   },
   learnItemText: {
-    fontSize: 20,
-    color: 'black',
+    fontSize: SIZES.sz_16_font,
+    color: COLORS.$black,
   },
   skillsContainer: {
-    marginTop: 10,
-    paddingHorizontal: 20,
+    marginTop: SIZES.margin_10,
+    paddingHorizontal: SIZES.padding_20,
   },
   titleText: {
-    fontSize: 18,
+    fontSize: SIZES.sz_18_font,
     color: COLORS.$black,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: SIZES.margin_10,
   },
   skillItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    ...commonStyles.flexAlignCenter,
+    gap: 10,
     marginBottom: 8,
   },
   skillText: {
-    fontSize: 20,
-    color: COLORS.$black,
-    marginLeft: 8,
+    fontSize: SIZES.sz_16_font,
   },
   flatListContainer: {
-    backgroundColor: 'white',
+    backgroundColor: COLORS.$White,
     top: '-20%',
     height: '50%',
-    // marginHorizontal: 20
-    // paddingHorizontal: 20,
   },
   courseViewContainer: {
     backgroundColor: COLORS.$White,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingHorizontal: 15,
+    paddingHorizontal: SIZES.padding_15,
     top: '-20%',
   },
   separator: {
     height: 10,
-    // backgroundColor: '#D3D3D3'
-    backgroundColor: '#E5E4E2',
-    marginVertical: 10,
-    paddingHorizontal: -15
+    backgroundColor: COLORS.$grey_shade_2,
+    marginVertical: SIZES.margin_10,
+    paddingHorizontal: -SIZES.padding_15
   },
 });
