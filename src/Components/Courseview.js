@@ -1,11 +1,10 @@
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View,} from 'react-native';
+import { Image, SafeAreaView, ScrollView, StyleSheet, Text, View,FlatList, TouchableOpacity} from 'react-native';
 import React, {useState} from 'react';
 import {useRoute} from '@react-navigation/native';
 import {COLORS, SIZES} from '../constants/themes';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import { faUser, faLaptopCode, faAward, faDownload,faDiamond, faStar, faStarHalfAlt,} from '@fortawesome/free-solid-svg-icons';
-import { image } from '../constants';
+import { commonStyles, image } from '../constants';
 import { WebView } from 'react-native-webview';
 
 const Courseview = () => {
@@ -30,6 +29,13 @@ const Courseview = () => {
     { id: '10', username: 'Jenifer', reviewDate: '02-02-2020', comments: 'Good service but room for improvement.', starCount: '4', gender: 'Female' },
   ];
 
+  const courseView = [
+    { id: '1', icon: faUser, content: MName},
+    { id: '2', icon: faLaptopCode, content: '14 hourse on-demand video'},
+    { id: '3', icon: faDownload, content: '16 downloadable resources'},
+    { id: '4', icon: faAward, content: 'Certificate of completion'},
+  ];
+
   const fullStars = Math.floor(rating);
   const halfStar = rating % 1 !== 0;
 
@@ -51,98 +57,89 @@ const Courseview = () => {
     (a, b) => parseDate(b.reviewDate) - parseDate(a.reviewDate),
   );
 
+  const RenderTop = () => {
+    return (
+      <>
+        <Image style={styles.imageLayout} source={images} />
+        <View style={styles.courseViewContainer}>
+          <Text style={styles.CourseTitle}>{title}</Text>
+          <View style={styles.coursEnrollListView}>
+            <View style={{flexDirection: 'row'}}>
+              {Array.from({length: fullStars}, (_, index) => (
+                <FontAwesomeIcon key={index} icon={faStar} size={15} color={COLORS.$yellow}/>
+              ))}
+              {halfStar && (
+                <FontAwesomeIcon icon={faStarHalfAlt} size={15} color={COLORS.$yellow}/>
+              )}
+            </View>
+            <Text style={styles.coursEnrollList}>-</Text>
+            <Text style={styles.coursEnrollList}>{learners}</Text>
+          </View>
+          <View style={styles.rowContainer}>
+            {titles.map((item, index) => (
+              <Text key={index} style={[styles.titleDescription,selectedTitle === item && styles.selectedTitle,]} onPress={() => handleTitlePress(item)}>{item}</Text>
+            ))}
+          </View>
+        </View>
+      </>
+    );
+  };
+
+  const RenderFooter = () => {
+    return (
+      <View>
+        <View style={styles.separator} />
+        <View style={styles.skillsContainer}>
+          <Text style={{fontSize: 18, color: COLORS.$black, fontWeight: 'bold'}}> What will I Learn?</Text>
+          <Text style={styles.courseDescription}>{CourseOverView}</Text>
+        </View>
+        <View style={styles.separator} />
+        <View style={styles.skillsContainer}>
+          <Text style={styles.titleText}>Skills You'll Gain</Text>
+          {skills &&
+            skills.map((skill, index) => (
+              <View key={index} style={styles.skillItem}>
+                <FontAwesomeIcon icon={faDiamond} size={12} color={COLORS.$yellow}/>
+                <Text style={styles.skillText}>{skill}</Text>
+              </View>
+            ))}
+        </View>
+        <View style={styles.separator} />
+        <View style={styles.skillsContainer}>
+          <Text style={styles.titleText}>Who Should Learn</Text>
+          <View style={styles.learnContainer}>
+            {learn &&
+              learn.map((item, index) => (
+                <View key={index} style={styles.learnItem}>
+                  <Text style={styles.learnItemText}>{item}</Text>
+                </View>
+              ))}
+          </View>
+        </View>
+      </View>
+    );
+  };
+
   return (
     <>
-     <SafeAreaView style={styles.container}>
-      <Image style={styles.imageLayout} source={images} />
-      <View style={{backgroundColor: 'white',borderTopLeftRadius: 25,borderTopRightRadius: 25, paddingHorizontal: 15, top: '-12%',}}>
-        <Text style={styles.CourseTitle}>{title}</Text>
-        <View style={styles.coursEnrollListView}>
-          <View style={{flexDirection: 'row'}}>
-            {Array.from({length: fullStars}, (_, index) => (
-              <FontAwesomeIcon
-                key={index}
-                icon={faStar}
-                size={15}
-                color={COLORS.$yellow}
-              />
-            ))}
-            {halfStar && (
-              <FontAwesomeIcon
-                icon={faStarHalfAlt}
-                size={15}
-                color={COLORS.$yellow}
-              />
-            )}
-          </View>
-          <Text style={styles.coursEnrollList}>-</Text>
-          <Text style={styles.coursEnrollList}>{learners}</Text>
-        </View>
-        <View style={styles.rowContainer}>
-          {titles.map((item, index) => (
-            <Text
-              key={index}
-              style={[
-                styles.titleDescription,
-                selectedTitle === item && styles.selectedTitle,
-              ]}
-              onPress={() => handleTitlePress(item)}>
-              {item}
-            </Text>
-          ))}
-        </View>
-
+      <SafeAreaView style={styles.container}>
+        <RenderTop></RenderTop>
         {selectedTitle === 'Description' && (
-          <View>
-            <Text style={styles.aboutContent}>About Course</Text>
-            <View style={styles.contentRowView}>
-              <FontAwesomeIcon icon={faUser} size={25} />
-              <Text style={styles.descriptionContent}>{MName}</Text>
-            </View>
-            <View style={styles.contentRowView}>
-              <FontAwesomeIcon icon={faLaptopCode} size={25} />
-              <Text style={styles.descriptionContent}>
-                14 hourse on-demand video
-              </Text>
-            </View>
-            <View style={styles.contentRowView}>
-              <FontAwesomeIcon icon={faDownload} size={25} />
-              <Text style={styles.descriptionContent}>
-                16 downloadable resources
-              </Text>
-            </View>
-            <View style={styles.contentRowView}>
-              <FontAwesomeIcon icon={faAward} size={25} />
-              <Text style={styles.descriptionContent}>
-                Certificate of completion
-              </Text>
-            </View>
-            <View style={styles.separator} />
-            <Text style={{fontSize: 18,color: COLORS.$black,fontWeight: 'bold'}}>What will I Learn?</Text>
-            <Text style={styles.courseDescription}>
-              {CourseOverView}
-            </Text>
-            <View style={styles.separator} />
-            <View style={styles.skillsContainer}>
-                <Text style={styles.titleText}>Skills You'll Gain</Text>
-                {skills && skills.map((skill, index) => (
-                  <View key={index} style={styles.skillItem}>
-                    <FontAwesomeIcon icon={faDiamond} size={12} color={COLORS.$yellow} />
-                    <Text style={styles.skillText}>{skill}</Text>
-                  </View>
-                ))}
+          <View style={styles.flatListContainer}>
+            <FlatList
+              data={courseView}
+              renderItem={({item}) => (
+                <View style={styles.contentRowView}>
+                  <FontAwesomeIcon icon={item.icon} size={25} />
+                  <Text style={styles.descriptionContent}>{item.content}</Text>
                 </View>
-
-                <View style={styles.separator} />
-
-                <Text style={styles.titleText}>Who Should Learn</Text>
-                <View style={styles.learnContainer}>
-                  {learn && learn.map((item, index) => (
-                    <View key={index} style={styles.learnItem}>
-                      <Text style={styles.learnItemText}>{item}</Text>
-                    </View>
-                  ))}
-                </View>
+              )}
+              keyExtractor={item => item.id}
+              ListHeaderComponent={<Text style={styles.aboutContent}>About Course</Text>}
+              // ItemSeparatorComponent={<View style={styles.separator} />}
+              showsVerticalScrollIndicator={false}
+              ListFooterComponent={<RenderFooter></RenderFooter>}
+            />
           </View>
         )}
         {selectedTitle === 'Lessons' && (
@@ -164,69 +161,52 @@ const Courseview = () => {
             {reviewDatas.map((review, index) => (
               <View key={index} style={styles.reviewContainer}>
                 <View style={styles.reviewInrContainer}>
-                  <Image
-                    source={
-                      review.gender === 'Male' ? image.userMen : image.userWomen
-                    }
-                    style={styles.userImage}
-                  />
+                  <Image source={review.gender === 'Male' ? image.userMen : image.userWomen} style={styles.userImage}/>
                   <View style={styles.reviewFlexContainer}>
                     <View>
-                      <Text style={styles.reviewDates}>
-                        {formatDate(review.reviewDate)}
-                      </Text>
-                      <Text style={styles.reviewUsername}>
-                        {review.username}
-                      </Text>
+                      <Text style={styles.reviewDates}>{formatDate(review.reviewDate)}</Text>
+                      <Text style={styles.reviewUsername}>{review.username}</Text>
                     </View>
                     <View style={styles.starsContainer}>
                       {Array.from(
                         {length: parseInt(review.star)},
                         (_, index) => (
-                          <FontAwesomeIcon
-                            key={index}
-                            icon={faStar}
-                            size={20}
-                            color={COLORS.$yellow}
-                          />
+                          <FontAwesomeIcon key={index} icon={faStar} size={20} color={COLORS.$yellow}/>
                         ),
                       )}
                     </View>
                   </View>
                 </View>
                 <Text style={styles.reviewComments}>{review.comments}</Text>
-                {index !== reviewDatas.length - 1 && (
-                  <Text style={styles.lastLine}></Text>
-                )}
+                {index !== reviewDatas.length - 1 && (<Text style={styles.lastLine}></Text>)}
               </View>
             ))}
           </ScrollView>
         )}
-      </View>
-    </SafeAreaView>
-    <View style={styles.contentRowViewInr}>
-              <View>
-                {isFree ? (
-                  <Text style={styles.freeText}>Free</Text>
-                ) : (
-                  <View>
-                    <Text style={styles.courseAmount}>{amount}</Text>
-                    <Text style={styles.coursePreAmount}>{preamount}</Text>
-                  </View>
-                )}
-              </View>
-              <View>
-                {isFree ? (
-                  <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Start Learning</Text>
-                  </TouchableOpacity>
-                ) : (
-                  <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>Buy Course</Text>
-                  </TouchableOpacity>
-                )}
-              </View>
+      </SafeAreaView>
+      <View style={styles.contentRowViewInr}>
+        <View>
+          {isFree ? (
+            <Text style={styles.freeText}>Free</Text>
+          ) : (
+            <View>
+              <Text style={styles.courseAmount}>{amount}</Text>
+              <Text style={styles.coursePreAmount}>{preamount}</Text>
             </View>
+          )}
+        </View>
+        <View>
+          {isFree ? (
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Start Learning</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Buy Course</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+      </View>
     </>
   );
 };
@@ -239,7 +219,7 @@ const styles = StyleSheet.create({
   },
   imageLayout: {
     width: '100%',
-    height: '30%',
+    height: '50%',
   },
   CourseTitle: {
     fontSize: SIZES.sz_24_font,
@@ -249,17 +229,14 @@ const styles = StyleSheet.create({
     paddingBottom: SIZES.padding_10,
   },
   coursEnrollListView: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    ...commonStyles.flexAlignCenter,
     gap: 10,
   },
   coursEnrollList: {
     fontSize: SIZES.sz_19_font,
   },
   rowContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    ...commonStyles.flexContainer,
     marginVertical: 30,
   },
   titleDescription: {
@@ -267,7 +244,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
     backgroundColor: 'transparent',
-    color: 'black',
+    color: COLORS.$black,
   },
   selectedTitle: {
     borderBottomColor: COLORS.$blue_shade_1,
@@ -281,12 +258,14 @@ const styles = StyleSheet.create({
     color: COLORS.$black,
     fontWeight: 'bold',
     paddingBottom: SIZES.padding_10,
+    paddingHorizontal: 20,
   },
   contentRowView: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
     marginVertical: 10,
+    paddingHorizontal: 20,
   },
   imgView: {
     width: 30,
@@ -296,7 +275,7 @@ const styles = StyleSheet.create({
     fontSize: SIZES.sz_21_font,
   },
   courseDescription: {
-    fontSize: SIZES.sz_20_font,
+    fontSize: 25,
   },
   courseAmount: {
     fontSize: SIZES.sz_30_font,
@@ -315,7 +294,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     backgroundColor: COLORS.$gray,
     opacity: 2,
-    padding: 25
+    padding: 25,
   },
   button: {
     backgroundColor: COLORS.$blue_shade_1,
@@ -335,7 +314,6 @@ const styles = StyleSheet.create({
   },
   reviewContainer: {
     marginBottom: 20,
-    // height: 100,
   },
   lastLine: {
     borderBottomWidth: 1,
@@ -396,8 +374,7 @@ const styles = StyleSheet.create({
     height: 10,
     backgroundColor: 'red',
     marginHorizontal: -15,
-    marginVertical: 10
-    // paddingHorizontal: 20
+    marginVertical: 10,
   },
   titleText: {
     fontSize: 18,
@@ -419,11 +396,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   learnItemText: {
-    fontSize: 14,
+    fontSize: 20,
     color: 'black',
   },
   skillsContainer: {
     marginTop: 10,
+    paddingHorizontal: 20,
   },
   titleText: {
     fontSize: 18,
@@ -432,13 +410,34 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   skillItem: {
-    flexDirection: 'row', // Align icon and text horizontally
-    alignItems: 'center', // Vertically center the items
-    marginBottom: 8, // Space between each skill item
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
   },
   skillText: {
-    fontSize: 16, // Adjust text size
+    fontSize: 20,
     color: COLORS.$black,
-    marginLeft: 8, // Space between icon and text
+    marginLeft: 8,
+  },
+  flatListContainer: {
+    backgroundColor: 'white',
+    top: '-20%',
+    height: '50%',
+    // marginHorizontal: 20
+    // paddingHorizontal: 20,
+  },
+  courseViewContainer: {
+    backgroundColor: COLORS.$White,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingHorizontal: 15,
+    top: '-20%',
+  },
+  separator: {
+    height: 10,
+    // backgroundColor: '#D3D3D3'
+    backgroundColor: '#E5E4E2',
+    marginVertical: 10,
+    paddingHorizontal: -15
   },
 });

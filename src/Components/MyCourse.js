@@ -2,6 +2,7 @@ import {Image, SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {CommonHeader} from './sharedComponents';
 import {COLORS, SIZES} from '../constants';
+import MapView, { Marker } from 'react-native-maps';
 
 const MyCourse = () => {
   return (
@@ -18,6 +19,23 @@ const MyCourse = () => {
           Looks like you have enrolled for any course yet.
         </Text>
       </View>
+      <View style={styles.container}>
+      <MapView
+        style={styles.map}
+        initialRegion={{
+          latitude: 37.78825,
+          longitude: -122.4324,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        <Marker
+          coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+          title={"My Marker"}
+          description={"Some description"}
+        />
+      </MapView>
+    </View>
     </SafeAreaView>
   );
 };
@@ -45,5 +63,12 @@ const styles = StyleSheet.create({
     width: 190,
     height: 200,
     opacity: 1,
+  },
+  container: {
+    flex: 1,
+  },
+  map: {
+    width: '100%',
+    height: '100%',
   },
 });
