@@ -125,7 +125,7 @@ const Courseview = () => {
       <SafeAreaView style={styles.container}>
         <RenderTop></RenderTop>
         {selectedTitle === 'Description' && (
-          <View style={styles.flatListContainer}>
+          <View style={styles.scrollContainerView}>
             <FlatList
               data={courseView}
               renderItem={({item}) => (
@@ -154,33 +154,34 @@ const Courseview = () => {
           </>
         )}
         {selectedTitle === 'Reviews' && (
-          <ScrollView
-            contentContainerStyle={styles.contentContainer}
-            showsVerticalScrollIndicator={false}>
-            {reviewDatas.map((review, index) => (
-              <View key={index} style={styles.reviewContainer}>
-                <View style={styles.reviewInrContainer}>
-                  <Image source={review.gender === 'Male' ? image.userMen : image.userWomen} style={styles.userImage}/>
-                  <View style={styles.reviewFlexContainer}>
-                    <View>
-                      <Text style={styles.reviewDates}>{formatDate(review.reviewDate)}</Text>
-                      <Text style={styles.reviewUsername}>{review.username}</Text>
-                    </View>
-                    <View style={styles.starsContainer}>
-                      {Array.from(
-                        {length: parseInt(review.star)},
-                        (_, index) => (
-                          <FontAwesomeIcon key={index} icon={faStar} size={20} color={COLORS.$yellow}/>
-                        ),
-                      )}
+          <View style={styles.scrollContainerView}>
+            <ScrollView
+              showsVerticalScrollIndicator={false}>
+              {reviewDatas.map((review, index) => (
+                <View key={index} style={styles.reviewContainer}>
+                  <View style={styles.reviewInrContainer}>
+                    <Image source={review.gender === 'Male' ? image.userMen : image.userWomen} style={styles.userImage}/>
+                    <View style={styles.reviewFlexContainer}>
+                      <View>
+                        <Text style={styles.reviewDates}>{formatDate(review.reviewDate)}</Text>
+                        <Text style={styles.reviewUsername}>{review.username}</Text>
+                      </View>
+                      <View style={styles.starsContainer}>
+                        {Array.from(
+                          {length: parseInt(review.star)},
+                          (_, index) => (
+                            <FontAwesomeIcon key={index} icon={faStar} size={20} color={COLORS.$yellow}/>
+                          ),
+                        )}
+                      </View>
                     </View>
                   </View>
+                  <Text style={styles.reviewComments}>{review.comments}</Text>
+                  {index !== reviewDatas.length - 1 && (<Text style={styles.lastLine}></Text>)}
                 </View>
-                <Text style={styles.reviewComments}>{review.comments}</Text>
-                {index !== reviewDatas.length - 1 && (<Text style={styles.lastLine}></Text>)}
-              </View>
-            ))}
-          </ScrollView>
+              ))}
+            </ScrollView>
+          </View>
         )}
       </SafeAreaView>
       <View style={styles.contentRowViewInr}>
@@ -285,9 +286,10 @@ const styles = StyleSheet.create({
   },
   contentRowViewInr: {
     ...commonStyles.flexContainer,
-    backgroundColor: COLORS.$gray,
-    opacity: 2,
-    padding: SIZES.padding_25,
+    backgroundColor: COLORS.$grey_shade_2,
+    paddingTop: SIZES.padding_10,
+    paddingBottom: SIZES.padding_15,
+    paddingHorizontal: SIZES.padding_20
   },
   button: {
     backgroundColor: COLORS.$blue_shade_1,
@@ -343,6 +345,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 213,
     marginVertical: SIZES.margin_20,
+    top: '-22%'
   },
   webview: {
     flex: 1,
@@ -394,7 +397,7 @@ const styles = StyleSheet.create({
   skillText: {
     fontSize: SIZES.sz_16_font,
   },
-  flatListContainer: {
+  scrollContainerView: {
     backgroundColor: COLORS.$White,
     top: '-20%',
     height: '50%',
@@ -412,4 +415,9 @@ const styles = StyleSheet.create({
     marginVertical: SIZES.margin_10,
     paddingHorizontal: -SIZES.padding_15
   },
+  contentContainer: {
+    backgroundColor: COLORS.$White,
+    top: '-20%',
+    height: '50%',
+  }
 });

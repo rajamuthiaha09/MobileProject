@@ -52,12 +52,18 @@ const ProfileEditPage = ({route, navigation}) => {
     } else if (action === 'navigate') {
       if (screen === 'CouponsScreen') {
         setIsModalVisible(true);
+      } else if (screen === 'signoutscreen') {
+        // Sign out logic, then navigate to IntroScreen
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'IntroScreen' }],
+        });
       } else {
         navigation.navigate(screen);
       }
     }
   };
-
+  
   return (
     <View style={styles.container}>
       <CommonHeader showBackIcon={false} showHeader={true} sectionHeaderTitle="My Profile"/>
