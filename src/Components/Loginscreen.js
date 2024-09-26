@@ -3,6 +3,7 @@ import {Text, View, TouchableOpacity, StyleSheet, Image, TextInput,KeyboardAvoid
 import {useNavigation} from '@react-navigation/native';
 import { COLORS, SIZES } from '../constants/themes';
 import { commonStyles } from '../constants';
+import { ToastAndroid } from 'react-native';
 
 const Loginscreen = () => {
   const navigation = useNavigation();
@@ -18,13 +19,21 @@ const Loginscreen = () => {
     return Object.keys(errors).length === 0;
   };
   const handleSubmit = () => {
-    if(validationForm()) {
-      console.log("submitted",username, password);
+    if (validationForm()) {
+      console.log("submitted", username, password);
+      // Show success message
+      ToastAndroid.show('Login successfully', ToastAndroid.SHORT);
+  
+      // Clear inputs and errors
       setUsername("");
       setPassword("");
       setErrors({});
+  
+      // Navigate to HomeScreen after a short delay
+      setTimeout(() => {
+        navigation.navigate('MainTabs'); // Ensure you have access to the navigation prop
+      }, 1000); // Adjust the delay as needed (1000 ms = 1 second)
     }
-
   };
   return (
     // <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}> This is uesed for adject the mobile screen whaen i type anything

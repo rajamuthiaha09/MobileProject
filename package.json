@@ -28,6 +28,7 @@
     "react-native-screens": "^3.34.0",
     "react-native-simple-radio-button": "^2.7.4",
     "react-native-svg": "^15.5.0",
+    "react-native-toast-message": "^2.2.1",
     "react-native-webview": "^13.12.2",
     "yup": "^1.4.0"
   },

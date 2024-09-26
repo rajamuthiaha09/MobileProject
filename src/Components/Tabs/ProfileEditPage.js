@@ -6,6 +6,8 @@ import {faPen, faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import image from '../../constants/image';
 import {CommonHeader} from '../sharedComponents';
 import {commonStyles} from '../../constants';
+import Toast from 'react-native-toast-message';
+import toastConfig from '../sharedComponents/ToasterMessage';
 
 const ProfileEditPage = ({route, navigation}) => {
   const [userName, setUserName] = useState('Rajaha Muthiaha');
@@ -53,11 +55,31 @@ const ProfileEditPage = ({route, navigation}) => {
       if (screen === 'CouponsScreen') {
         setIsModalVisible(true);
       } else if (screen === 'signoutscreen') {
-        // Sign out logic, then navigate to IntroScreen
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'IntroScreen' }],
-        });
+        Alert.alert('Sign Out', 'Are you sure you want to sign out?', [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {
+            text: 'Yes',
+            onPress: () => {
+              Toast.show({
+                type: 'success',
+                text1: 'Signed out Successfully',
+                position: 'bottom',
+              });
+              setTimeout(() => {
+                Toast.hide();
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: 'IntroScreen' }],
+                });
+              }, 2000);
+            },
+          },
+        ],
+        { cancelable: false });
       } else {
         navigation.navigate(screen);
       }
@@ -85,7 +107,6 @@ const ProfileEditPage = ({route, navigation}) => {
         <Text style={styles.profileUserName}>{userName}</Text>
         <Text style={styles.profileUserEmail}>{userEmail}</Text>
       </View>
-
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         {DATA.map(item => (
           <TouchableOpacity

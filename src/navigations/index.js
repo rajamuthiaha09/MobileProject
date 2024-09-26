@@ -13,12 +13,7 @@ import WishlistPage from '../Components/Tabs/WishlistPage';
 import ProfileEditForm from '../Components/forms/ProfileEditForm';
 import SupportScreen from '../Components/SupportScreen';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {
-  faHome,
-  faUserCircle,
-  faBookOpen,
-  faSearch,
-} from '@fortawesome/free-solid-svg-icons';
+import {faHome,faUserCircle,faBookOpen,} from '@fortawesome/free-solid-svg-icons';
 import MyCourse from '../Components/MyCourse';
 
 const Stack = createStackNavigator();
