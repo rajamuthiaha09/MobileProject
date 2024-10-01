@@ -15,9 +15,7 @@ const MyCourse = () => {
       <View style={[{alignItems: 'center'}]}>
         <Image source={require('../assets/images/image.png')} style={styles.imageLayout}/>
         <Text style={styles.headerTitle}>No Course</Text>
-        <Text style={styles.headerSubTitle}>
-          Looks like you have enrolled for any course yet.
-        </Text>
+        <Text style={styles.headerSubTitle}>Looks like you have enrolled for any course yet.</Text>
       </View>
       <View style={styles.container}>
       <MapView
