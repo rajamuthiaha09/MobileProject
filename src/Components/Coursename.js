@@ -4,8 +4,7 @@ import image from '../constants/image';
 import {COLORS, SIZES} from '../constants/themes';
 import {useNavigation} from '@react-navigation/native';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faStar,faChevronRight,faCheck,faTag,faHeart,faArrowLeft,faXmark,faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
-import { faSort, faList, faMoneyBill, faClock } from '@fortawesome/free-solid-svg-icons';
+import {faStar,faChevronRight,faCheck,faTag,faHeart,faArrowLeft,faXmark,faMagnifyingGlass,faSort, faList, faMoneyBill, faClock} from '@fortawesome/free-solid-svg-icons';
 import {commonStyles} from '../constants';
 import { useLikedCourses } from './LikedCoursesContext';
 import { CommonHeader } from './sharedComponents';
@@ -13,12 +12,21 @@ import InputTypes from './sharedComponents/InputTypes';
 
 const Coursename = ({limit, isRedirected}) => {
   const navigation = useNavigation();
-  const { likedCourses, toggleLike } = useLikedCourses();
-  const [searchText, setSearchText] = useState('');
+  const { likedCourses, toggleLike } = useLikedCourses(); // for usecontext toggle like
+  const [searchText, setSearchText] = useState(''); // overall searching filter
+  const [isOpenSearch, setIsOpenSearch] = useState(false); // open ond close course
+  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false); // model popup open and close
+
   const [filteredCourses, setFilteredCourses] = useState([]);
-  const [isOpenSearch, setIsOpenSearch] = useState(false);
-  const [isFilterModalVisible, setIsFilterModalVisible] = useState(false);
-  const [filterType, setFilterType] = useState(null);
+  // const [filterType, setFilterType] = useState(null);
+
+
+  // const [selectedRadioValue, setSelectedRadioValue] = useState(null); // For rating
+  const [selectedSortByValue, setSelectedSortByValue] = useState(null); // State for sortByLabels
+  const [selectedRatingValue, setSelectedRatingValue] = useState(null); // State for ratingLabels
+  const [selectedCategories, setSelectedCategories] = useState([]); // For categories
+  const [selectedPrices, setSelectedPrices] = useState([]); // For price
+  const [selectedDuration, setSelectedDuration] = useState([]); // For duration
 
   const courses = [
     {
@@ -46,7 +54,7 @@ const Coursename = ({limit, isRedirected}) => {
       image: image.courseName,
       isFree: false,
       actAmount: '$25.00',
-      discount: '$20.00',
+      discount: '$21.00',
       offer: '50% OFF FOR 4 DAYS',
       test: '10 mock tests and exercises',
       tutorName: 'Lisa Melonçon',
@@ -58,12 +66,12 @@ const Coursename = ({limit, isRedirected}) => {
     {
       id: '3',
       title: 'PMP Basics',
-      rating: 3.5,
+      rating: 3,
       learners: '59K Learners',
       image: image.courseName5,
       isFree: true,
       actAmount: '$25.00',
-      discount: '$20.00',
+      discount: '$22.00',
       offer: '50% OFF FOR 4 DAYS',
       test: '10 mock tests and exercises',
       tutorName: 'Ugur Akinchi',
@@ -80,7 +88,7 @@ const Coursename = ({limit, isRedirected}) => {
       image: image.courseName6,
       isFree: true,
       actAmount: '$25.00',
-      discount: '$20.00',
+      discount: '$21.00',
       offer: '50% OFF FOR 4 DAYS',
       test: '10 mock tests and exercises',
       tutorName: 'Krista Van Laan',
@@ -114,7 +122,7 @@ const Coursename = ({limit, isRedirected}) => {
       image: image.courseName,
       isFree: true,
       actAmount: '$25.00',
-      discount: '$20.00',
+      discount: '$21.00',
       offer: '50% OFF FOR 4 DAYS',
       test: '10 mock tests and exercises',
       tutorName: 'Carlos Evia',
@@ -351,7 +359,7 @@ const Coursename = ({limit, isRedirected}) => {
     },
   ];
 
-  const handleImagePress = (item) => {
+  const handleImagePress = (item) => { // sending data in routes to courseview components
     navigation.navigate('Courseview', {
       images: item.image,
       title: item.title,
@@ -368,7 +376,7 @@ const Coursename = ({limit, isRedirected}) => {
     });
   };
   
-
+  // filters array of objects
   const filterSort = [
     { id: '1', name: 'Sort by', icon: faSort },
     { id: '2', name: 'Category', icon: faList },
@@ -395,6 +403,13 @@ const Coursename = ({limit, isRedirected}) => {
     { label: '9+ Hours', value: 3 },
   ];
 
+  const priceLabels = [
+    { label: '20', value: 0 },
+    { label: '21', value: 1 },
+    { label: '22', value: 2 },
+    { label: '23', value: 3 },
+  ];
+
   const categoriesLabels = [
     { label: 'Data Science & Business Analytics', value: 0,},
     { label: 'Software Development', value: 1,},
@@ -408,51 +423,43 @@ const Coursename = ({limit, isRedirected}) => {
     { label: 'Quality Management', value: 9,},
   ];
 
-  const [selectedId, setSelectedId] = useState(filterSort[3].id);
+  const [selectedId, setSelectedId] = useState(filterSort[0].id);
 
   const handlePress = (id) => {
     setSelectedId(id);
   };
 
-  const handleCheckBoxChange = (values) => {
-    console.log('Selected checkbox values:', values);
-  };
-
-  const renderContent = () => {
+  const renderContent = () => { // model filter design
     switch (selectedId) {
       case '1':
-        return <InputTypes radioButton={true} radioButtonLabels={sortByLabels} onValueChange={handleFilterChange}/>;
+        return <InputTypes radioButton={true} radioButtonLabels={sortByLabels} onValueRadioButtonChange={setSelectedSortByValue}/>;
       case '2':
         return (<>
-        <View style={styles.FilterSearchContainer}>
-        <FontAwesomeIcon
-                icon={faMagnifyingGlass}
-                size={18}
-                color={COLORS.$black}
-              />
-        <TextInput style={styles.searchInput} placeholder="Search by category name" />
-      </View>
-      <View style={styles.FilterSelectActions}>
-        <View style={{flexDirection: 'row'}}>
-        <TouchableOpacity style={{flexDirection: 'row'}} >
-        <FontAwesomeIcon size={25} icon={faCheck} />
-          <Text style={styles.selectText}>Select All</Text>
-        </TouchableOpacity>
-        </View>
-        <View>
-        <TouchableOpacity >
-        <FontAwesomeIcon size={25} icon={faXmark} />
-          <Text style={styles.clearText}>Clear All</Text>
-        </TouchableOpacity>
-        </View>
-      </View>
-        <InputTypes checkBox={true} checkBoxLabels={categoriesLabels} onValueCheckBoxChange={handleCheckBoxChange}/>
+            <View style={styles.FilterSearchContainer}>
+              <FontAwesomeIcon icon={faMagnifyingGlass} size={18} color={COLORS.$black}/>
+                <TextInput style={styles.searchInput} placeholder="Search by category name" />
+            </View>
+            <View style={styles.FilterSelectActions}>
+              <View style={{flexDirection: 'row'}}> 
+                <TouchableOpacity style={{flexDirection: 'row'}} >
+                  <FontAwesomeIcon size={25} icon={faCheck} />
+                  <Text style={styles.selectText}>Select All</Text>
+                </TouchableOpacity>
+              </View>
+              <View>
+                <TouchableOpacity >
+                <FontAwesomeIcon size={25} icon={faXmark} />
+                  <Text style={styles.clearText}>Clear All</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <InputTypes checkBox={true} checkBoxLabels={categoriesLabels} onValueCheckBoxChange={handleCheckBoxChange}/>
         </>
         );
       case '3':
-        return <InputTypes radioButton={true} radioButtonLabels={ratingLabels}/>;
+        return <InputTypes radioButton={true} radioButtonLabels={ratingLabels} onValueRadioButtonChange={setSelectedRatingValue}/>;
       case '4':
-        return <InputTypes checkBox={true} checkBoxLabels={durationLabels} onValueCheckBoxChange={handleCheckBoxChange}/>;
+        return <InputTypes checkBox={true} checkBoxLabels={priceLabels} onValueCheckBoxChange={handleCheckBoxChange}/>;
       case '5':
         return <InputTypes checkBox={true} checkBoxLabels={durationLabels} onValueCheckBoxChange={handleCheckBoxChange}/>;
       default:
@@ -460,23 +467,62 @@ const Coursename = ({limit, isRedirected}) => {
     }
   };
 
-  const handleFilterChange = (val) => {
-    setFilterType(val);
+  // const handleFilterChange = value => {
+  //   setSelectedRadioValue(value);
+  // };
+  
+  // This will handle the selected categories, price, and duration (checkboxes)
+  const handleCheckBoxChange = (updatedCheckedValues) => {
+    if (selectedId === '2') {
+      setSelectedCategories(updatedCheckedValues); // For categories
+    } else if (selectedId === '4') {
+      setSelectedPrices(updatedCheckedValues); // For price
+    } else if (selectedId === '5') {
+      setSelectedDuration(updatedCheckedValues); // For duration
+    }
   };
 
   const handleApply = () => {
-    applyFilter(filterType); // Apply the selected filter
-    setIsFilterModalVisible(false); // Close the modal
-  };
-
-  const applyFilter = (filter) => {
-    if (filter === 0) {
-      setFilteredCourses(courses.filter(course => !course.isFree));
-    } else if (filter === 1) {
-      setFilteredCourses(courses.filter(course => course.isFree));
-    } else {
-      setFilteredCourses(courses);
+    let filteredCourses = courses;
+  
+    if (selectedSortByValue !== null) {
+      const selectedSortBy = sortByLabels[selectedSortByValue].label; // Get the selected label
+      filteredCourses = [...courses]; // Ensure we are starting from the complete list
+      if (selectedSortBy === 'Paid') {
+        filteredCourses = filteredCourses.filter(course => !course.isFree); // Only paid courses
+      } else if (selectedSortBy === 'Free') {
+        filteredCourses = filteredCourses.filter(course => course.isFree); // Only free courses
+      }
     }
+
+    // Use selectedRatingValue for ratingLabels
+    if (selectedRatingValue !== null) {
+      const selectedRating = ratingLabels[selectedRatingValue].label; // Get selected rating (e.g., '5', '4', '3')
+      filteredCourses = filteredCourses.filter(course => course.rating === selectedRating);
+    }
+  
+    // Filter based on selected categories
+    if (selectedCategories.length > 0) {
+      filteredCourses = filteredCourses.filter(course =>
+        selectedCategories.some(category => course.learn.includes(categoriesLabels[category].label))
+      );
+    }
+  
+    // Filter based on selected prices
+    if (selectedPrices.length > 0) {
+      filteredCourses = filteredCourses.filter(course =>
+        selectedPrices.some(price => course.discount.includes(priceLabels[price].label))
+      );
+    }
+  
+    // Filter based on selected duration
+    if (selectedDuration.length > 0) {
+      // Add duration filter logic here if necessary
+    }
+
+    // Update the state with the filtered courses and close the modal
+    setFilteredCourses(filteredCourses);
+    setIsFilterModalVisible(false);
   };
 
   useEffect(() => {

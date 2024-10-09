@@ -4,20 +4,17 @@ import RadioForm from 'react-native-simple-radio-button';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {COLORS} from '../../constants';
 
-const InputTypes = ({
-  radioButtonLabels,
-  checkBoxLabels,
-  onValueChange,
-  onValueCheckBoxChange,
-  radioButton,
-  checkBox,
-}) => {
+const InputTypes = ({ radioButtonLabels,checkBoxLabels,onValueCheckBoxChange,radioButton,checkBox,onValueRadioButtonChange}) => {
   const [selectedRadioValue, setSelectedRadioValue] = useState(null);
   const [checkedValues, setCheckedValues] = useState([]);
 
   const handleRadioPress = val => {
-    setSelectedRadioValue(val);
-    onValueChange(val);
+    const updatedRadioValue = selectedRadioValue.includes(val)
+    ? selectedRadioValue.filter(item => item !== val)
+    : [...selectedRadioValue, val];
+
+    setSelectedRadioValue(updatedRadioValue);
+  onValueRadioButtonChange(updatedRadioValue);
   };
 
   const handleCheckBoxPress = value => {
@@ -40,8 +37,9 @@ const InputTypes = ({
           selectedButtonColor={COLORS.$blue_shade_1}
           buttonSize={13}
           buttonOuterSize={26}
-          initial={-1} // No default selection
-          onPress={handleRadioPress}
+          initial={-1}
+          isChecked={selectedRadioValue.includes(item.value)}
+          onPress={() => handleRadioPress(item.value)}
         />
       )}
 
